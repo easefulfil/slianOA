@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 所有用到的service dao 层的beans:beans配置在这里 -->
+	<!-- 
+	<beans:bean id="scheduleEmployeeExMapperEx" class="com.mz3co.bspheis.daoEx.imp.ScheduleEmployeeExMapperExImp" abstract="false"
+		lazy-init="default" autowire="default">
+	</beans:bean>
+	 -->
+	
+
+
+	 
+	<beans:bean id="employeeService" class="com.slianOAsys.service.impl.SysEmployeeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="basicDataSetService" class="com.slianOAsys.service.impl.SysBasicDataSetServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="authenticationInfoService"
+		class="com.slianOAsys.service.impl.SysAuthenticationInfoServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="logService" class="com.slianOAsys.service.impl.SysLogServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="organizationStructureService"
+		class="com.slianOAsys.service.impl.SysOrganizationStructureServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="resourcesService" class="com.slianOAsys.service.impl.SysResourcesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="rolesResourcesService"
+		class="com.slianOAsys.service.impl.SysRolesResourcesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="rolesService" class="com.slianOAsys.service.impl.SysRolesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="usersRolesService" class="com.slianOAsys.service.impl.SysUsersRolesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	<beans:bean id="usersService" class="com.slianOAsys.service.impl.SysUsersServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	
+	<beans:bean id="systemSettingService" class="com.slianOAsys.service.impl.SysSettingServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+<!-- 	<beans:bean id="sysCompanyService"
+		class="com.mz3co.bspheis.service.impl.SysCompanyServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean> -->
+		
+	<beans:bean id="sessionService"
+		class="com.slianOAsys.service.impl.SessionServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="smsService"
+		class="com.slianOAsys.service.impl.SmsServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="testservice"
+		class="com.slianOAsys.service.impl.testserviceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="ClassService"
+		class="com.slianOAsys.service.impl.ClassServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="AttendanceService"
+		class="com.slianOAsys.service.impl.AttendanceServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="AppealService"
+		class="com.slianOAsys.service.impl.AppealServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="DepartmentService"
+		class="com.slianOAsys.service.impl.DepartmentServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="ClassEmployeeService"
+		class="com.slianOAsys.service.impl.ClassEmployeeServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="EmployeeService"
+		class="com.slianOAsys.service.impl.EmployeeServiceImpl" 
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+</beans:beans>

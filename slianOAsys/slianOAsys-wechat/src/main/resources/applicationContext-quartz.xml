@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<!--获取access_token -->
+	<bean id="HourQuartz" class="com.slianOAsys.util.WechatWebOAuth2"></bean>
+	<bean id="HourQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="HourQuartz" />
+		<property name="targetMethod" value="getAccessTokenByCode" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="HourOrderInfoCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="HourQuartzDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<!--每天晚上23点向考勤表中自动插入记录 -->
+	<bean id="EverydayQuartz" class="com.slianOAsys.util.AutoInsertAttenRecord"></bean>
+	<bean id="EverydayQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="EverydayQuartz" />
+		<property name="targetMethod" value="insertAttenRecord" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="EverydayCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="EverydayQuartzDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 23 * * ? </value>
+			<!-- <value>0/10 * * * * ?</value> -->
+		</property>
+	</bean>
+	<!--每天晚上23点修改的所有考勤状态和工作时间 -->
+	<bean id="EverydayEveningQuartz" class="com.slianOAsys.util.AutoInsertAttenRecord"></bean>
+	<bean id="EverydayEveningQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="EverydayEveningQuartz" />
+		<property name="targetMethod" value="AttendanceConclusion" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="EverydayEveningCronTrigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="EverydayEveningQuartzDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 23 * * ? </value>
+			<!-- <value>0/10 * * * * ?</value> -->
+		</property>
+	</bean>
+	<!--8:50分考勤打卡签到推送 -->
+	<bean id="SignRemainQuartz" class="com.slianOAsys.util.SMessage"></bean>
+	<bean id="SignRemainQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SignRemainQuartz" />
+		<property name="targetMethod" value="sendSignRemindMessage" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="SignRemainCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="SignRemainQuartzDetail" />
+		</property>
+		<property name="cronExpression">
+		    <value>0 50 8 * * ?</value>
+		    <!--测试每10s执行一次  -->
+			<!-- <value>0/10 * * * * ?</value> -->
+		</property>
+	</bean>
+	<!--17:30分考勤打卡签退推送 -->
+	<bean id="OffRemainQuartz" class="com.slianOAsys.util.SMessage"></bean>
+	<bean id="OffRemainQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="OffRemainQuartz" />
+		<property name="targetMethod" value="sendOffRemindMessage" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="OffRemainCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="OffRemainQuartzDetail" />
+		</property>
+		<property name="cronExpression">
+		    <value>0 30 17 * * ?</value>
+		    <!--测试每10s执行一次  -->
+			<!-- <value>0/10 * * * * ?</value> -->
+		</property>
+	</bean>
+	<!-- 触发器调用 -->
+	<bean id="schedulerFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref local="HourOrderInfoCronTrigger" />
+				<!--<ref local="RestoreOrderInfoCronTrigger"/> <ref local="RestoreNoonOrderInfoCronTrigger"/> -->
+				<ref local="EverydayCronTrigger" />
+				<ref local="EverydayEveningCronTrigger"/>
+				<ref local="SignRemainCronTrigger"/>
+				<ref local="OffRemainCronTrigger"/>
+			</list>
+		</property>
+		<!-- 程序加载后是否自动启动 -->
+		<property name="autoStartup" value="true" />
+	</bean>
+</beans>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>车辆使用情况</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div>
+			<div id="main" class="car_wrapper" ng-controller="myCtrl">
+				<div style="position:fixed;width: 100%; background:lavender; top: .4px;">
+					<div class="car_header">
+						<a class="btn_prev btn_car" data-handler="prev" data-event="click" title="Prev">
+							<span ng-click="Prev()" class="icon_prev icon_car ">Prev</span>
+						</a>
+						<a class="btn_next btn_car" data-handler="prev" data-event="click" title="Next">
+							<span ng-click="Next()" class="icon_next icon_car ">Next</span>
+						</a>
+						<div class="car_date">
+							<div class="begin_date">
+							<span>{{sun[0]}}</span>年<span id="beginMonth">{{sun[1]}}</span>月<span id="beginDay">{{sun[2]}}</span>日至
+							</div>
+							<div class="end_date">
+								<span>{{sun[0]}}</span>年<span id="endMonth">{{sat[1]}}</span>月<span id="endDay">{{sat[2]}}</span>日
+							</div>
+						</div>
+					</div>
+					<table class="car_date_table">
+						<thead>
+						<tr>
+							<th scope="col" width="24%"><span>车牌号</span></th>
+							<th scope="col"><span>日</span></th>
+							<th scope="col"><span>一</span></th>
+							<th scope="col"><span>二</span></th>
+							<th scope="col"><span>三</span></th>
+							<th scope="col"><span>四</span></th>
+							<th scope="col"><span>五</span></th>
+							<th scope="col"><span>六</span></th>
+						</tr>
+						</thead>
+					</table>
+				</div>
+				<div style="height: 90px;"></div>
+				<table class="car_date_table">
+					<tbody>
+						<tr data-line="1" ng-repeat="obj in askData">
+							<td width="25%" ng-bind="obj.licensePlate"></td>
+							<td class="car_box" ng-repeat="av in obj.availableLists">
+								<span ng-class="{true:'car_state car_false',false:'car_state car_true'}[av[0]==0?'false':'true']"></span>
+								<span ng-class="{true:'car_state car_false',false:'car_state car_true'}[av[1]==0?'false':'true']"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="car_content"></div>
+			</div>
+		</div>
+	</body>
+	<script>
+		myApp.controller('myCtrl',function ($scope,$http) {
+			$scope.user=localStorage.getItem("user");
+			var oToday=new Date();
+			var currentDay=oToday.getDay();
+			var sundayTime=oToday.getTime()-(currentDay)*24*60*60*1000;
+			var saturdayTime=sundayTime+6*24*60*60*1000;
+			$scope.sunTime=sundayTime;
+			$scope.sun=(new Date(sundayTime).toLocaleDateString()).split('/');
+			$scope.sat=(new Date(saturdayTime).toLocaleDateString()).split('/');
+			console.log($scope.sun);
+			console.log($scope.sat);
+			
+			$scope.ask=function () {
+				if(localStorage.getItem("user")){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/allVehicle/list.do',
+						params:{"wechatAccount":$scope.user,"startDate":$scope.sun[0]+"-"+$scope.sun[1]+"-"+$scope.sun[2],"endDate":$scope.sat[0]+"-"+$scope.sat[1]+"-"+$scope.sat[2]}
+					}).success(function (data) {
+						console.log(data);
+						$scope.askData=data;
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.ask();
+			})
+			
+			if(localStorage.getItem("user")){
+				$scope.ask();
+			}
+			
+			$scope.Prev=function () {
+				$scope.sunTime-=7*24*60*60*1000;
+				$scope.sun=(new Date($scope.sunTime).toLocaleDateString()).split('/');
+				$scope.sat=(new Date($scope.sunTime+6*24*60*60*1000).toLocaleDateString()).split('/');
+				console.log($scope.sun);
+				console.log($scope.sat);
+				$scope.ask();
+			}
+			$scope.Next=function () {
+				$scope.sunTime+=7*24*60*60*1000;
+				$scope.sun=(new Date($scope.sunTime).toLocaleDateString()).split('/');
+				$scope.sat=(new Date($scope.sunTime+6*24*60*60*1000).toLocaleDateString()).split('/');
+				console.log($scope.sun);
+				console.log($scope.sat);
+				$scope.ask();
+			}
+		})
+	</script>
+</html>
+
+

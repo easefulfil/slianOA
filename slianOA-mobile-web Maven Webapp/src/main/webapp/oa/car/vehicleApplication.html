@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>用车申请</title>
+	<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+	<link rel="stylesheet" href="../css/extra.css" />
+	<link rel="stylesheet" href="../css/example.css" />
+	<link rel="stylesheet" href="../css/weui.css" />
+	<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+</head>
+<body  ng-controller="getUserInfo" ng-app="bodyApp">
+<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+	<div class="weui-form-preview">
+		<div class="weui-cell_change weui-cell_bgc">用车申请</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+			<div class="weui-cell__bd"><label id="name" class="weui-label" ng-bind="basic.name"></label></div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">联系电话</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="tel" placeholder="联系电话" maxlength="11" minlength="11" ng-model="submit.telephone"/></div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">用车时间</label></div>
+			<div class="weui-cell__bd">
+				<input class="weui-input" type="text" id="startTime"  placeholder="用车时间" ng-model="submit.beginTime"/>
+			</div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">预计还车时间</label></div>
+			<div class="weui-cell__bd">
+				<input class="weui-input" type="text" id="endTime"  placeholder="预计还车时间" ng-model="submit.planReturnTime"/>
+			</div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">用车去向</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="用车去向" ng-model="submit.vurDestination"/></div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">同行人员</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="同行人员" ng-model="submit.vurTogether"/></div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">报到地点</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" placeholder="报到地点" ng-model="submit.vurReportSite"/></div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">司机</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="driver" placeholder="请选择司机" ng-model="submit.driver"/></div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">司机电话</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="tel" placeholder="司机电话" maxlength="11" minlength="11"  ng-model="submit.vurLinkman"/></div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">任务</label></div>
+			<div class="weui-cell__bd">
+				<textarea class="weui-textarea" placeholder="请输入任务内容" rows="2" ng-model="submit.assignment"></textarea>
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>   <!--vehicleId-->
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="carNumber" placeholder="车牌号" ng-model="submit.vehicleId"/></div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">出车时车辆里程</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="number"  placeholder="出车时车辆里程" ng-model="submit.beginVelMileage"/></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">还车时车辆里程</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="number"  placeholder="还车时填写" ng-model="submit.returnVelMileage"/></div>
+		</div>
+	</div>
+	<div class="weui-btn-area">
+		<button class="weui-btn weui-btn_primary"  id="showTooltips" ng-click="addSubmit()">提交申请</button>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	myApp.controller('myCtrl',function ($scope,$http) {
+		$scope.user = localStorage.getItem("user");
+		$('#startTime').datetimePicker();
+		$('#endTime').datetimePicker();
+		$scope.submit={};
+		
+		$scope.initCar = function(startDate,endDate){
+			//获取车辆信息
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/availableVehicle/list.do',
+				params:{"wechatAccount":$scope.user,"startDate":startDate,"endDate":endDate}
+			}).success(function(data){
+				console.log(data);
+				$scope.carNumber=[]
+				for(var i=0;i<data.length;i++){
+					$scope.carNumber.push({"value":data[i]['vehicleId'],"title":data[i]['licensePlate']});
+				}
+				console.log($('#carNumber'))
+				$("#carNumber").select({
+					title: "请选择车辆",
+					items:$scope.carNumber
+				});
+				$('input#carNumber').select("open");
+			}).error(function(data){
+				$.toptip('系统出错', 'error');
+			})
+		}
+		
+		$scope.initPerson = function(){
+			//获取所有员工作为司机
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/employee/listAll.do',
+				params:{"wechatAccount":$scope.user,"pageNow":1}
+			}).success(function(data){
+				console.log(data['rows']);
+				var data=data['rows'];
+				$scope.driver=[];
+				for(var i=0;i<data.length;i++){
+					$scope.driver.push({"value":data[i]['employeeId'],"title":data[i]['employeeName']});
+				}
+				console.log($('#driver'));
+				$("#driver").select({
+					title: "请选择司机",
+					items:$scope.driver
+				});
+				$('input#driver').select("open");
+			}).error(function(data){
+				$.toptip('系统出错', 'error');
+			})
+		}
+		$scope.init = function(){
+			if(localStorage.getItem("user")){
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+					params:{"wechatAccount":$scope.user}
+				}).success(function(data){
+					console.log(data);
+					localStorage.setItem('name',data.name);
+					localStorage.setItem('department',data.department);
+					localStorage.setItem('id',data.id);
+					$scope.basic=data;
+					$scope.initPerson();
+				}).error(function(data){
+					$.toptip('系统出错', 'error');
+				})
+			}
+		}
+		
+		$scope.$on('setUser',function(d,res){
+			$scope.user = res;
+			$scope.init();
+		})
+		//获取用户部门信息
+		console.log(localStorage.getItem('name'));
+		if(localStorage.getItem('name') && localStorage.getItem("user")){
+			console.log(localStorage.getItem('basic'));
+			$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+			$scope.initPerson();
+		}else{
+			$scope.init();
+		}
+		//监听时间变化
+		$('input#startTime').on('change',function(){
+			console.log('startTime');
+		})
+		$('input#endTime').on('change',function(){
+			console.log('endTime');
+		})
+		$('input#carNumber').on('click',function(){
+			console.log('点击取得车牌');
+			console.log($('#startTime').val());
+			console.log($('#endTime').val());
+			if(($('#startTime').val())&&($('#endTime').val())){
+				$scope.initCar($('#startTime').val(),$('#endTime').val());
+			
+				 //$("#carNumber").trigger("click");//模拟点击事件
+			}else{
+				$.alert('请先选择时间');
+			}
+			
+		})
+		$('input#driver').on('click',function(){
+			$scope.initPerson();
+		})
+		//	提交申请
+		$scope.addSubmit=function () {
+			var flag=($scope.submit['telephone']=='')||($scope.submit['beginTime']=='')|| ($scope.submit['planReturnTime']=='')||($scope.submit['vurDestination']=='')||($scope.submit['vurTogether']=='')||($scope.submit['driver']=='')
+					||($scope.submit['vurReportSite']=='')||($scope.submit['vurLinkman']=='')||($scope.submit['assignment']=='')||($scope.submit['vehicleId']=='')||($scope.submit['beginVelMileage']=='')||($scope.submit['returnVelMileage']=='');
+			if(flag){
+				$.alert('请检查您的输入');
+			}else {
+				console.log($scope.submit);
+		/* 		$scope.submit['driver']=$('input#driver').data('values'); */
+			/* 	$scope.submit['vehicleId']=$('input#carNumber').data('values'); */
+				var oldObj=$scope.submit;
+				var obj={
+						"telephone":oldObj['telephone'],
+						"beginTime":oldObj['beginTime']+":00",
+						"planReturnTime":oldObj['planReturnTime']+":00",
+						"vurDestination":encodeURI(oldObj['vurDestination']),
+						"vurLinkman":encodeURI(oldObj['vurLinkman']),
+						"assignment":encodeURI(oldObj['assignment']),
+						"beginVelMileage":oldObj['beginVelMileage'],
+						"driver":$('input#driver').data('values'),
+						"returnVelMileage":oldObj['returnVelMileage'],
+						"vehicleId":$('input#carNumber').data('values'),
+						"vurReportSite":encodeURI(oldObj['vurReportSite']),
+						"vurTogether":encodeURI(oldObj['vurTogether']),
+						"type":encodeURI('用车')
+				};
+				console.log(obj);
+				//提交申请
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleApply/insert.do',
+					params:{"wechatAccount":$scope.user,"vehicleApply":obj}
+				}).success(function (data) {
+					$.toptip('添加成功', 'success');
+					$("#showTooltips").attr('disabled',true);
+					$("#showTooltips").css('backgroundColor','#B2B2B2');
+				}).error(function (data) {
+					$.toptip('系统出错', 'error');
+				});
+			}
+		}
+	})
+</script>
+</html>
+

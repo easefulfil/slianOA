@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>派车单详情</title>
+	<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+	<link rel="stylesheet" href="../css/extra.css" />
+	<link rel="stylesheet" href="../css/example.css" />
+	<link rel="stylesheet" href="../css/weui.css" />
+	<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+</head>
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+	<div class="weui-form-preview">
+		<div class="weui-cell_change weui-cell_bgc">派车单详情</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+			<div class="weui-cell__bd"><label id="" class="weui-label" ng-bind="data.applyName"></label></div>
+		</div>
+		<!-- <div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">申请部门</label></div>
+			<div class="weui-cell__bd"><label id="" class="weui-label" ng-bind="data.department"></label></div>
+		</div> -->
+		<div class="weui-cell">
+			<div class="weui-cell__hd" style="width:100px;"><label class="weui-label">申请时间</label></div>
+			<div class="weui-cell__bd" style="width:200px;"><label id="" class="weui-label" style="width:200px;" ng-bind="data.beginTime"></label></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>
+			<div class="weui-cell__bd"><label id="" class="weui-label" ng-bind="data.licensePlate"></label></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">车辆名称</label></div>
+			<div class="weui-cell__bd"><label id="" class="weui-label" ng-bind="data.tradeMark"></label></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd" style="width:100px;"><label class="weui-label">出车时间</label></div>
+			<div class="weui-cell__bd" style="width:200px;"><label id="" class="weui-label" style="width:200px;" ng-bind="data.tradeMark"></label></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd" style="width:100px;"><label class="weui-label">预归时间</label></div>
+			<div class="weui-cell__bd" style="width:200px;">
+				<label id="" class="weui-label" style="width:200px;" ng-bind="data.planReturnTime"></label>
+			</div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">是否已读</label></div>
+			<div class="weui-cell__bd">
+				<label class="weui-label" ng-bind="data.isReaded">是</label>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+//	var myApp=angular.module('myAPP',[]);
+	myApp.controller('myCtrl',function ($scope,$http,$location) {
+		console.log($location.absUrl());
+		$scope.id=($location.absUrl()).split('id=')[1];
+		/* console.log(JSON.parse(decodeURIComponent(id)));
+		$scope.data=JSON.parse(decodeURIComponent(id));
+		 */
+		 console.log($scope.id);
+	//	 $scope.user='lwy1581410450';
+		$scope.init = function(){
+			//依据ID查找详情		
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/driverView/getById.do',
+				params:{"wechatAccount":$scope.user,"vehicleUsedRecordId":$scope.id}  //vehicleUsedRecordId
+			}).success(function(data){
+				console.log(data);
+				$scope.data=data;
+				//查看申请人的申请部门
+				/* console.log($scope.data.employeeId);
+				if($scope.data.employeeId){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile/ajax/auth/mobile-ajax/auth/employee/employee.do',
+						params:{"employeeid":$scope.data.employeeId}
+					}).success(function(data){
+						console.log(data);
+					}).error(function(){
+						console.log(data);
+					})
+				} */
+				
+			}).error(function(data){
+				console.log(data);
+			})	
+			
+		
+			
+			
+		}
+		
+	//	$scope.init();
+		if(localStorage.getItem("user")){
+			$scope.user = localStorage.getItem("user");
+			$scope.init();
+		}
+		
+		$scope.$on('setUser',function(d,res){
+			$scope.user = res;
+			$scope.init();
+		})		 
+		 
+	})
+</script>
+</body>
+</html>

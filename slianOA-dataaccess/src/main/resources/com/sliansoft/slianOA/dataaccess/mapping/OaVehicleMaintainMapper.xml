@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaVehicleMaintainMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    <id column="vehicle_maintain_id" property="vehicleMaintainId" jdbcType="INTEGER" />
+    <result column="vehicle_id" property="vehicleId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="maintain_plan_Cost" property="maintainPlanCost" jdbcType="DOUBLE" />
+    <result column="maintain_project" property="maintainProject" jdbcType="VARCHAR" />
+    <result column="maintain_cost" property="maintainCost" jdbcType="DOUBLE" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="view_employee_ids" property="viewEmployeeIds" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vehicle_maintain_id, vehicle_id, employee_id, maintain_plan_Cost, maintain_project, 
+    maintain_cost, apply_time, status, view_employee_ids, access_group, amend_time, amender, 
+    create_time, creator, remark, type, step
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_vehicle_maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_vehicle_maintain
+    where vehicle_maintain_id = #{vehicleMaintainId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_vehicle_maintain
+    where vehicle_maintain_id = #{vehicleMaintainId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintainExample" >
+    delete from oa_vehicle_maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    insert into oa_vehicle_maintain (vehicle_maintain_id, vehicle_id, employee_id, 
+      maintain_plan_Cost, maintain_project, maintain_cost, 
+      apply_time, status, view_employee_ids, 
+      access_group, amend_time, amender, 
+      create_time, creator, remark, 
+      type, step)
+    values (#{vehicleMaintainId,jdbcType=INTEGER}, #{vehicleId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, 
+      #{maintainPlanCost,jdbcType=DOUBLE}, #{maintainProject,jdbcType=VARCHAR}, #{maintainCost,jdbcType=DOUBLE}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{viewEmployeeIds,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{step,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    insert into oa_vehicle_maintain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vehicleMaintainId != null" >
+        vehicle_maintain_id,
+      </if>
+      <if test="vehicleId != null" >
+        vehicle_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="maintainPlanCost != null" >
+        maintain_plan_Cost,
+      </if>
+      <if test="maintainProject != null" >
+        maintain_project,
+      </if>
+      <if test="maintainCost != null" >
+        maintain_cost,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vehicleMaintainId != null" >
+        #{vehicleMaintainId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleId != null" >
+        #{vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="maintainPlanCost != null" >
+        #{maintainPlanCost,jdbcType=DOUBLE},
+      </if>
+      <if test="maintainProject != null" >
+        #{maintainProject,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainCost != null" >
+        #{maintainCost,jdbcType=DOUBLE},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="vehicleMaintainId" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    insert into oa_vehicle_maintain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vehicleMaintainId != null" >
+        vehicle_maintain_id,
+      </if>
+      <if test="vehicleId != null" >
+        vehicle_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="maintainPlanCost != null" >
+        maintain_plan_Cost,
+      </if>
+      <if test="maintainProject != null" >
+        maintain_project,
+      </if>
+      <if test="maintainCost != null" >
+        maintain_cost,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vehicleMaintainId != null" >
+        #{vehicleMaintainId,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleId != null" >
+        #{vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="maintainPlanCost != null" >
+        #{maintainPlanCost,jdbcType=DOUBLE},
+      </if>
+      <if test="maintainProject != null" >
+        #{maintainProject,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainCost != null" >
+        #{maintainCost,jdbcType=DOUBLE},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintainExample" resultType="java.lang.Integer" >
+    select count(*) from oa_vehicle_maintain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_vehicle_maintain
+    <set >
+      <if test="record.vehicleMaintainId != null" >
+        vehicle_maintain_id = #{record.vehicleMaintainId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleId != null" >
+        vehicle_id = #{record.vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.maintainPlanCost != null" >
+        maintain_plan_Cost = #{record.maintainPlanCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maintainProject != null" >
+        maintain_project = #{record.maintainProject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maintainCost != null" >
+        maintain_cost = #{record.maintainCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.applyTime != null" >
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewEmployeeIds != null" >
+        view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.step != null" >
+        step = #{record.step,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_vehicle_maintain
+    set vehicle_maintain_id = #{record.vehicleMaintainId,jdbcType=INTEGER},
+      vehicle_id = #{record.vehicleId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      maintain_plan_Cost = #{record.maintainPlanCost,jdbcType=DOUBLE},
+      maintain_project = #{record.maintainProject,jdbcType=VARCHAR},
+      maintain_cost = #{record.maintainCost,jdbcType=DOUBLE},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      step = #{record.step,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    update oa_vehicle_maintain
+    <set >
+      <if test="vehicleId != null" >
+        vehicle_id = #{vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="maintainPlanCost != null" >
+        maintain_plan_Cost = #{maintainPlanCost,jdbcType=DOUBLE},
+      </if>
+      <if test="maintainProject != null" >
+        maintain_project = #{maintainProject,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainCost != null" >
+        maintain_cost = #{maintainCost,jdbcType=DOUBLE},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vehicle_maintain_id = #{vehicleMaintainId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    update oa_vehicle_maintain
+    set vehicle_id = #{vehicleId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      maintain_plan_Cost = #{maintainPlanCost,jdbcType=DOUBLE},
+      maintain_project = #{maintainProject,jdbcType=VARCHAR},
+      maintain_cost = #{maintainCost,jdbcType=DOUBLE},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      step = #{step,jdbcType=VARCHAR}
+    where vehicle_maintain_id = #{vehicleMaintainId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintain" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaVehicleMaintainExample" >
+    select a.* from oa_vehicle_maintain a where a.vehicle_maintain_id in 
+ (select top ${pageSize} vehicle_maintain_id from oa_vehicle_maintain 
+<include refid="select_by_page_outter_where_sql"/> 
+vehicle_maintain_id not in (select top ${skipRecordCount} vehicle_maintain_id from oa_vehicle_maintain  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+  </select>
+</mapper>

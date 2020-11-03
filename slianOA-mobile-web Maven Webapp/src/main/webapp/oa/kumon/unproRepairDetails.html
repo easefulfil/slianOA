@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>报修申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<style>
+			.buttons.weui-flex{
+					width:100%;
+					padding-left:5%;
+				}
+		</style>
+	</head>
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">报修申请</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">报修人</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.creatorName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">报修时间</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.eventTime"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.title"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">报修部门</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.departmentName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">备注：</label>
+						</div>
+					</div>
+					<div class="weui-cell ZWNR">
+						<div class="" ng-bind="data.remark"></div>
+					</div>
+					<div class="weui-cell_change weui-cell_bgc">报修物品明细</div>
+					<table class="general_table" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th scope="col">品牌</th>
+								<th scope="col">名称</th>
+								<th scope="col">类型</th>
+								<th scope="col">数量</th>
+								<td scope="col" width="50px">维修单价</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="obj in data.httpOaAssetChangeDetails">
+								<td>{{obj.detailName}}</td>
+								<td>{{obj.assetName}}</td>
+								<td>{{obj.assetType}}</td>
+								<td>{{obj.amount}}</td>
+								<td>{{obj.unitPrice}}</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+					<!-- 审核部分 -->
+				<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd">
+							<label class="weui-label">审批意见：</label>
+						</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<textarea ng-model="advice" class="weui-textarea" placeholder="请输入审批意见" rows="4"></textarea>
+					</div>
+				</div>
+				<div  class="buttons SH">
+					<div class="weui-flex__item">
+						<button ng-click="agree()" id="agree" class="weui-btn weui-btn_mini weui-btn_primary buttonSize">同意</button>
+						<button ng-click="disagree()" id="disagree" class="weui-btn weui-btn_mini weui-btn_warn buttonSize">不同意</button>
+					</div>						
+				</div>
+		</div>
+	<script>
+				myApp.controller('myCtrl',function ($scope,$http,$location) {
+					$scope.user = localStorage.getItem("user"); // 用户微信号
+					
+					$scope.check = function(){
+						//判断用户对应文件的状态
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/list.do',
+							params:{"wechatAccount":$scope.user,"keys":{"employeeid":$scope.basic['id'],"workflowId":workflowId},"pageNow":1}
+						}).success(function(data){
+							var workflowResult=(data.rows)[0]['workflowResult'];
+							console.log(workflowResult);
+							if(workflowResult=='未处理'){
+								console.log('未办理');
+							}else{
+								console.log('已办理');
+								$('div.buttons.SH button').css('background','#D3D3D3')
+								$('div.buttons.SH button').unbind('click');									
+							}
+						}).error(function(){
+							console.log(data);
+						})
+					}
+					$scope.init = function(){
+						if(localStorage.getItem('user')){
+							$http({
+								method:'POST',
+								url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+								params:{"wechatAccount":$scope.user}
+							}).success(function(data){
+								console.log(data);
+								localStorage.setItem('name',data.name);
+								localStorage.setItem('department',data.department);
+								$scope.basic=data;
+								$scope.check();
+							}).error(function(data){
+							//	$.toptip('系统出错', 'error');
+							})
+							
+						}
+					}
+					
+					$scope.$on('setUser',function(d,res){
+			    		$scope.user = res;
+			    		$scope.init();
+			    	})
+				
+					
+					//获取用户部门信息
+					 console.log(localStorage.getItem('name'));
+					 if(localStorage.getItem('name') && localStorage.getItem('user')){
+						 console.log(localStorage.getItem('basic'));
+						 $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+					 	$scope.check();
+					 }else{
+							$scope.init();
+					 }
+					
+					 console.log($location.absUrl().split('&'));
+					var id=$location.absUrl().split('&')[0].split('id=')[1];
+					var workflowId=$location.absUrl().split('&')[1].split('=')[1];
+					console.log(id);
+					//获取数据信息
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaAssetChange/detail/getById.do',
+						params:{"wechatAccount":$scope.user,'assetChangeId':id}
+						}).success(function(data){
+							console.log(data)
+							$scope.data=data;
+						}).error(function(){
+							$.toptip('系统出错', 'error');
+						});
+					
+					$scope.advice='';
+					//点击同意
+					$scope.agree=function () {
+						console.log($scope.advice);
+						console.log(id);
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/updateWorkflow.do',
+							params:{"wechatAccount":$scope.user,'workflowId':workflowId,'workflowResult':encodeURIComponent('通过'),'workflowOpinion':encodeURIComponent($scope.advice)}
+						}).success(function(data){
+							$.toptip('操作成功', 'success');
+							$("#agree").attr('disabled',true);
+							$("#disagree").attr('disabled',true);
+							$("#agree").css('backgroundColor','#B2B2B2');
+							$("#disagree").css('backgroundColor','#B2B2B2');
+						}).error(function(data){
+							$.toptip('系统出错', 'error');
+						});
+					};
+					//点击不同意
+					$scope.disagree=function () {
+						console.log($scope.advice);
+						console.log(id);
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/updateWorkflow.do',
+							params:{"wechatAccount":$scope.user,'workflowId':workflowId,'workflowResult':encodeURIComponent('不通过'),'workflowOpinion':encodeURIComponent($scope.advice)}
+						}).success(function(data){
+							//$.toast(data);
+							$.toptip('操作成功', 'success');
+							$("#agree").attr('disabled',true);
+							$("#disagree").attr('disabled',true);
+							$("#agree").css('backgroundColor','#B2B2B2');
+							$("#disagree").css('backgroundColor','#B2B2B2');
+						}).error(function(data){
+							//$.alert(data)
+							$.toptip('系统出错', 'error');
+						});
+					}
+				})
+		</script>
+	</body>
+
+</html>
+
+
+

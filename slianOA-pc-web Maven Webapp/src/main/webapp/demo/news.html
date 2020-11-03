@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="../js/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="../Exteasyui/datetimebox.js"></script>
+<script type="text/javascript" src="../Exteasyui/onCollapse.js"></script>
+<script type="text/javascript" src="../js/jquery.jdirk.js"></script>
+<script type="text/javascript" src="../Exteasyui/jeasyui.extensions.js"></script>
+<script type="text/javascript"
+	src="../Exteasyui/jeasyui.extensions.validatebox.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="pagejs/news.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<!--	<script type="text/javascript" src="../js/setToolbar.js"></script> -->
+</head>
+<body>
+	<div class="easyui-layout" fit="true" border="false">
+		<div region="north"
+			data-options="border:false,title:'查询',iconCls:'icon-search'"
+			style="height:60px;overflow:hidden;">
+			<form id="searchForm">
+				<table class="tableForm datagrid-toolbar"
+					style="width:100%;height:100%;">
+					<tr>
+						<th>登记日期</th>
+						<td><input id="createTime" name="createTime"
+							class="easyui-datebox" editable="false" style="width:315px;" />
+							<a id="check" onclick="searchNews()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+							<a id="empty" onclick="clearNews()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-empty'">清空</a>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<div region="center" title="新闻发布" border="false">
+			<table id="datagrid"></table>
+		</div>
+	</div>
+
+	<!-- 增加弹框 -->
+	<div id="news">
+		<div style="padding:5px">
+			<form id="newsForm" name="newsForm" method="post">
+
+				<table id="table1" border=0 align="center">
+	    	  <tr>
+	    	    <td align="right">新闻标题：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	    	    <input id="id" name="id" hidden="true"/></td>
+	    	    <td  colspan="3"><input id="newsTitle" name="newsTitle" style="width:585px;"/></td>
+	    	  </tr>
+	    	  <tr>
+	    	    <td>发&nbsp;&nbsp;布&nbsp;&nbsp;人：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    	    <td><input id="publisher" name="publisher" style="width:250px;"/></td>
+	    	  <!-- </tr>
+	    	  <tr> -->
+	    	  	<td align="right">&nbsp;&nbsp;&nbsp;是否发布：</td>
+	    	    <td ><select id="enabled" name="enabled" class="easyui-combobox" style="width:259px;" panelHeight="45px" >
+	    	    		<option value="true">是</option>
+	    	    		<option value="false">否</option>
+	    	    	</select>
+	    	    </td>
+	    	  <!-- <td align="right">截止时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    	    <td ><input id="endtime" name="endtime" class="easyui-datetimebox" style="width:150px;"/></td>
+	    	  </tr> -->
+	    	  <tr>
+	    	    <td align="right">新闻内容：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    	    <td colspan="3">
+	    	    	<textarea name="newsContent" id="newsContent" style="width:579px;height:150px">
+                		This is my textarea to be replaced with CKEditor.
+            		</textarea>
+				</td>
+	    	  </tr>
+	    	  <!-- <tr>
+	    	    <td align="right">附件名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    	    <td colspan="3"><input id="attachmentName" name="attachmentName" style="width:579px;"/></td>
+	    	  </tr>
+	    	  <tr>
+	    	    <td align="right">附件链接&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	    	    <td colspan="3"><input id="attachmentUrl" name="attachmentUrl" style="width:579px;"/></td>
+	    	  </tr> -->
+	    	   
+	    	  
+	    	</table>
+
+
+			</form>
+		</div>
+		<div id="button" style="text-align:center;padding:10px">
+			<!-- <a onclick="" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改</a> -->
+			<!-- <a onclick="saveClick();" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a> -->
+			<!-- <a onclick="clearForm()" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">重置</a> -->
+		</div>
+	</div>
+
+
+</body>
+</html>

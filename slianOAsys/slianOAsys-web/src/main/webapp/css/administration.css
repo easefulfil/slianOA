@@ -1,0 +1,166 @@
+ul, ol {
+ list-style: none;
+}
+.cl{
+	clear:both;
+}
+body {
+    background: #FFFFFF;
+    font-size: 14px;
+    color: #333333;
+    font-family: Arial,"微软雅黑","宋体";
+}
+.modify>div{
+	border:1px solid #39B0F0;
+	font-size:15px;
+    width: 85px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    color:#39B0F0; 
+    display:inline-block;
+}
+.modify>div:hover{
+   box-shadow:1px 1px 1px #39B0F0; 
+}
+.modify>div>img{
+	height: 20px;
+    position: relative;
+    top:5px;
+}
+/*表格*/
+#index{
+	padding-top:18px;
+	height:auto!important;
+	min-height:550px;
+	background-color:#fff;
+}
+.tableBasic{
+	text-align:center;
+}
+.tableBasic>thead>tr>td,.tableBasic>tbody>tr>td{
+	border-bottom:1px solid #ccc;
+}
+/*跳转*/
+.jump{
+	width: 567px;
+    margin: 80px auto;
+}
+.jump>ul>li{
+	float: left;
+	margin-right: 25px;
+}
+
+.jump>ul>li:nth-child(4)>input{
+    width: 40px;
+    height: 30px;
+    border-radius:6px;
+    border: 1px solid #ccc;
+    outline: none;
+    text-align: center;
+}
+.jump>ul>li:last-child>div>img{
+    position: relative;
+    top: 4px;
+    height: 18px;
+}
+.jump>ul>li>div{
+	padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.jump>ul>li>div:hover{
+	border-color:#39B0F0;
+}
+
+/*弹出框*/
+.ModifyData{
+	border:1px solid #ccc;
+	position: absolute;
+	top:100px;
+    left:30%;
+    z-index: 1000;
+    background-color: #fff;
+    width:40%;
+    border-radius: 15px;
+    box-shadow: 0px 2px 10px #333333;
+    display: none;
+}
+.ModifyData_1{
+	width:90%;
+	margin:0 auto;
+}
+.ModifyData_1 table tr td{
+    text-align:right;
+    padding-right: 12%;
+    border-bottom: 1px solid #ccc;
+}
+.ModifyData_1 table tr td input{
+    text-align: center;
+    width: 75%;
+    border:0px;
+}
+.ModifyData_1 table tr td select{
+    margin-right:16%;
+}
+.ModifyData_1 table tr td:first-child{
+    text-shadow:1px 1px 1px #ccc;
+}
+.Preservation{
+	margin: 15px 0;
+}
+.Preservation_1,.cancel{
+	border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    float: right;
+    font-weight:bold;
+}
+.Preservation_1{
+	color:#09ACF0;
+	margin-right:5px;
+}
+.Preservation_1:hover{
+	border-color:#09ACF0; 
+}
+.cancel{
+	color:#f70731;
+}
+.cancel:hover{
+	border-color:#f70731;
+}
+
+/*添加一个搜索框*/
+.SearchBox{
+	margin-left: 20px;
+	position: relative;
+	top:-5px;
+}
+.SearchBox>input{
+    height: 45px;
+    width: 120px;
+    border-radius:10px;
+    border: 1px solid #ccc;
+    outline: none;
+    text-align: center;
+    
+}
+.SearchBox>span{
+	border: 1px solid #ccc;
+    display: inline-block;
+    padding: 14px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight:bold;
+    background-color:#2196f3;
+    color:#fff;
+    opacity:0.8;
+    margin-left:5px;
+}
+.SearchBox>span:hover{
+	opacity:1;
+}

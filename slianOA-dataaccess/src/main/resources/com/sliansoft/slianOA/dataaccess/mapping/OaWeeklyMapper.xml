@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaWeeklyMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    <id column="weekly_id" property="weeklyId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="viewer_ids" property="viewerIds" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="evaluator_id" property="evaluatorId" jdbcType="VARCHAR" />
+    <result column="evaluate_content" property="evaluateContent" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="TIMESTAMP" />
+    <result column="weekly_status" property="weeklyStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    weekly_id, employee_id, title, content, viewer_ids, access_group, create_time, creator, 
+    is_delete, evaluator_id, evaluate_content, evaluate_time, weekly_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeeklyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_weekly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_weekly
+    where weekly_id = #{weeklyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_weekly
+    where weekly_id = #{weeklyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeeklyExample" >
+    delete from oa_weekly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    insert into oa_weekly (weekly_id, employee_id, title, 
+      content, viewer_ids, access_group, 
+      create_time, creator, is_delete, 
+      evaluator_id, evaluate_content, evaluate_time, 
+      weekly_status)
+    values (#{weeklyId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{viewerIds,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, 
+      #{evaluatorId,jdbcType=VARCHAR}, #{evaluateContent,jdbcType=VARCHAR}, #{evaluateTime,jdbcType=TIMESTAMP}, 
+      #{weeklyStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    insert into oa_weekly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="weeklyId != null" >
+        weekly_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="viewerIds != null" >
+        viewer_ids,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="evaluatorId != null" >
+        evaluator_id,
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content,
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time,
+      </if>
+      <if test="weeklyStatus != null" >
+        weekly_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="weeklyId != null" >
+        #{weeklyId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="viewerIds != null" >
+        #{viewerIds,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatorId != null" >
+        #{evaluatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateContent != null" >
+        #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weeklyStatus != null" >
+        #{weeklyStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeeklyExample" resultType="java.lang.Integer" >
+    select count(*) from oa_weekly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_weekly
+    <set >
+      <if test="record.weeklyId != null" >
+        weekly_id = #{record.weeklyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewerIds != null" >
+        viewer_ids = #{record.viewerIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluatorId != null" >
+        evaluator_id = #{record.evaluatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateContent != null" >
+        evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evaluateTime != null" >
+        evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.weeklyStatus != null" >
+        weekly_status = #{record.weeklyStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_weekly
+    set weekly_id = #{record.weeklyId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      viewer_ids = #{record.viewerIds,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      evaluator_id = #{record.evaluatorId,jdbcType=VARCHAR},
+      evaluate_content = #{record.evaluateContent,jdbcType=VARCHAR},
+      evaluate_time = #{record.evaluateTime,jdbcType=TIMESTAMP},
+      weekly_status = #{record.weeklyStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    update oa_weekly
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="viewerIds != null" >
+        viewer_ids = #{viewerIds,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="evaluatorId != null" >
+        evaluator_id = #{evaluatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateContent != null" >
+        evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateTime != null" >
+        evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weeklyStatus != null" >
+        weekly_status = #{weeklyStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where weekly_id = #{weeklyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    update oa_weekly
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      viewer_ids = #{viewerIds,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      evaluator_id = #{evaluatorId,jdbcType=VARCHAR},
+      evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      evaluate_time = #{evaluateTime,jdbcType=TIMESTAMP},
+      weekly_status = #{weeklyStatus,jdbcType=VARCHAR}
+    where weekly_id = #{weeklyId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaWeekly" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   ) and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeeklyExample" >
+    select a.* from oa_weekly a where a.weekly_id in 
+ (select top ${pageSize} weekly_id from oa_weekly 
+<include refid="select_by_page_outter_where_sql"/> 
+weekly_id not in (select top ${skipRecordCount} weekly_id from oa_weekly  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+
+  </select>
+  
+  
+  
+   <sql id="select_by_page1_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page1_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page1_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage1" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWeeklyExample" >
+    select a.* from oa_weekly a where a.weekly_status='未读' and a.weekly_id in 
+ (select top ${pageSize} weekly_id from oa_weekly 
+<include refid="select_by_page1_outter_where_sql"/> 
+weekly_id not in (select top ${skipRecordCount} weekly_id from oa_weekly  
+<include refid="select_by_page1_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page1_outter_orderby_sql"/> 
+)
+  </select>
+</mapper>

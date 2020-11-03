@@ -1,0 +1,91 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>司法鉴定综合管理平台</title>
+<link rel="shortcut icon" href="images/logo-small.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/login.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/errorPage.js"></script>
+<script type="text/javascript" src="js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+	if (top != self) {
+		if (top.location != self.location)
+			top.location = self.location;
+	}
+
+	$(document).ready(function() {
+		errorPage();
+	})
+</script>
+</head>
+<body>
+
+	<div class="content">
+		<div id="loginbox">
+			<div class="titlebar">
+				<p>欢迎登录<span id="errorMsg" style="color:red;display:none;font-size=0.5em">用户名或密码不正确！</span></p>
+			</div>
+			
+			<div class="bg">
+    <div class="top"><h1>司法鉴定综合管理平台</h1></div>
+    <div class="denglu-box">
+        <div class="logo"><img src="images/图层 1.png"></div>
+        <ul class="denglu-xinxi">
+            
+            <form id="formLogin" name="formLogin">
+				
+				<div class="formitem">
+					<label for="userName">帐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：</label> <input
+						id="userName" name="userName" type="text" placeholder="用户名" /> <span
+						class="warn"></span>
+
+				</div>
+				<div class="formitem">
+					<label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+					<input id="password" name="password" type="password"
+						placeholder="密码" /> <span class="warn"></span>
+			
+				</div>
+				<div class="formitem">
+						<label for="merchantId">登陆身份：</label>
+						<input checked name="loginType" type="radio"  style="width:3em;width:1.5em" value="ANALYSIS"/>员工
+						&nbsp;&nbsp;
+						
+				</div> 
+
+				<div id="warn" style="color: red"></div>
+				
+				
+				<div class="btn" align="center">
+					<input id="but_login" type="submit" value="登录" />
+				</div>
+
+				<div class="clear"></div>
+			</form>
+            
+            
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+	<div class="footer">
+		<p>
+			Copyright@崇新信息科技（宁波）有限公司；系统开发：浙江大学软件学院&<a href="http://www.mz3co.com" style="text-decoration:none;color:#15428b" target="_blank">宁波数联软件有限公司</a>
+		</p>
+	</div>
+</body>
+</html>

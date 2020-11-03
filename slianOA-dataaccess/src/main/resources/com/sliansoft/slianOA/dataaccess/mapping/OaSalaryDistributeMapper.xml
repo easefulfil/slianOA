@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaSalaryDistributeMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    <id column="salary_distribute_id" property="salaryDistributeId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="basic_salary" property="basicSalary" jdbcType="DECIMAL" />
+    <result column="performance_salary" property="performanceSalary" jdbcType="DECIMAL" />
+    <result column="allowance" property="allowance" jdbcType="DECIMAL" />
+    <result column="pay_sum" property="paySum" jdbcType="DECIMAL" />
+    <result column="medical_insurance" property="medicalInsurance" jdbcType="DECIMAL" />
+    <result column="retirement_insurance" property="retirementInsurance" jdbcType="DECIMAL" />
+    <result column="unemployed_insurance" property="unemployedInsurance" jdbcType="DECIMAL" />
+    <result column="deduction_sum" property="deductionSum" jdbcType="DECIMAL" />
+    <result column="salary_before_tax" property="salaryBeforeTax" jdbcType="DECIMAL" />
+    <result column="tax" property="tax" jdbcType="DECIMAL" />
+    <result column="real_salary" property="realSalary" jdbcType="DECIMAL" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="VARCHAR" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="deduction_basic_num" property="deductionBasicNum" jdbcType="DECIMAL" />
+    <result column="housing_fund" property="housingFund" jdbcType="DECIMAL" />
+    <result column="salary_month" property="salaryMonth" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    salary_distribute_id, employee_name, idcard, bank_card, basic_salary, performance_salary, 
+    allowance, pay_sum, medical_insurance, retirement_insurance, unemployed_insurance, 
+    deduction_sum, salary_before_tax, tax, real_salary, remarks, employee_id, access_group, 
+    creator, create_time, amender, amend_time, deduction_basic_num, housing_fund, salary_month
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistributeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_salary_distribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_salary_distribute
+    where salary_distribute_id = #{salaryDistributeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_salary_distribute
+    where salary_distribute_id = #{salaryDistributeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistributeExample" >
+    delete from oa_salary_distribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    insert into oa_salary_distribute (salary_distribute_id, employee_name, 
+      idcard, bank_card, basic_salary, 
+      performance_salary, allowance, pay_sum, 
+      medical_insurance, retirement_insurance, 
+      unemployed_insurance, deduction_sum, salary_before_tax, 
+      tax, real_salary, remarks, 
+      employee_id, access_group, creator, 
+      create_time, amender, amend_time, 
+      deduction_basic_num, housing_fund, salary_month
+      )
+    values (#{salaryDistributeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{idcard,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, #{basicSalary,jdbcType=DECIMAL}, 
+      #{performanceSalary,jdbcType=DECIMAL}, #{allowance,jdbcType=DECIMAL}, #{paySum,jdbcType=DECIMAL}, 
+      #{medicalInsurance,jdbcType=DECIMAL}, #{retirementInsurance,jdbcType=DECIMAL}, 
+      #{unemployedInsurance,jdbcType=DECIMAL}, #{deductionSum,jdbcType=DECIMAL}, #{salaryBeforeTax,jdbcType=DECIMAL}, 
+      #{tax,jdbcType=DECIMAL}, #{realSalary,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, 
+      #{employeeId,jdbcType=INTEGER}, #{accessGroup,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=VARCHAR}, #{amendTime,jdbcType=TIMESTAMP}, 
+      #{deductionBasicNum,jdbcType=DECIMAL}, #{housingFund,jdbcType=DECIMAL}, #{salaryMonth,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    insert into oa_salary_distribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="salaryDistributeId != null" >
+        salary_distribute_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="basicSalary != null" >
+        basic_salary,
+      </if>
+      <if test="performanceSalary != null" >
+        performance_salary,
+      </if>
+      <if test="allowance != null" >
+        allowance,
+      </if>
+      <if test="paySum != null" >
+        pay_sum,
+      </if>
+      <if test="medicalInsurance != null" >
+        medical_insurance,
+      </if>
+      <if test="retirementInsurance != null" >
+        retirement_insurance,
+      </if>
+      <if test="unemployedInsurance != null" >
+        unemployed_insurance,
+      </if>
+      <if test="deductionSum != null" >
+        deduction_sum,
+      </if>
+      <if test="salaryBeforeTax != null" >
+        salary_before_tax,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="realSalary != null" >
+        real_salary,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="deductionBasicNum != null" >
+        deduction_basic_num,
+      </if>
+      <if test="housingFund != null" >
+        housing_fund,
+      </if>
+      <if test="salaryMonth != null" >
+        salary_month,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="salaryDistributeId != null" >
+        #{salaryDistributeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="basicSalary != null" >
+        #{basicSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="performanceSalary != null" >
+        #{performanceSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="allowance != null" >
+        #{allowance,jdbcType=DECIMAL},
+      </if>
+      <if test="paySum != null" >
+        #{paySum,jdbcType=DECIMAL},
+      </if>
+      <if test="medicalInsurance != null" >
+        #{medicalInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="retirementInsurance != null" >
+        #{retirementInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="unemployedInsurance != null" >
+        #{unemployedInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="deductionSum != null" >
+        #{deductionSum,jdbcType=DECIMAL},
+      </if>
+      <if test="salaryBeforeTax != null" >
+        #{salaryBeforeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="realSalary != null" >
+        #{realSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=VARCHAR},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deductionBasicNum != null" >
+        #{deductionBasicNum,jdbcType=DECIMAL},
+      </if>
+      <if test="housingFund != null" >
+        #{housingFund,jdbcType=DECIMAL},
+      </if>
+      <if test="salaryMonth != null" >
+        #{salaryMonth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistributeExample" resultType="java.lang.Integer" >
+    select count(*) from oa_salary_distribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_salary_distribute
+    <set >
+      <if test="record.salaryDistributeId != null" >
+        salary_distribute_id = #{record.salaryDistributeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeName != null" >
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null" >
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCard != null" >
+        bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicSalary != null" >
+        basic_salary = #{record.basicSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.performanceSalary != null" >
+        performance_salary = #{record.performanceSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.allowance != null" >
+        allowance = #{record.allowance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paySum != null" >
+        pay_sum = #{record.paySum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.medicalInsurance != null" >
+        medical_insurance = #{record.medicalInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.retirementInsurance != null" >
+        retirement_insurance = #{record.retirementInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unemployedInsurance != null" >
+        unemployed_insurance = #{record.unemployedInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deductionSum != null" >
+        deduction_sum = #{record.deductionSum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salaryBeforeTax != null" >
+        salary_before_tax = #{record.salaryBeforeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tax != null" >
+        tax = #{record.tax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realSalary != null" >
+        real_salary = #{record.realSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deductionBasicNum != null" >
+        deduction_basic_num = #{record.deductionBasicNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.housingFund != null" >
+        housing_fund = #{record.housingFund,jdbcType=DECIMAL},
+      </if>
+      <if test="record.salaryMonth != null" >
+        salary_month = #{record.salaryMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_salary_distribute
+    set salary_distribute_id = #{record.salaryDistributeId,jdbcType=INTEGER},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      idcard = #{record.idcard,jdbcType=VARCHAR},
+      bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      basic_salary = #{record.basicSalary,jdbcType=DECIMAL},
+      performance_salary = #{record.performanceSalary,jdbcType=DECIMAL},
+      allowance = #{record.allowance,jdbcType=DECIMAL},
+      pay_sum = #{record.paySum,jdbcType=DECIMAL},
+      medical_insurance = #{record.medicalInsurance,jdbcType=DECIMAL},
+      retirement_insurance = #{record.retirementInsurance,jdbcType=DECIMAL},
+      unemployed_insurance = #{record.unemployedInsurance,jdbcType=DECIMAL},
+      deduction_sum = #{record.deductionSum,jdbcType=DECIMAL},
+      salary_before_tax = #{record.salaryBeforeTax,jdbcType=DECIMAL},
+      tax = #{record.tax,jdbcType=DECIMAL},
+      real_salary = #{record.realSalary,jdbcType=DECIMAL},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=VARCHAR},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      deduction_basic_num = #{record.deductionBasicNum,jdbcType=DECIMAL},
+      housing_fund = #{record.housingFund,jdbcType=DECIMAL},
+      salary_month = #{record.salaryMonth,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    update oa_salary_distribute
+    <set >
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bank_card = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="basicSalary != null" >
+        basic_salary = #{basicSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="performanceSalary != null" >
+        performance_salary = #{performanceSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="allowance != null" >
+        allowance = #{allowance,jdbcType=DECIMAL},
+      </if>
+      <if test="paySum != null" >
+        pay_sum = #{paySum,jdbcType=DECIMAL},
+      </if>
+      <if test="medicalInsurance != null" >
+        medical_insurance = #{medicalInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="retirementInsurance != null" >
+        retirement_insurance = #{retirementInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="unemployedInsurance != null" >
+        unemployed_insurance = #{unemployedInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="deductionSum != null" >
+        deduction_sum = #{deductionSum,jdbcType=DECIMAL},
+      </if>
+      <if test="salaryBeforeTax != null" >
+        salary_before_tax = #{salaryBeforeTax,jdbcType=DECIMAL},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=DECIMAL},
+      </if>
+      <if test="realSalary != null" >
+        real_salary = #{realSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=VARCHAR},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deductionBasicNum != null" >
+        deduction_basic_num = #{deductionBasicNum,jdbcType=DECIMAL},
+      </if>
+      <if test="housingFund != null" >
+        housing_fund = #{housingFund,jdbcType=DECIMAL},
+      </if>
+      <if test="salaryMonth != null" >
+        salary_month = #{salaryMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where salary_distribute_id = #{salaryDistributeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    update oa_salary_distribute
+    set employee_name = #{employeeName,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      bank_card = #{bankCard,jdbcType=VARCHAR},
+      basic_salary = #{basicSalary,jdbcType=DECIMAL},
+      performance_salary = #{performanceSalary,jdbcType=DECIMAL},
+      allowance = #{allowance,jdbcType=DECIMAL},
+      pay_sum = #{paySum,jdbcType=DECIMAL},
+      medical_insurance = #{medicalInsurance,jdbcType=DECIMAL},
+      retirement_insurance = #{retirementInsurance,jdbcType=DECIMAL},
+      unemployed_insurance = #{unemployedInsurance,jdbcType=DECIMAL},
+      deduction_sum = #{deductionSum,jdbcType=DECIMAL},
+      salary_before_tax = #{salaryBeforeTax,jdbcType=DECIMAL},
+      tax = #{tax,jdbcType=DECIMAL},
+      real_salary = #{realSalary,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=VARCHAR},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      deduction_basic_num = #{deductionBasicNum,jdbcType=DECIMAL},
+      housing_fund = #{housingFund,jdbcType=DECIMAL},
+      salary_month = #{salaryMonth,jdbcType=VARCHAR}
+    where salary_distribute_id = #{salaryDistributeId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistribute" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   ) and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSalaryDistributeExample" >
+    select a.* from oa_salary_distribute a where a.salary_distribute_id in 
+ (select top ${pageSize} salary_distribute_id from oa_salary_distribute 
+<include refid="select_by_page_outter_where_sql"/> 
+salary_distribute_id not in (select top ${skipRecordCount} salary_distribute_id from oa_salary_distribute  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+
+  </select>
+</mapper>

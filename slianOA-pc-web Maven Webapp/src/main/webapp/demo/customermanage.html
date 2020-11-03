@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="../js/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+
+	<script type="text/javascript" src="../Exteasyui/datagrid-detailview.js"></script>
+<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="../Exteasyui/datetimebox.js"></script>
+<script type="text/javascript" src="../Exteasyui/onCollapse.js"></script>
+<script type="text/javascript" src="../js/jquery.jdirk.js"></script>
+<script type="text/javascript" src="../Exteasyui/jeasyui.extensions.js"></script>
+<script type="text/javascript"
+	src="../Exteasyui/jeasyui.extensions.validatebox.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="pagejs/customermanage.js"></script>
+<script type="text/javascript" src="../js/syUtil.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+<body>
+	<div class="easyui-layout" fit="true" border="false">
+    <div region="north"
+			data-options="border:false,title:'查询客户',iconCls:'icon-search'"
+			style="height:85px;overflow:hidden;">
+			
+			<form id="searchForm">
+				<table class="tableForm datagrid-toolbar"
+					style="width:100%;height:100%;">
+		       <tr>
+					<th>公司名称</th>
+					<td><input class="easyui-validatebox" data-options="prompt: '输入公司名称'" id="customerCompany"  name="customerCompany" style="width:120px;" />
+					  &nbsp;&nbsp; &nbsp;&nbsp; 
+					联系人姓名&nbsp;&nbsp; <input class="easyui-validatebox" data-options="prompt: '输入联系人姓名'" id="cname"  name="cname" style="width:120px;" />
+					
+					  &nbsp;&nbsp; &nbsp;&nbsp; 
+					联系人电话&nbsp;&nbsp; <input class="easyui-validatebox" data-options="prompt: '输入联系人电话'" id="mobile"  name="mobile" style="width:120px;" />
+					</td>
+				 </tr>
+				 <tr>
+					<th>客户状态</th>
+					<td>
+					
+					<input id="customerType" name="customerType"
+							style="width:120px;" class="easyui-combobox"
+							class="easyui-combobox"
+							data-options="
+					        valueField: 'id',
+  							textField: 'name',
+					        url: getContextPath()+'/basicdataset/getBasicDataName.do?parentId=294'" />
+					        
+					         &nbsp;&nbsp; &nbsp;&nbsp; 付款态度
+					        &nbsp;&nbsp; <input id="attitude" name="attitude"
+							style="width:120px;" class="easyui-combobox"
+							class="easyui-combobox"
+							data-options="
+					        valueField: 'id',
+					        textField: 'name',
+					        url: getContextPath()+'/basicdataset/getBasicDataName.do?parentId=304'" />
+					<!-- <input class="easyui-validatebox" data-options="prompt: '请输入包含客户状态的中文字符'" id="type" name="type" style="width:230px;" />
+			         -->  &nbsp;&nbsp; &nbsp;&nbsp;
+			         
+			         &nbsp;&nbsp;
+					<label for="department">选择部门</label>
+  			<input id="department" name="department" class="easyui-combobox" 
+  			style="width:150px;"
+  			data-options="
+  				valueField: 'id',
+  				textField: 'name',
+  				url: getContextPath()+'/analysisbasicdataset/getdepartment.do',
+  				onChange: function(){
+  					var departmentid = $('#department').combobox('getValue');
+  					var url;
+  					if(departmentid){
+  						if((/^[0-9]*$/g.test(departmentid))){
+  							url  = getContextPath()+'/analysisbasicdataset/getallcounterman.do?departmentid='+departmentid;
+  							$('#customerCounterman').combobox('clear');
+  							$('#customerCounterman').combobox('reload',url);
+  						}else{
+  							$('#customerCounterman').combobox('clear');
+  						}
+  					}else
+  						return; 
+  				}"/>
+  			
+  			<label for="customerCounterman" >选择销售</label>
+  			<input id="customerCounterman" name = "customerCounterman" class="easyui-combobox" 
+  			style="width:150px;"
+  			panelHeight="auto",
+  			data-options="
+  			valueField: 'id',
+  			textField: 'name'
+  			"/>
+				     <a id="check" onclick="searchCustomer()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> &nbsp;
+					 <a id="empty" onclick="clearCustomer()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-empty'">清空</a></td>
+				  </tr>
+				</table>
+			</form>
+		</div>
+		<div region="center" title="客户信息表" border="false">
+			<table id="datagrid"></table>
+		</div>
+	</div>
+
+
+	<div id="div_customerEmployee" class="easyui-window" title="新增联系人" collapsible="false" minimizable="false"
+        maximizable="false" style="width: 400px; height: 300px; padding:20px 20px 10px 30px;
+        background: #fafafa;" closed="true" style="display:none;">
+  <form id="customerEmployee" name="customerEmployee" >
+    <input id="customerEmployeeId" name="customerEmployeeId"  type="hidden"/>
+     <input id="customerId" name="customerId"  type="hidden"/>
+     <input id="operType"   name="operType"  type="hidden"/><input id="id"   name="id"  type="hidden"/>
+      <table>
+      	<tr>
+          <td>姓名</td>
+          <td><input id="customerEmployee_cname" name="customerEmployee_cname" type="text" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+           <tr>
+          <td>性别</td>
+          <td><input id="sex"  name="sex" value="男" class="easyui-combobox"  
+          data-options="valueField:'sex',textField:'sex',data:[{'sex':'男'},{'sex':'女'}]"/>
+          	
+          </td>
+        </tr>
+        <tr>
+          <td>手机</td>
+          <td><input name="customerEmployee_mobile" id="customerEmployee_mobile" type="text" class="txt01" /><span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>座机</td>
+          <td><input id="hometel"  name="hometel" type="text" class="txt01" />
+          	
+          </td>
+        </tr>
+     	<tr>
+          <td>职务</td>
+          <td><input id="duty"  name="duty" type="text" class="txt01" />	
+          </td>
+        </tr>
+      </table>
+   
+    <div style="padding:5px;text-align:center;"> 
+    <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >确定</a> 
+    <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a> 
+    </div>
+  </form>
+  </div>
+		<div region="center" title="客户信息表" border="false">
+			<table id="datagrid"></table>
+		</div>
+	</div>
+	
+	
+	<div id="dialog_rank" style="overFlow-x: hidden">
+		<table id="customer_rank"></table>
+		
+		<!-- <div id="closureTimeButtton" style="text-align:center;padding:10px"> -->
+			
+		</div>
+	</div>
+	
+	<div id="dialog_counterman_set">
+		<table id="customer_counterman"></table>
+		
+		<!-- <div id="closureTimeButtton" style="text-align:center;padding:10px"> -->
+			
+	
+	</div>
+	
+	<div id="dialog_rank_set" style="margin-top:20px;margin-left:50px;">
+		
+		<span  class="span_rankLevel" value="A"><input name="rankLevel" class="rankLevel" type="radio" value="A">A</span> 
+		<span  class="span_rankLevel" value="B"><input name="rankLevel" class="rankLevel" type="radio" value="B">B </span>
+		<span  class="span_rankLevel" value="C"><input name="rankLevel"  class="rankLevel" type="radio" value="C">C</span>
+		<span  class="span_rankLevel" value="D"><input  name="rankLevel" class="rankLevel" type="radio" value="D">D</span>
+		<span  class="span_rankLevel" value="E"><input name="rankLevel"  class="rankLevel" type="radio" value="E">E</span>
+		<span  class="span_rankLevel" value="F"><input name="rankLevel"  class="rankLevel" type="radio" value="F">F 不能访问</span>
+		<input type="hidden" id="rankLevelSetType">
+	</div>
+	
+	<div id="dialog_VIP_set" style="margin-top:20px;margin-left:50px;">
+		
+		<input name="type" class="type" type="radio" value="VIP">VIP客户 <input name="type" class="type" type="radio" value="普通">普通客户 
+	</div>
+
+	
+	<div id="dialog_customer_track">
+		<table id="customer_track"></table>
+		
+		<!-- <div id="closureTimeButtton" style="text-align:center;padding:10px"> -->
+			
+	
+	</div>
+</body>
+</html>

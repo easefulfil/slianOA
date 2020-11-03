@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>车辆保险列表</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/lib/weui.css">
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css">
+		<!--<style>
+			a{
+				cursor: pointer;
+			}
+			.fix{
+				position: absolute;
+				top:20px;
+				left: 5px;
+				z-index: 100;
+				box-shadow: #9b9b9b 2px 2px 2px;
+				display: none;
+			}
+			div.arrow_up{
+				border:none;
+				border-bottom: 6px solid #666;
+				border-left: 6px solid transparent;
+				border-right:6px solid transparent;
+				width:0px;
+				height: 0px;
+				position: absolute;
+				/*top: -5px;*/
+				left:50%;
+				z-index: 300;
+				margin-left:-6px;
+			}
+			.fixRight{
+				position: absolute;
+				left: 100px;
+				min-width: 100px;
+				top:70px;
+				z-index: 100;
+				box-shadow:#9b9b9b 1px 1px 1px ;
+				background: white;
+				display: none;
+			}
+			.fixRight.state>div.arrow_up{
+				top:50px;
+			}
+
+			.fixRight.state{
+				top:30px;
+			}
+
+			.fixRight .weui-cell{
+				padding: 5px 15px;
+			}
+			.fixRight>div.arrow_up{
+				left:0px;
+				top:50%;
+				border-right: 6px solid #666;
+				border-top: 6px solid transparent;
+				border-bottom:6px solid transparent;
+			}
+			.fixRight.state>div.arrow_up{
+				top:50px;
+			}
+		</style>-->
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+	<div class="weui-tab" ng-controller="myCtrl">
+<!--		&lt;!&ndash;搜索框&ndash;&gt;
+		<div class="weui-search-bar" id="searchBar">
+			<form class="weui-search-bar__form">
+				<div class="weui-search-bar__box">
+					<i class="weui-icon-search"></i>
+					<input type="search" class="weui-search-bar__input" id="searchInput"  placeholder="搜索" required>
+					<input type="search" class="weui-search-bar__input" id="searchInputTime" data-toggle="date" placeholder="会议时间" required style="display: none;">
+					<a href="javascript:;" class="weui-icon-clear" id="searchClear"></a>
+				</div>
+				<label class="weui-search-bar__label" id="searchText">
+					<i class="weui-icon-search"></i>
+					<span>搜索</span>
+				</label>
+			</form>
+			<a href="javascript:;" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+		</div>
+		&lt;!&ndash;输入提示&ndash;&gt;
+		<div class="fix weui-cells" >
+			<div class="arrow_up"></div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<a>申请时间</a>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<a>状态</a>
+				</div>
+			</div>
+		</div>
+		&lt;!&ndash; 状态提示 &ndash;&gt;
+		<div class="fixRight state weui-cells" >
+			<div class="arrow_up"></div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<a>处理中</a>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<a>已完成</a>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<a>驳回</a>
+				</div>
+			</div>
+		</div>-->
+		<!--列表-->
+		<div class="weui-cells">
+			<div class="weui-cell" ng-repeat="obj in data">
+				<div class="weui-cell__bd" ng-click=detail(obj.insuranceId)>
+					<p>{{obj.insuranceCompany}}-{{obj.licensePlate}}-{{obj.employeeName}}</p>
+					<p>
+					时间:{{obj.applyTime}}状态:{{obj.status}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/jquery-weui-build/dist/lib/jquery-2.1.4.js"></script>
+		<script src="../framework/jquery-weui-build/dist/lib/zepto.js"></script>
+		<script src="../framework/jquery-weui-build/dist/lib/fastclick.js"></script>
+		<script src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<script>
+		myApp.controller('myCtrl',function ($scope,$http) {
+			$scope.num=1;
+			$scope.user=localStorage.getItem("user");
+			//点击列表实现页面跳转
+			$scope.detail=function(id){
+				console.log(id);
+				var src='vehicleInsuranceInfo.html?id='+id;
+				window.location=src;
+			}
+			$scope.init = function(){
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleInsurance/list.do',
+					params:{'wechatAccount':$scope.user,'keys':{},"rows":30,"page":$scope.num}
+				}).success(function (data) {
+					console.log(data);
+					$scope.data=data['rows'];
+				}).error(function (data) {
+					$.toptip('系统出错', 'error');
+				})
+			}
+
+			if(localStorage.getItem("user")){
+				$scope.user = localStorage.getItem("user");
+				$scope.init();
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+			//下拉刷新，加载新数据
+			window.onload=function(){
+				$scope.loading=false;//滚动标记
+				$(document.body).infinite().on('infinite',function(){
+					if($scope.loading){
+						return;
+					}
+					$scope.loading=true;
+					$scope.num++;
+					console.log($scope.num);
+					if($scope.num>$scope.totalPages){
+						$.toast('数据已全部加载','text')
+					}else{
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleInsurance/list.do',
+							params:{'wechatAccount':$scope.user,'keys':{},"rows":30,"page":$scope.num}
+						}).success(function(data){
+							console.log(data.rows)
+							for(var i=0;i<data.rows.length;i++){
+								$scope.data.push(data.rows[i]);
+							}
+							$scope.loading=false;
+							if(!$scope.$$phase) {
+								//$digest or $apply
+								$scope.$apply();
+							}
+						}).error(function(data){
+							$.toptip('系统出错', 'error');
+							//alert('数据请求失败')
+						})
+					}
+				})
+			}
+		})
+	</script>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户管理</title>
+	<link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+
+</head>
+<body>
+<!-- <div id="div_roles" class="easyui-window" title="角色分配" data-options="iconCls:'icon-wrench',draggable:true,minimizable:true,collapsible:false, closable:true,closed:true,modal:true,shadow:true,border:false" style="width:600px;height:380px;" >
+</div> -->
+<div class="easyui-layout" fit="true" border="false")>
+	<div region="north" data-options="border:false,title:'查询',iconCls:'icon-search'"
+		style="height:62px;overflow:hidden;">
+		<form id="searchForm">
+			<table class="tableForm datagrid-toolbar" style="width:100%;height:100%;">
+				<tr>
+					<th>用户名称</th>
+					<td><input name="username" id="username" placeholder="请输入用户名称中包含的字符" style="width:160px;margin-right:10px;" /><input id="userType" name="userType"  type="checkbox" value="员工" checked/>员工 <input id="userType" name="userType"  type="checkbox" value="客户" checked/>客户
+					
+						<a id="check" onclick="javascript:searchUsers()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+						<a id="empty" onclick="javascript:clearUsers()" class="easyui-linkbutton" data-options="iconCls:'icon-empty'">清空</a>
+					</td>
+				</tr>
+			</table>
+			</form>
+	</div>
+	<div region="center" title="用户管理" border="false">
+		<table id="datagrid"></table>
+	</div>
+	
+<!-- 	<div id="div_roles" region="center" title="" border="false">
+			<table id="datagrid_roles"></table>
+
+		</div>  -->
+	
+	<div id="div_authencationInfo" class="easyui-window" title="创建授权信息" collapsible="false" minimizable="false"
+        maximizable="false" style="width: 300px; height: 220px; padding:10px 10px 10px 30px;
+        background: #fafafa;" closed="true" style="display:none;">
+  <form id="authencationInfo" name="authencationInfo" >
+    <input id="uid" name="uid"  type="hidden"/><!-- <input id="operType"   name="operType"  type="hidden"/ --><input id="id"   name="id"  type="hidden"/>
+      <table>
+      	<tr>
+          <td>帐号</td>
+          <td><input id="account" name="account" type="text" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>密码</td>
+          <td><input name="password" id="password" type="text" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>确认密码</td>
+          <td><input id="confirmPassword"  name="confirmPassword" type="text" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>类型</td>
+          <td><input id="type"  name="type" class="easyui-combobox"  data-options="valueField:'type',textField:'type',data:[{'type':'手机'},{'type':'账号'},{'type':'邮箱'},{'type':'微信'},{'type':'其他'}]"/>
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+      </table>
+   
+    <div style="padding:5px;text-align:center;"> 
+    <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >确定</a> 
+    <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a> 
+    </div>
+  </form>
+</div>
+		
+
+</body>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../Exteasyui/datagrid-detailview.js"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+
+	<script type="text/javascript" src="../js/syUtil.js"></script>
+	
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+	<script type="text/javascript" src="pagejs/users.js"></script>
+	
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>考勤日历</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    
+	
+	
+	<style>
+		#left ul li{
+			font-size: 1rem;}
+		#right ul li{
+			font-size: 1rem;}
+		#left ul li:first-child{
+			color:#66cc66;
+			}
+		#left ul li:nth-child(2){
+			color:#ff6666;
+			}
+		#left ul li:last-child{
+			color:#66ccff;
+			}
+		#right ul li:first-child{
+			color:#ff9933;
+			}
+		#right ul li:last-child{
+			color:#cccc66;
+			}
+		#left{
+			float:left;
+			width:50%;
+		}
+		#right{
+			float:left;
+			width:50%;margin: 0 auto;
+		}
+	</style>
+	
+	</head>
+	<body ng-app="sign" ng-controller='SignController'>
+		<!--<div class="page-group">
+	    <div class="page">
+        <div class="content">
+		<div class="content-block">
+        <div class="list-block">-->
+       <div class="content">
+       	<div class="card">
+        <div data-toggle="date" id='calendar-inline'></div>
+        <script type="text/javascript">
+         	$("#calendar-inline").calendar({});
+        </script>
+        </div>
+        
+        <div class="card">
+         <div class="card-content">
+          <div class="card-content-inner">
+          	<div id="left">
+          	<ul>
+          		<li><span style="font-size: 0.7rem;color: #333333;">正常：<span id="normal"></span>天</span></li>
+          		<li><span style="font-size: 0.7rem;color: #333333;">迟到：<span id="late"></span>次</span></li>
+          		<li><span style="font-size: 0.7rem;color: #333333;">早退：<span id="leave"></span>次</span></li>
+          	</ul></div>
+          	<div id="right">
+          	<ul>
+          		<li><span style="font-size: 0.7rem;color: #333333;">旷工：<span id="absenteesim"></span>天</span></li>
+          		<li><span style="font-size: 0.7rem;color: #333333;">漏签：<span id="miss"></span>次</span></li>
+          	</ul>
+          	</div>
+          	<div style="clear:both"></div>
+          </div>
+         </div>
+         <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+         <script type='text/javascript' src='../js/jquery.js'></script>
+         <script src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="test-calendar.js"></script>
+	<script type="text/javascript" src="../js/stringUtil.js"></script>
+	
+       </div>
+		<!--</div>
+		</div>
+		</div>
+		</div>
+		</div>-->
+	</body>
+</html>

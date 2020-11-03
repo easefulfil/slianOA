@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaCustomerAddressListMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    <id column="address_list_id" property="addressListId" jdbcType="INTEGER" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="corporate_name" property="corporateName" jdbcType="VARCHAR" />
+    <result column="post" property="post" jdbcType="VARCHAR" />
+    <result column="mobile_number" property="mobileNumber" jdbcType="VARCHAR" />
+    <result column="tel_number" property="telNumber" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="test" property="test" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    address_list_id, customer_name, corporate_name, post, mobile_number, tel_number, 
+    email, address, test
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_customer_address_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_customer_address_list
+    where address_list_id = #{addressListId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_customer_address_list
+    where address_list_id = #{addressListId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressListExample" >
+    delete from oa_customer_address_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    insert into oa_customer_address_list (address_list_id, customer_name, corporate_name, 
+      post, mobile_number, tel_number, 
+      email, address, test
+      )
+    values (#{addressListId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, #{corporateName,jdbcType=VARCHAR}, 
+      #{post,jdbcType=VARCHAR}, #{mobileNumber,jdbcType=VARCHAR}, #{telNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{test,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    insert into oa_customer_address_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressListId != null" >
+        address_list_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="corporateName != null" >
+        corporate_name,
+      </if>
+      <if test="post != null" >
+        post,
+      </if>
+      <if test="mobileNumber != null" >
+        mobile_number,
+      </if>
+      <if test="telNumber != null" >
+        tel_number,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="test != null" >
+        test,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressListId != null" >
+        #{addressListId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="corporateName != null" >
+        #{corporateName,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNumber != null" >
+        #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telNumber != null" >
+        #{telNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="test != null" >
+        #{test,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressListExample" resultType="java.lang.Integer" >
+    select count(*) from oa_customer_address_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_customer_address_list
+    <set >
+      <if test="record.addressListId != null" >
+        address_list_id = #{record.addressListId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.corporateName != null" >
+        corporate_name = #{record.corporateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.post != null" >
+        post = #{record.post,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobileNumber != null" >
+        mobile_number = #{record.mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telNumber != null" >
+        tel_number = #{record.telNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.test != null" >
+        test = #{record.test,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_customer_address_list
+    set address_list_id = #{record.addressListId,jdbcType=INTEGER},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      corporate_name = #{record.corporateName,jdbcType=VARCHAR},
+      post = #{record.post,jdbcType=VARCHAR},
+      mobile_number = #{record.mobileNumber,jdbcType=VARCHAR},
+      tel_number = #{record.telNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      test = #{record.test,jdbcType=NUMERIC}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    update oa_customer_address_list
+    <set >
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="corporateName != null" >
+        corporate_name = #{corporateName,jdbcType=VARCHAR},
+      </if>
+      <if test="post != null" >
+        post = #{post,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNumber != null" >
+        mobile_number = #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telNumber != null" >
+        tel_number = #{telNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="test != null" >
+        test = #{test,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where address_list_id = #{addressListId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    update oa_customer_address_list
+    set customer_name = #{customerName,jdbcType=VARCHAR},
+      corporate_name = #{corporateName,jdbcType=VARCHAR},
+      post = #{post,jdbcType=VARCHAR},
+      mobile_number = #{mobileNumber,jdbcType=VARCHAR},
+      tel_number = #{telNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      test = #{test,jdbcType=NUMERIC}
+    where address_list_id = #{addressListId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressList" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaCustomerAddressListExample" >
+    select a.* from oa_customer_address_list a where a.address_list_id in 
+ (select top ${pageSize} address_list_id from oa_customer_address_list 
+<include refid="select_by_page_outter_where_sql"/> 
+address_list_id not in (select top ${skipRecordCount} address_list_id from oa_customer_address_list  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)  
+  </select>
+</mapper>

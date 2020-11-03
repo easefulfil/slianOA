@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- <link rel="stylesheet" type="text/css" href="../../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../demo/demo.css">
+    <script src="../../jquery-easyui-1.3.6/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../jquery-easyui-1.3.6/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../../Exteasyui/datetimebox.js"></script> -->
+    <!--<script src="../framework/jquery-weui-build/dist/lib/jquery-2.1.4.js"></script>  -->
+    <script src="echarts.js"></script>
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script src="../js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+</head>
+<body ng-controller="getUserInfo" ng-app="bodyApp">
+<div ng-controller="myCtrl">
+	<div>
+    	<form>
+  			<label for="startdate">投诉日期：</label>
+  			<input id="startdate" type="text"  placeholder="请单击选择" />
+  			<label for="enddate">至</label>
+  			<input id="enddate" type="text"  placeholder="请单击选择" />
+
+  				<a id="search" iconCls="icon-search" onclick="search1();">查询</a>
+  				<a data-options="iconCls:'icon-undo'" onclick="clear1();">清空</a>
+  				
+  		</form>
+  		<br>
+  		<br>
+  	</div>
+    <div id="main" style="width:1000px;height: 480px;"></div>
+</div>
+    <script>
+    myApp.controller('myCtrl',function ($scope,$http,$location) {
+        $scope.user = localStorage.getItem('user');
+        
+        $scope.getData=function(para){
+        	
+            // 	 $("#main").empty();
+                 // 基于准备好的dom，初始化echarts实例
+                 
+                 // 指定图表的配置项和数据
+               var myChart = echarts.init(document.getElementById('main'));
+               var option = {
+         				title : {
+         					text : '投诉统计'
+         				},
+         				tooltip : {
+         					trigger : 'axis',
+         					axisPointer : {
+         						type : 'shadow'
+         					}
+         				},
+         				legend : {
+         					data : []//res.legend
+         				},
+         				grid : {
+         					left : '3%',
+         					right : '4%',
+         					bottom : '3%',
+         					containLabel : true
+         				},
+         				xAxis : {
+         					type : 'value',
+         					boundaryGap : [0,0.01]
+         				},
+         				yAxis : {
+         					type : 'category',
+         					data : []//res.category
+         				},
+         				minInterval: 1,
+         				series :[]// res.series
+         				
+         			};
+         					$.ajax({
+         						url :'/slianOA-pc-web/mobile-ajax/auth/analysisController/complaint.do',
+         						type : "POST",
+         						async : false,
+         						data : {
+         							"wechatAccount":$scope.user,
+         							'keys' : JSON.stringify(para)
+         						},
+         						dataType : "json",
+         						success : function(res) {
+         							/* console.log(res);
+         							console.log(res.legend);
+         							console.log(res.series[0]);
+         							console.log(res.series[1]); */
+         							option.legend.data=res.legend;
+         							option.yAxis.data=res.category;
+         							option.series= res.series;
+         							// 使用刚指定的配置项和数据显示图表。
+         							myChart.setOption(option);
+         							window.onresize = myChart.resize;
+         						},
+         						error : function(res) {
+         							//$.alert("系统错误，请刷新！");
+         							//wx.closeWindow();
+         							console.log(res);
+         						},
+         					});
+         					
+
+             }		
+        $scope.init=function(){
+        	var para = new Object();
+        	para["startDate"] = ""; 
+        	para["endDate"] = ""; 
+        	$scope.getData(para);
+        }
+        
+        $scope.init();
+        $scope.search1=function(){
+        	var para = new Object();
+        	para["startDate"] = $("#startdate").datebox('getValue'); 
+        	para["endDate"] = $("#enddate").datebox('getValue'); 
+        	$scope.getData(para);
+        }
+     
+        $scope.clear1=function(){
+        	 $("#startdate").datebox("setValue",'');
+        	 $("#enddate").datebox("setValue",'');
+        	 $scope.init();
+        }
+        
+    });
+    
+  
+				</script>
+</body>
+</html>

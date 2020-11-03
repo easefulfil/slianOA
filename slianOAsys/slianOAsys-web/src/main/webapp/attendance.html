@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" name="viewport" /> -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>   
+    <link rel='stylesheet' href="css/style2.css">
+    <link rel='stylesheet' href="css/swiper.min.css">  
+    <link rel="stylesheet" href="css/hDate.css"/>
+    <link rel="stylesheet" href="css/classes.css"/>
+    <link rel="stylesheet" href="css/jquery.datetimepicker.css"/>
+	  <script src="pagejs/jquery.js"></script>
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/swiper.min.js"></script>  
+    <script src="js/idangerous.swiper.min.js"></script> 
+	<script src="pagejs/attendance.js"></script> 
+	<script src="pagejs/attendancemonth.js"></script>
+	<script src="pagejs/attendancedetail.js"></script> 
+	<script src="pagejs/attendanceappeal.js"></script> 
+	<script src="pagejs/classes.js"></script> 
+	<script type="text/javascript" src="js/hDate.js"></script>
+	<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <title>组织结构</title>
+</head>
+<body>
+    <!-- header -->
+    <header class="favor-header-bar">
+        <ul class="tabs">
+            <li class="default"><a href="javascript:void(0);" id="btn1" hidefocus="true">考勤日报</a></li>
+            <li><a onclick="init_month()" href="javascript:void(0);" id="btn2" hidefocus="true">考勤月报</a></li>
+            <li><a onclick="init_detail_YI()" href="javascript:void(0);" id="btn3" hidefocus="true">考勤明细</a></li>
+            <li><a href="javascript:void(0);" id="btn3" hidefocus="true">排班管理</a></li>
+            <li><a href="javascript:void(0);" id="btn4" hidefocus="true">排班月报</a></li>
+            <li><a onclick="init_appeal()"href="javascript:void(0);" id="btn5" hidefocus="true">考勤申诉</a></li>
+            <li><a href="javascript:void(0);" id="btn6" hidefocus="true">设置</a></li>
+        </ul>
+    </header>
+   <!-- slideTo tab -->
+   <div class="swiper-container favor-list">
+        <div class="swiper-wrapper">
+<!------------------------------------------------------------考勤日报------------------------------------------ -->     
+
+            <div class="swiper-slide">
+                  <div class="low_1">
+                        <div class="function">
+                            <ul>
+                                <li ><span>导出</span></li>
+                                <li><span onclick="fuye()">补录</span></li>
+                                <li><span onclick="delete_1()">删除</span></li>
+                                <li>
+                                   <div class="search"><input id="1_quicksearch_byemployee" type="text"/><input onclick="searchByEmployee_1()" class="search_1" type="button"/></div>
+                                   <div class="AdvancedSearch" >高级<br>搜索</div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="current">
+                             <span class="current_1">当前数据：</span>
+                             
+                             	考勤规则：<span id="1_class_value">全部</span>;
+                             	考勤状态：<span id="1_attendance_total_status_value">全部</span>；
+                             	考勤时间：<span id="1_startdate_value">-</span> 
+                             	至 
+                             	<span id="1_enddate_value">-</span>;
+                             	部门：<span id="1_departName_value">全部</span>
+                             	
+                        </div>
+                        <div class="form">
+                            <table border="0" cellspacing="0" cellpadding="0" id="datagrid_1">
+                                <tbody>
+                                    <tr class="table_head" >
+                                        <th style="width:37px;"><input type="checkbox"></th>
+                                        <th style="width:100px;">账号</th>
+                                        <th>姓名</th>
+                                        <th>工号</th>
+                                        <th style="width:120px;">部门</th>
+                                        <th style="width:140px;">考勤日</th>
+                                        <th style="width:73px;">工作日</th>
+                                        <th style="width:160px;">签到-签退时间</th>
+                                        <th style="width: 90px;">工作时长<br/>（小时）</th>
+                                        <th>迟到<br/>（分钟）</th>
+                                        <th>早退<br/>（分钟）</th>
+                                        <th>加班<br/>（小时）</th>
+                                        <th>旷工<br/>（天）</th>
+                                        <th>外勤<br/>（次）</th>
+                                        <th>出差</th>
+                                        <th>请假</th>
+                                        <th style="width:150px;">考勤规则</th>
+                                        <th style="width:160px;">考勤时间段</th>
+                                        <th style="width:180px;">申述详情</th>
+                                        <th style="80px">操作</th>
+                                        <th class="xfcz xf_1" style="80px">操作</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="jump">
+                            <ul>
+                                <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+                                <li><div>总计<span id="1_totalRows"></span>条<span id="1_totalPages"></span>页</div></li>
+                                <li><div onclick="prepage()">上一页</div></li>
+                                <li><div onclick="nextpage()">下一页</div></li>
+                                <li><div onclick="lastpage()">尾页</div></li>
+                                <li>第<input id="1_pageIndex" type="text" />页</li>
+                                <li><div onclick="searchBypage()"><img src="images/fdj_2.png">跳转</div></li>
+                            </ul>
+                        </div>
+                  </div>
+                  <div class="low_2">
+                       <div>
+                           <span class="a_1">返回</span>
+                       </div>
+                       <p class="kqbl">考勤补录</p>
+                       <hr>
+                       <div class="lb">
+                           <ul>
+                               <li>
+                                   <div class="d_1">
+                                       <i>1</i>
+                                       <span>下载并填写《考勤补录批量导入模板》</span>
+                                    </div>
+                                   <a href="/slianOAsys-web/excel-format/excel1.xls" class="xz">点此下载《考勤补录批量导入模板》</a>
+                                   <p class="zy">请在下载下来的Excel文档里将对应字段信息输入或粘贴进去。为保障粘贴信息被有效导入，请使用纯文本或数字。</p>
+                               </li>
+                               <li>
+                                   <div class="d_1">
+                                        <i>2</i>
+                                        <span>导入编辑好的Excel文档（用户账号不能为空）</span>
+                                   </div>
+                                   <div class="gz">
+                                        <span>选择考勤规则：</span>
+                                        <select>
+                                            <option>请选择</option>
+                                            <option>新规则</option>
+                                            <option>数联考勤</option>
+                                        </select>
+                                        <form id="form1" method="post"
+                                        action="/slianOAsys-admin/attendance/importExcel.do"
+          								enctype="multipart/form-data">
+                                        <p class="sc">
+                                         <fieldset>
+                                            <input id="importfile1" type="file" name="clientFile"/>
+                                         </fieldset>
+                                        </p>
+                                        <span class="jg">!</span>
+                                        <span class="jg_2">
+                                            注：只能补录未考勤的签到/退，已考勤数据不受影响；通讯录导入模版已于2017年2月9日更新，请用户重新下载模版导入。
+                                        </span><br>
+                                        <span class="jg_3">
+                                            请选择编辑好的Excel文档，点击“批量导入”进行用户批量导入考勤补录
+                                            <span class="jg_4">(文件大小不能超过10M)</span>
+                                        </span><br>
+                                        <div class="pldr">
+                                        
+                                        <input type="submit" class="pldr_1" value="批量导入"></input>
+                                         <!--   
+                                         <input onclick="import_addition_record_excel()" class="pldr_1" value="批量导入"></input>
+                                         --> 
+                                        </div>
+                                        </form>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="d_1">
+                                        <i>3</i>
+                                        <span>导入结果</span>
+                                   </div>
+                               </li>
+                           </ul>
+                       </div>
+                  </div>
+            </div>
+<!------------------------------------------------------------考勤月报------------------------------------------ -->     
+            
+            <div class="swiper-slide">
+                        <div class="function_1">
+                            <ul>
+                                <li><span>导出</span></li>
+                                <li>
+                                   <div class="search2">
+                                   <input id="2_quicksearch_byemployee" placeholder="输入考勤人查找" type="text"/>
+                                   <input onclick="searchByEmployee_2()" class="search2_1" type="button"/></div>
+                                   <div class="AdvancedSearch2">高级<br>搜索</div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="current2">
+                             <span class="current2_1">当前数据：</span>
+                            	考勤规则：<span id="2_class_value">全部</span>;
+                             	考勤时间：<span id="2_startdate_value">-</span> 
+                             	至 
+                             	<span id="2_enddate_value">-</span>;
+                             	部门：<span id="2_departName_value">全部</span>
+                        </div>
+                        <div class="form">
+                            <table border="0" cellspacing="0" cellpadding="0" >
+                                <tbody id="datagrid_2">
+                             <!-- 
+                             <tr></tr>
+                                <tr class="table_head">
+                                        <th style="width:37px;"><input type="checkbox"></th>
+                                        <th  style="width:100px;">账号111</th>
+                                        <th >姓名</th>
+                                        <th >工号</th>
+                                        <th  style="width:150px;">部门</th>
+                                        <th  style="width:150px;">考勤规则</th>
+                                        <th >已选择<br/>（天）</th>
+                                        <th >应出勤<br/>（天）</th>
+                                        <th >实际出勤<br/>（天）</th>
+                                        <th>工作时长<br/>（小时）</th>
+                                        <th >标准时长<br/>（小时）</th>
+                                        <th >出差<br/>（天）</th>
+                                        <th >外勤<br/>（次）</th>
+                                        <th  style="width:120px;">
+                                           	  工作日加班时长<br/>（小时）
+                                        </th>
+                                        <th  style="width:130px;">
+                                           	  非工作日加班时长<br/>（小时）
+                                        </th>
+                                        <th  style="background-color:#eee;">迟到<br>（次）</th>
+                                        <th  style="background-color:#eee;">迟到<br>（分钟）</th>
+                                        <th  style="background-color:#eee;">早退<br>（次）</th>
+                                        <th  style="background-color:#eee;">早退<br>（分钟）</th>
+                                        <th>旷工<br/>（天）</th>
+                                        <th>事假<br/>（天）</th>
+                                        <th>病假<br/>（天）</th>
+                                        <th>论文答辩<br/>（天）</th>
+                                         <th style="width:180px;">3/1<br/>周三</th>
+                                        <th style="width:180px;">3/1<br/>周三</th>
+                                        <th style="width:180px;">3/1<br/>周三</th> 
+                                    </tr>
+                              -->   
+                                    
+                                </tbody>  
+                              
+                            </table>
+                        </div>
+                        <div class="jump">
+                            <ul>
+                                <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+                                <li><div>总计<span id="2_totalRows"></span>条<span id="2_totalPages"></span>页</div></li>
+                                <li><div onclick="prepage_2()">上一页</div></li>
+                                <li><div onclick="nextpage_2()">下一页</div></li>
+                                <li><div onclick="lastpage_2()">尾页</div></li>
+                                <li>第<input id="2_pageIndex" type="text" />页</li>
+                                <li><div onclick="searchBypage_2()"><img src="images/fdj_2.png">跳转</div></li>
+                            </ul>
+                        </div>                            
+            </div>
+<!------------------------------------------------------------考勤详情------------------------------------------ -->     
+            
+            <div class="swiper-slide">
+                  <div class="low_3">
+                        <div class="function3">
+                            <ul>
+                                <li><span onclick="exportExcel_3()">导出</span></li>
+                               <!-- 
+                               <li><span>补录</span></li>
+                                <li><span>删除</span></li>
+                                <li><span>获取未考勤</span></li>
+                                <li><span>获取考勤机未处理数据</span></li>
+                                -->
+                                
+                                <li>
+                                   <div class="search3"><input type="text"/><input class="search3_1" type="button"/></div>
+                                   <div class="AdvancedSearch3">高级<br>搜索</div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="yb1">
+                             <ul>
+                                 <li class="ys" onclick="init_detail_YI()">已考勤</li>
+                                 <li onclick="init_detail_WEI()">未考勤</li>
+                             </ul>
+                             <div class="clear"></div>
+                        </div>
+                        <div class="tlb1">
+                             <table border="0" cellspacing="0" cellpadding="0" id="datagrid_3_YI">
+                                 <tr>
+                                     <th style="width:30px"><input type="checkbox"></th>
+                                     <th style="width:100px">创建人</th>
+                                     <th style="width:150px">考勤日期</th>
+                                     <th>考勤状态</th>
+                                     <th>签到签退时间</th>
+                                     <th>考勤规则</th>
+                                     <th style="width:100px">操作</th>
+                                 </tr>
+                             </table>
+                             <div class="jump">
+                              <ul>
+                                <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+                                <li><div>总计<span id="3_totalRows_YI"></span>条<span id="3_totalPages_YI"></span>页</div></li>
+                                <li><div onclick="prepage_3_YI()">上一页</div></li>
+                                <li><div onclick="nextpage_3_YI()">下一页</div></li>
+                                <li><div onclick="lastpage_3_YI()">尾页</div></li>
+                                <li>第<input id="3_pageIndex_YI" type="text" />页</li>
+                                <li><div onclick="searchBypage_3_YI()"><img src="images/fdj_2.png">跳转</div></li>
+                            </ul>
+                            </div> 
+                        </div>
+                        <div class="tlb2">
+                             <table border="0" cellspacing="0" cellpadding="0" id="datagrid_3_WEI">
+                                 <tr>
+                                     <th style="width:30px"><input type="checkbox"></th>
+                                     <th style="width:260px">创建人</th>
+                                     <th style="width:150px">考勤日期</th>
+                                     <th>考勤状态</th>
+                                     <th>是否请假</th>
+                                     <th>考勤规则</th>
+                                 </tr>
+                                 <tr>
+                                     <th><input type="checkbox"></th>
+                                     <td>王二狗</td>
+                                     <td class="ellipsis">2017-03-29</td>
+                                     <td>异常</td>
+                                     <td>已请假</td>
+                                     <td>新考勤</td>
+                                 </tr>
+                             </table>
+                             <div class="jump">
+                                <ul>
+	                                <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+	                                <li><div>总计<span id="3_totalRows_WEI"></span>条<span id="3_totalPages_WEI"></span>页</div></li>
+	                                <li><div onclick="prepage_3_WEI()">上一页</div></li>
+	                                <li><div onclick="nextpage_3_WEI()">下一页</div></li>
+	                                <li><div onclick="lastpage_3_WEI()">尾页</div></li>
+	                                <li>第<input id="3_pageIndex_WEI" type="text" />页</li>
+	                                <li><div onclick="searchBypage_3_WEI()"><img src="images/fdj_2.png">跳转</div></li>
+                            </ul>
+                            </div> 
+                        </div>
+                   </div>
+                   <div class="low_4">
+                       <div>
+                           <span class="a_2">返回</span>
+                       </div>
+                       <p class="kqbl">考勤补录</p>
+                       <hr>
+                       <div class="lb">
+                           <ul>
+                               <li>
+                                   <div class="d_1">
+                                       <i>1</i>
+                                       <span>下载并填写《考勤补录批量导入模板》</span>
+                                    </div>
+                                   <a href="#" class="xz">点此下载《考勤补录批量导入模板》</a>
+                                   <p class="zy">请在下载下来的Excel文档里将对应字段信息输入或粘贴进去。为保障粘贴信息被有效导入，请使用纯文本或数字。</p>
+                               </li>
+                               <li>
+                                   <div class="d_1">
+                                        <i>2</i>
+                                        <span>导入编辑好的Excel文档（用户账号不能为空）</span>
+                                   </div>
+                                   <div class="gz">
+                                        <span>选择考勤规则：</span>
+                                        <select>
+                                            <option>请选择</option>
+                                            <option>新规则</option>
+                                            <option>数联考勤</option>
+                                        </select>
+                                        <p class="sc">
+                                            <input type="file" name="upload" />
+                                        </p>
+                                        <span class="jg">!</span>
+                                        <span class="jg_2">
+                                            注：只能补录未考勤的签到/退，已考勤数据不受影响；通讯录导入模版已于2017年2月9日更新，请用户重新下载模版导入。
+                                        </span><br>
+                                        <span class="jg_3">
+                                            请选择编辑好的Excel文档，点击“批量导入”进行用户批量导入考勤补录
+                                            <span class="jg_4">(文件大小不能超过10M)</span>
+                                        </span><br>
+                                        <div class="pldr">
+                                            <span class="pldr_1" onclick="import_addition_record_excel()">批量导入</span>
+                                        </div>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="d_1">
+                                        <i>3</i>
+                                        <span>导入结果</span>
+                                   </div>
+                               </li>
+                           </ul>
+                       </div>
+                  </div>
+            </div>
+            <div class="swiper-slide">
+                666
+            </div>
+            <div class="swiper-slide">
+                777                              
+            </div>
+<!------------------------------------------------------------考勤申诉------------------------------------------ -->     
+            
+            <div class="swiper-slide">
+                <div class="function4">
+                            <ul>
+                                <li><span onclick="exportExcel_4()">导出</span></li>
+                                <li>
+                                   <div class="search4"><input type="text"/><input class="search4_1" type="button"/></div>
+                                   <div class="AdvancedSearch4">高级<br>搜索</div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="tlb1">
+                             <table border="0" cellspacing="0" cellpadding="0" id="datagrid_4">
+                                 <tr>
+                                     <th style="width:30px"><input type="checkbox"></th>
+                                     <th style="width:50px">姓名</th>
+                                     <th style="width:80px">账号</th>
+                                     <th style="width:130px">部门</th>
+                                     <th style="width:130px">考勤日</th>
+                                     <th style="width:170px">异常情况</th>
+                                     <th style="width:60px">审批状态</th>
+                                     <th style="width:80px">操作</th>
+                                 </tr>
+                                 <tr>
+                                     <th><input type="checkbox"></th>
+                                     <td class="ellipsis" title="">王二狗</td>
+                                     <td class="ellipsis" title="">kkkkkk</td>
+                                     <td class="ellipsis" title="">互联网应用研发部</td>
+                                     <td class="ellipsis" title="">2017-03-21 周二</td>
+                                     <td class="ellipsis" title="">17:30 漏签</td>
+                                     <td class="ellipsis" title="">审批通过</td>
+                                     <td>
+                                          <span class="czan2">操作<img src="images/cz.png"></span>
+                                          <div>
+                                              <a href="details2.html">考勤详情</a>
+                                          </div>
+                                     </td>
+                                 </tr>
+                             </table>
+                             <div class="jump">
+                                <ul>
+                                    <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+                                    <li><div>总计<span id="4_totalRows"></span>条<span id="4_totalPages"></span>页</div></li>
+                                    <li><div>上一页</div></li>
+                                    <li><div>下一页</div></li>
+                                    <li><div>尾页</div></li>
+                                    <li>第<input type="text" id="4_pageIndex"/>页</li>
+                                    <li><div><img src="images/fdj_2.png">跳转</div></li>
+                                </ul>
+                            </div> 
+                        </div>
+            </div>
+<!------------------------------------------------------------设置------------------------------------------ -->     
+<div class="swiper-slide">
+    <div class="setup">
+        <ul>
+            <li>
+                <div class="setup_1">
+                     <div>考勤规则</div>
+                     <p class="c999 mt5">   
+                      	   通过规则设置参加考勤的对象、签到签退的时间、地点、以及工作日等信息
+                     </p>
+                 </div>
+                 <a class="setup_r gzgl" onclick="management()">管理</a>
+                 <span class="separate_set mr10">|</span>
+                 <a class="setup_r mr10 xzgz">新增规则</a>
+            </li>
+        </ul>
+    </div>
+    <div class="setup2" style="display:none;">
+     <div class="topMainBar clearfix">
+         <div class="fl flMainBar">
+             <a class="btn twoBtn gzfh">返回</a>
+         </div>
+         <div class="clear"></div>
+     </div>
+     <div class="cPage">
+         <div class="solid"></div>
+         <div class="cMain kaoq_Rule">
+             <form class="form new_form">
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                       	  类型：
+                     </div>
+                     <div class="form-field">
+                        <input type="radio" name="PO.checkType" id="checkType0" class="mr10"/>
+                        <label class="mr20" for="checkType0">固定规则</label>
+                        <input type="radio" name="PO.checkType" id="checkType1" class="mr10"/>
+                        <label class="mr20" for="checkType1">排班规则</label>
+                     </div>
+                 </div>
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                       	  规则名称：
+                     </div>
+                     <div class="form-field">
+                        <input id="classname_5" type="text" name="PO.checkType" placeholder="填写名称（最多20个字）" maxlength="20" class="form-text inputNum"/>
+                     </div>
+                 </div>
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                        	 简称：
+                     </div>
+                     <div class="form-field">
+                        <input type="text" name="PO.checkType" placeholder maxlength="1" class="form-text input-text m10 inputNum"/>
+                     </div>
+                     <div class="form-field c999 mt5">
+                       	  用于排班管理列表显示，如早班可简称“早”
+                     </div>
+                 </div>
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                       	  分组：
+                     </div>
+                     <div>
+                         <div class="form-field groupSelect">
+                            <input type="radio" checked="true">
+                            <input type="text" maxlength="20" placeholder="填写分组名称（最多20个字）" class="form-text inputNum input-text m10" style="margin-left: 0px; width: 244px; padding: 3px 46px 3px 4px;" />
+                         </div>
+                     </div>
+                     <div class="form-field c999 mt5">
+                      	   用于排班管理时快速查找，如相同地点的考勤规则可分为“A连锁店”“C工厂”
+                     </div>
+                 </div>
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                      	   列表排序：
+                     </div>
+                     <div class="form-field">
+                        <input type="number" name="PO.checkType" value="1" placeholder   
+                        style="margin-left: 0px;" class="form-text input-text w40 m10"/>
+                     </div>
+                 </div>
+                 <div class="form-item">
+                     <div class="title">
+                         <span class="mustInput">*</span>
+                        	 考勤对象：
+               </div>
+               <div class="form-id-num-wrap">
+                  <div class="label_radio active">
+                      <input type="radio" id="radio_all" name="a1" class="radio_all" checked="checked">
+                      <label for="radio_all" id="radio_all_id">所有人</label>
+                  </div>
+                  <div class="label_radio">
+                      <input type="radio" id="radio_specified" name="a1" class="radio_specified">
+                      <label for="radio_specified" id="radio_specified_id"> 特定对象</label>
+                  </div>
+                  <input type="hidden" id="deptIds" name="deptIds" class="deptIds"/>
+                  <input type="hidden" id="userIds" name="userIds" class="userIds">
+                  <input type="hidden" id="range" name="range" class="range" value="1">
+                  <input type="hidden" class="ConfiIndex" value="0">
+               </div>
+               <div id="chooseDeptAndUs"  class="form-field chooseDeptAndUs">
+                   <div class="clear-fix">
+                          <span class="addDeptUser addto" onclick="init_department_5()">添加</span>
+                       		   已选
+                          <span class="blue ml5 selectedDept">0</span> 
+                          部门，<span class="blue selectedUser">0</span>
+                          成员<span class="clearSelected">清空已选</span>
+                   </div>
+                   <div class="selected">
+                       <div class="append_item">
+                          <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon.png">
+                          未分配部门人员<input type="hidden" value="f661ccfca34449f6a4d85ad690d0059e">
+                          <span class="close">×</span>
+                       </div>
+                       <div class="tagList"></div>
+                       <div class="personnelList"></div>
+                   </div>
+               </div>
+               <div class="form-field c999 mt5">
+                	   能使用该规则的人员
+               </div>
+               <div class="dashed mt30 mb30"></div>
+           </div>
+           <div class="form-item">
+               <div class="title">
+                 	  按位置考勤：
+               </div>
+               <div class="form-field">
+                   <a class="btn twoBtn tjwz" onclick="init_location()">添加位置</a>
+                   <div class="form-des checkwork-p-list">
+                       <div id="baiduMapBtn"></div>
+                   </div>
+               </div>
+               <div class="form-field c999 mt5">
+                   <div class="mapItem1" id="isOutrangecheckDiv" style="display:none;">
+                        <input class="h15" type="checkbox" name="tbCheckWorkRolePO.isOutrangecheck" id="isOutrangecheck" value="1" checked="checked">不在范围内时也可以打卡
+                   </div>
+               </div>
+           </div>
+           <div class="form-item">
+               <div class="title">
+				按IP考勤：
+                 </div>
+                 <div class="form-field">
+                     <input type="text" name="tbCheckWorkRolePO.checkIp" id="checkIp" placeholder="0.0.0.0" class="form-text fl">
+                     <div class="tipsBox" style="line-height: 30px;"></div>
+              </div>
+              <div class="form-field c999 mt10">
+                  <div class="mapItem1" id="isOutipCheckDiv" style="display: none;"><input class="h15" type="checkbox" name="tbCheckWorkRolePO.isOutipCheck" id="isOutipCheck" value="1" checked="checked">不在IP范围时也可考勤（不强制禁止，仅记录实际考勤IP）</div>
+              </div>
+          </div>
+          <div class="form-item">
+              <div class="title">
+                	  摇一摇考勤：
+              </div>
+              <div class="form-field fRed">
+                  <div class="switch width-40per w40 fl">
+                      <p class="on-off off" onvalue="0" offvalue="1" id="isShakeSwitch"></p>
+                      <input type="hidden" name="tbCheckWorkRolePO.isShake" value="1">
+                  </div>
+                  <div class="clear"></div>
+              </div>
+          </div>
+          <div class="form-item" style="" showon="1==1">
+              <div class="title">智能考勤机：</div>
+              <div class="form-field ">
+                  <div class="switch w40 iblock fl">
+                      <p class="on-off on" onvalue="1" offvalue="0" id="machineSignSwitch"></p>
+                      <input type="hidden" name="tbCheckWorkRolePO.isUseMachineSign" id="isUseMachineSign" value="0">
+                  </div>
+              </div>
+              <div class="clear"></div>
+          </div>
+          <div class="dashed mt30 mb30"></div>
+          <div class="timeAxisWrap mb20">
+             <div class="timeAxisBox">
+                  <div class="starAxis">
+                       <span class="fz20 c999">06:00</span>
+                       <span class="fz12 c999">新的一天</span>
+                  </div>
+                  <div class="flex axis">
+                     <div class="flexItem">
+                        <div class="kq_item qiandaoBox" style="width:225px;margin-left:112.5px">
+                           <div class="kq">
+                              <span class="fz20">09:00</span>
+                              <span class="fz12">签到</span>
+                           </div> 
+                           <div class="kqText"></div>
+                        </div>
+                        <div class="kq_item qiantuiBox" style="width:225px;margin-left:225px"> 
+                           <div class="kq">
+                                <span class="fz20">18:00</span>
+                                <span class="fz12">签退</span>
+                           </div>   
+                           <div class="kqText"></div>
+                        </div> 
+                        </div>
+                   </div>
+                   <div class="endAxis"> 
+                      <span class="fz20 c999">05:59</span>
+                      <span class="fz12 c999">一天结束</span>
+                   </div>
+             </div>
+          </div>
+          <div class="form-item">
+              <div class="title">
+                 	 弹性工作制：
+              </div>
+              <div class="form-field fRed">
+                  <div class="switch width-40per w40">
+                      <p class="on-off off" onvalue="1" offvalue="0" id="elasticSwitch"></p>
+                      <input type="hidden" name="tbCheckWorkRolePO.isElastic" id="isElastic" value="0">
+                  </div>
+              </div>
+          </div>
+          <div class="form-item" style="" id="elasticWorkHourDiv">
+              <div class="title">
+                  <span class="mustInput">*</span>弹性工作时长：
+              </div>
+              <div class="form-field">
+                 	 当天工作满
+                  <input type="text" id="elasticWorkHour" name="tbCheckWorkRolePO.elasticWorkHour"  placeholder="只能填（0~23.9" value="8" class="form-text input-text w60 ml5">小时就属于考勤正常 
+              </div>
+          </div>
+          <div class="form-item">
+              <div class="title">
+                  <span class="mustInput">*</span>考勤开始时间：
+              </div>
+      	        <div class="form-field">
+               	   每天
+                  <input type="text" name="tbCheckWorkRolePO.refreshTime" id="newStart" class="form-text w60 m15" value="6:00">
+                	  开始新的一天考勤
+                  <span id="newSignTimeMsgObj" class="c999" style="display:none;">（排班规则必须使用同一个开始时间）
+                  </span>
+              </div>
+          </div>
+          <div class="form-item">
+              <div class="title">
+                  <span class="mustInput">*</span>考勤时间段：
+              </div>
+              <div class="form-field c999 mt5">
+                	  按时间顺序填写，总时间24小时，建议时间段间隔30分钟以上
+              </div>
+              <div class="appendRoot form-field">
+                  <div class="form-item-bg f14 overflow mt10">
+                      <div class="form-item-bgf6f5f4 w700">
+                          <div class="form-item">
+                              <div class="">
+                                  <div class="">
+                                      <span class="mustInput">*</span>
+                                    	  签到时间：
+                                      <input id="starttime_5" type="text" name="signIns" placeholder="选择时间" class="tac form-text w60" id="activityStart" value="09:00" style="padding: 4px;">；
+                                    	  允许延迟
+                                      <input type="number" name="inDelayMinutes" id="inDelayMinutes" class="form-text w40" value="0" style="padding: 4px;"> 
+                                    	  分钟； 只允许在
+                                      <input id="signinstart_5" type="text" name="isSignInsStartTime" placeholder="选择时间" class="tac form-text w60" id="isSignInsStartTime" value="09:00" style="padding: 4px;">
+                                      -
+                                      <input id="signinend_5" type="text" name="isSignInsEndTime" placeholder="选择时间" class="tac form-text w60" id="isSignInsEndTime" value="09:00" style="padding: 4px;">
+                                   	   签到
+                                  </div>
+                                  <div class="mt5">
+                                      <input type="checkbox" name="isSigninRemindCh" id="isSigninRemindCh" checked="true" class="ml90">
+                                      &nbsp;提前 
+                                      <input type="number" name="inRemindMinutes" id="inRemindMinutes" class="form-text w40" value="10" style="padding: 4px;">
+                                    	  分钟发送提醒； 
+                                      <input type="hidden" name="isSigninRemind" id="strIsSigninRemind" value="1" style="padding: 4px;"> 
+                                      <input type="hidden" name="inIds" id="inIds" value="" style="padding: 4px;"> 
+                                      <a href="javascript:void(0);">内容设置</a>
+                                      <div style="display:none;">
+                                           <textarea name="signinRemindContent" id="signinRemindContent">
+                                           </textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-item">
+                              <div class="">
+                                  <div class="">
+                                      <span class="mustInput">*</span>
+                                    	  签退时间：
+                                      <input id="endtime_5" type="text" name="signOuts" placeholder="选择时间" class="tac form-text w60" id="registryStop" value="18:00" style="padding: 4px;">
+                                     	 ；允许提前
+                                      <input type="number" name="outDelayMinutes" id="outDelayMinutes" class="form-text w40" value="0" style="padding: 4px;"> 
+                                     	 分钟； 只允许在
+                                      <input id="signoffstart_5" type="text" name="isSignOutsStartTime" placeholder="选择时间" class="tac form-text w60" id="isSignOutsStartTime" value="18:00" onchange="showSignTime();" style="padding: 4px;">
+                                      -
+                                      <input id="signoffend_5" type="text" name="isSignOutsEndTime" placeholder="选择时间" class="tac form-text w60" id="isSignOutsEndTime" value="18:00" style="padding:4px;">
+                                   	  签退
+                                  </div>
+                                  <div class="mt5">
+                                      <input type="checkbox" name="isSignoutRemindCh" id="isSignoutRemindCh" checked="true" class="ml90">
+                                      &nbsp;延迟 
+             	                      <input type="number" name="outRemindMinutes" id="outRemindMinutes" class="form-text w40" value="10" style="padding: 4px;">
+                                    	  分钟发送提醒； 
+                                      <input type="hidden" name="isSignoutRemind" id="strIsSignoutRemind" value="1" style="padding: 4px;"> 
+                                      <input type="hidden" name="outIds" id="outIds" value=""> 
+                                      <a href="#">
+                                    	  内容设置
+                                      </a>
+                                      <div style="display:none;">
+                                          <textarea name="signoutRemindContent" id="signoutRemindContent">
+                                          </textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="add_icon vt mt80" id="signAddDiv">
+                          <i>+</i>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="mt20"></div>
+          <div class="form-item">
+              <div class="title">
+                  <span class="mustInput">*</span>休息时间：
+              </div>
+              <div class="form-field">
+                	  统计当天工作时长时，在已考勤的时间里减去
+                	  <input type="text" name="tbCheckWorkRolePO.restTime" id="restTime" placeholder="0~23.99" class="form-text w60 m15" value="0">小时
+              </div>
+          </div>
+          <div class="form-item">
+              <div class="title">
+                 	 加班时间：
+              </div>
+              <div class="form-field">
+                  最后一个应签退时间的<input type="text" name="tbCheckWorkRolePO.overTime" id="overTime" placeholder="0~23.99" class="form-text w60 m15" value="0">小时之后，开始算加班
+              </div>
+          </div>
+          <div class="dashed mt30 mb30"></div>
+          <div class="form-item" id="monthDiv" style="">
+              <div class="title">
+                 	 考勤月度范围：
+              </div>
+              <div class="form-field">
+                  每月<input type="number" name="tbCheckWorkRolePO.monthStartDate" id="monthStartDate" value="1" class="form-text w40 ml5 min1">号
+                  至<select name="tbCheckWorkRolePO.monthEndType" id="yuefen" size="1" class="inline-ele">
+                      <option value="1">当月</option>
+                      <option value="2">次月</option>
+                  </select> <input type="number" name="tbCheckWorkRolePO.monthEndDate" id="monthEndDate" value="31" class="form-text w40 min1">号
+              </div>
+          </div>
+          <div class="form-item" id="workDateDiv" style="">
+              <div class="title">
+                  <span class="mustInput">*</span>工作日设置：
+              </div>
+              <div class="form-field c999 mt5">
+                	  用于判断考勤日以及提醒；【排除日期】可添加具体假期、自定义假日；【增加日期】可添加补班日期
+              </div>
+              <div class="form-field mt10">
+                  <div class="form-item-bgf6f5f4 w94p">
+                      <div class="form-item f14">
+                          <div class="">
+                              <label class="week" id="workDateLabel1">
+                                 <input id="ismonday_5" type="checkbox" name="workDates" id="workDate1" value="1" class="mr10 rq" checked="checked">星期一 
+                              </label> 
+                              <label class="week" id="workDateLabel2">
+                                 <input id="istuesday_5" type="checkbox" name="workDates" id="workDate2" value="2" class="ml10 mr5 rq" checked="checked">星期二 
+                              </label> 
+                              <label class="week" id="workDateLabel3">
+                                 <input id="iswednesday_5" type="checkbox" name="workDates" id="workDate3" value="3" class="ml10 mr5 rq" checked="checked">星期三
+                              </label> 
+                              <label class="week" id="workDateLabel4">
+                                 <input id="isthursday_5" type="checkbox" name="workDates" id="workDate4" value="4" class="ml10 mr5 rq" checked="checked">星期四 
+                              </label> 
+                              <label class="week" id="workDateLabel5">
+                                 <input id="isfriday_5" type="checkbox" name="workDates" id="workDate5" value="5" class="ml10 mr5 rq" checked="checked">星期五
+                              </label> 
+                              <label class="week" id="workDateLabel6">
+                                  <input id="issaturday_5" type="checkbox" name="workDates" id="workDate6" value="6" class="ml10 mr5 rq" >星期六 
+                               </label> 
+                               <label class="week" id="workDateLabel7">
+                                  <input id="issunday_5" type="checkbox" name="workDates" id="workDate7" value="7" class="ml10 mr5 rq">星期日
+                              </label>
+                          </div>
+                      </div>
+                      <div class="dashed mb15"></div>
+                      <div class="form-item form-item-date">
+                          <div class="mb10">
+                              <label for="" class="fl mr10"> 排除日期：</label>
+                              <div class="dateInspect">
+                                  <input id="d5221" class="form-text w80 ml0 paichu tcenter" type="text" placeholder="选择日期" > 
+                                 	 至
+                                  <input id="d5222" class="form-text w80 paichu tcenter" type="text" placeholder="选择日期"> 
+                                  <a class="btn twoBtn vm ml10 add">添加</a> 
+                                  <a class="btn twoBtn vm ml10" href="#" id="addLegalShow" style="outline: none;">
+                                	    添加法定假日
+                                  </a> 
+                                  <a class="btn twoBtn vm ml10" href="#"id="addLegalNone" style="outline: none;display: none;">添加法定假日
+                                  </a>
+                              </div>
+                          </div>
+                          <ul class="appendDiv ml80" id="minusDiv">
+                          </ul>
+                          <label class="ml80">
+                             <input type="checkbox" name="minusIsUseToRole" value="0" class="mr5">
+                           	  应用到所有规则
+                         <span class="c999">（发布后快速添加到其他的规则）
+                         </span>
+                      </label>
+                  </div>
+                  <div class="dashed mb15"></div>
+                  <div class="form-item form-item-date">
+                      <div class="mb10">
+                          <label for="" class="fl mr10"> 增加日期：</label>
+                          <div class="dateInspect">
+                              <input id="d5223" class="form-text w80 ml0 tianjia tcenter" type="text" placeholder="选择日期"> 至 
+                              <input id="d5224" class="form-text w80 tianjia tcenter" type="text" placeholder="选择日期" > 
+                              <a class="btn twoBtn vm ml10 add1">添加</a>
+                          </div>
+                      </div>
+                      <ul class="appendDiv ml80" id="addDiv">
+                      </ul>
+                      <label class="ml80"><input type="checkbox" name="addIsUseToRole" value="0" class="mr5">应用到所有规则
+                        <span class="c999">（发布后快速添加到其他的规则）</span>
+                      </label>
+                  </div>
+              </div>
+          </div>
+          <div class="clear"></div>
+      </div>
+      <div class="form-item" id="isEditGiven">
+          <div class="title">
+              	考勤异常通知对象：
+          </div>
+          <div class="form-id-num-wrap">
+               <input type="hidden" id="givenUserIds" name="givenUserIds" class="userIds">
+               <input type="hidden" class="ConfiIndex" value="1">
+          </div>
+          <div id="chooseGivenUser" class="form-field chooseDeptAndUs">
+                <div class="clear-fix">
+                    <span class="addDeptUser">添加</span>
+                   	  已选
+                    <span class="blue selectedUser ml5">0</span> 
+                   	  成员
+                    <span class="clearSelected">清空已选</span>
+                </div>
+          </div>
+      </div>
+      <div class="form-field c999 mt5">
+        	  设置通知的对象之后，微信端或者考勤机考勤出现异常，通知设置的对象
+          <span class="fRed" id="noEditGivenMessage" style="display:none;">（只有创建人能修改）
+          </span>
+      </div>
+      <div class="form-field mt5">
+          <input type="checkbox" name="tbCheckWorkRolePO.isSendDepartHead" value="1" class="mr5" style="vertical-align: sub;">考勤异常自动通知部门负责人
+      </div>
+      <div class="form-action tcform_action">
+          <input permission="checkworkAdd" type="button" class="btn blueBtn mr10" value="保存草稿" id="saveShow" >
+          <input permission="checkworkPublish" type="button" class="btn blueBtn twoBtn" value="发布" id="publishShow" >
+          <input permission="checkworkAdd" type="button" class="btn blueBtn mr10" value="保存草稿" style="display: none;" id="saveHide">
+          <input permission="checkworkPublish" type="button" class="btn blueBtn twoBtn" value="发布" style="display: none;" id="publishHide">
+        </div>
+            </form>
+        </div>
+    </div>
+</div>
+   <div class="gzgl_1">
+           <div class="function5">
+               <ul>
+                   <li><span>返回</span></li>
+                   <li><span class="xjgz">新建规则</span></li>
+                   <li><span onclick="delete_5()">删除</span></li>
+                   <li>
+                      <div class="search5">
+                           <input type="text" placeholder="输入规则名称关键词"/><input class="search5_1" type="button"/>
+                      </div>
+                      <div class="AdvancedSearch5">高级<br>搜索</div>
+                   </li>
+               </ul>
+               <div class="clear"></div>
+           </div>
+           <div class="tlb1">
+                <table border="0" cellspacing="0" cellpadding="0" id="datagrid_5">
+                    <tr>
+                        <th style="width:30px"><input type="checkbox"></th>
+                        <th style="width:140px">规则名称</th>
+                        <th style="width:160px">目标对象</th>
+                        <th style="width:130px">工作日</th>
+                        <th style="width:40px">状态</th>
+                        <th style="width:95px">创建时间</th>
+                        <th style="width:120px">考勤机</th>
+                        <th style="width:110px">操作</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td class="ellipsis">新考勤</td>
+                        <td class="ellipsis">数据服务部、综合部、互联网应用研发部</td>
+                        <td class="ellipsis">星期一、星期二、星期三、星期四、星期五</td>
+                        <td>启用</td>
+                        <td class="ellipsis">2016-07-28 11:58:27</td>
+                        <td class="ellipsis"></td>
+                        <td>
+                            <span class="czan">操作<img src="images/cz.png"></span>
+                            <div>
+                                 <a>禁用</a>
+                                 <a>浏览</a>
+                                 <a>复制</a>
+                                 <a id="update_class_5">编辑</a>
+                                 <a>删除</a>
+                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td class="ellipsis">数联考勤</td>
+                        <td class="ellipsis">数据服务部、综合部、互联网应用研发部</td>
+                        <td class="ellipsis">星期一、星期二、星期三、星期四、星期五</td>
+                        <td>禁用</td>
+                        <td class="ellipsis">2016-07-28 11:58:27</td>
+                        <td class="ellipsis"></td>
+                        <td>
+                            <span class="czan">操作<img src="images/cz.png"></span>
+                            <div>
+                                 <a>禁用</a>
+                                 <a>浏览</a>
+                                 <a>复制</a>
+                                 <a>编辑</a>
+                                 <a>删除</a>
+                             </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="jump">
+                   <ul>
+                       <li>每页显示<input type="text" value="10" readonly="readonly"/>条</li>
+                       <li><div>总计<span id="5_totalRows"></span>条<span id="5_totalPages"></span>页</div></li>
+                       <li><div onclick="prepage_5()">上一页</div></li>
+                       <li><div onclick="nextpage_5()">下一页</div></li>
+                       <li><div>尾页</div></li>
+                       <li>第<input type="text" id="5_pageIndex"/>页</li>
+                       <li><div><img src="images/fdj_2.png">跳转</div></li>
+                   </ul>
+               </div> 
+           </div>
+   </div>
+</div>
+<!------------------------------------------------------------设置结束------------------------------------------ -->     
+        </div>
+   </div>
+<!------------------------------------------------------------swper结束------------------------------------------ -->     
+ 
+   <!-- 日报导出弹出框 -->
+   <div class="prompt">
+      <div class="prompt_1">
+           <p>提示<span>x</span></p>
+           <hr>
+           <div class="nr">
+               本操作将导出  规则：<span id="1_excel_class_value">全部</span>;
+     考勤状态：<span id="1_excel_attendance_total_status_value">全部</span>；
+  考勤时间：<span id="1_excel_startdate_value">-</span> 
+ 至 <span id="1_excel_enddate_value">-</span>;
+ 部门：<span id="1_excel_departName_value">全部</span>的数据
+     <p>（如需其他数据请通过【高级搜索】筛选）</p>
+           </div>
+           <div class="an"><span onclick="exportExcel_1()">确定导出</span><span>取消</span></div>
+       </div>
+   </div>
+   <!--月报导出弹出框 -->
+   <div class="prompt2">
+      <div class="prompt2_1">
+           <p>提示<span>x</span></p>
+           <hr>
+           <div class="nr2">
+               本操作将导出 全部规则、全部考勤、2017-02-27 至 2017-03-27、全部部门 的数据
+               <p>（如需其他数据请通过【高级搜索】筛选）</p>
+           </div>
+           <div class="an2"><span>确定导出</span><span>取消</span></div>
+       </div>
+   </div>
+<!--考勤明细出弹出框 -->
+   <div class="prompt3">
+      <div class="prompt3_1">
+           <p>提示<span>x</span></p>
+           <hr>
+           <div class="nr3">
+               本操作将导出 全部规则、全部考勤、2017-02-27 至 2017-03-27、全部部门 的数据
+               <p>（如需其他数据请通过【高级搜索】筛选）</p>
+           </div>
+           <div class="an3"><span>确定导出</span><span>取消</span></div>
+       </div>
+   </div>
+   <!--考勤申诉出弹出框 -->
+   <div class="prompt4">
+      <div class="prompt4_1">
+           <p>提示<span>x</span></p>
+           <hr>
+           <div class="nr4">
+               本操作将导出 全部规则、全部考勤、2017-02-27 至 2017-03-27、全部部门 的数据
+               <p>（如需其他数据请通过【高级搜索】筛选）</p>
+           </div>
+           <div class="an4"><span>确定导出</span><span>取消</span></div>
+       </div>
+   </div>
+   
+   <!-- 批量导出弹出框 1-->
+   <div class="batch">
+       <div class="batch_1">
+           <p><span>x</span></p>
+           <p class="wb">请选择要上传的文件</p>
+           <span class="qd">确定</span>
+       </div>
+   </div>
+   <!-- 批量导出弹出框 2-->
+   <div class="cw">
+       <div class="cw_1">
+           <p><span>错误提示</span><span>x</span></p>
+           <p class="wb">请检查你选择的文件!</p>
+           <span class="qd_1">确定</span>
+       </div>
+   </div>
+
+   <!-- 日报高级搜索弹出框 -->
+   <div class="gjss">
+       <p  class="gjss1">高级搜索<span>x</span></p>
+       <div class="gjss_1">
+          <form id="1_searchForm">
+          
+               <table>
+                   <tr>
+                   
+                   <td>考勤规则:</td>
+                       <td>
+                           <select id="1_classes">
+                               
+                           </select>
+                       </td> 
+                   </tr>
+                   <tr>
+                       <td>创建人:</td>
+                       <td>
+                            <input id="1_employeeName" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤状态:</td>
+                       <td>
+                           <select id="1_attendance_total_status">
+                               <option>全部</option>
+                               <option>正常</option>
+                               <option>异常</option>
+                           </select>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤时间:</td>
+                      <td>
+                            <input id="Text1" onClick="calendar.show({ id: this })" type="text"/>至
+                            <input id="Text2" onClick="calendar.show({ id: this })" type="text"/>
+                       </td>
+
+                   </tr>
+                   <tr>
+                       <td>部门:</td>
+                       <td>
+                            <input id="1_departName" type="text"/>
+                       </td>
+                   </tr>
+               </table>
+               <div class="gjss_2">
+                   <input  onclick="searchBycondition_1()" value="提交"/>
+                   <input type="reset" value="重置"/>
+                   <input type="button" value="取消" />
+               </div>
+           </form>
+       </div>
+   </div>
+   <!--月报高级搜索弹出框 -->
+   <div class="gjss2">
+       <p  class="gjss21">高级搜索<span>x</span></p>
+       <div class="gjss2_1">
+          <form>
+               <table>
+                   <tr>
+                       <td>考勤规则:</td>
+                       <td>
+                            <select id="2_classes">
+                               
+                           </select>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤人:</td>
+                       <td>
+                            <input id="2_employeeName" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤时间:</td>
+                       <td>
+                            <input id="Text3" onClick="calendar.show({ id: this })" type="text"/>至
+                            <input id="Text4" onClick="calendar.show({ id: this })" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>部门:</td>
+                       <td>
+                            <input id="2_departName" type="text"/>
+                       </td>
+                   </tr>
+               </table>
+               <div class="gjss2_2">
+                   <input onclick="searchBycondition_2()" value="提交"/>
+                   <input type="reset" value="重置"/>
+                   <input type="button" value="取消" />
+               </div>
+           </form>
+       </div>
+   </div>
+   <!--考勤明细高级搜索弹出框 -->
+   <div class="gjss3">
+       <p  class="gjss31">高级搜索<span>x</span></p>
+       <div class="gjss3_1">
+          <form>
+               <table>
+                   <tr>
+                       <td>考勤规则:</td>
+                       <td>
+                           <select id="3_classes">
+                               
+                           <select>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤人:</td>
+                       <td>
+                            <input id="3_employeeName" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤状态:</td>
+                       <td>
+                           <select id="3_attendance_total_status">
+                               <option>全部</option>
+                               <option>正常</option>
+                               <option>异常</option>
+                           </select>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤时间:</td>
+                       <td>
+                            <input id="Text5" onClick="calendar.show({ id: this })" type="text"/>至
+                            <input id="Text6" onClick="calendar.show({ id: this })" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>部门:</td>
+                       <td>
+                            <input id="3_departName" type="text"/>
+                       </td>
+                   </tr>
+               </table>
+               <div class="gjss3_2">
+                   <input onclick="searchBycondition_3()" value="提交"/>
+                   <input type="reset" value="重置"/>
+                   <input type="button" value="取消" />
+               </div>
+           </form>
+       </div>
+   </div>
+   <!--考勤申诉高级搜索弹出框 -->
+   <div class="gjss4">
+       <p  class="gjss41">高级搜索<span>x</span></p>
+       <div class="gjss4_1">
+          <form>
+               <table>
+                   <tr>
+                       <td>姓名:</td>
+                       <td>
+                            <input id="employeeName_4" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>部门:</td>
+                       <td>
+                            <input id="departName_4" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>账号:</td>
+                       <td>
+                            <input id="employeeWechat_4" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>申诉状态:</td>
+                       <td>
+                           <select id="appeal_status_4">
+                               <option>全部</option>
+                               <option>审批通过</option>
+                               <option>审批中</option>
+                               <option>退审</option>
+                           <lect>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>考勤时间:</td>
+                       <td>
+                            <input id="Text7" onClick="calendar.show({ id: this })" type="text"/>至
+                            <input id="Text8" onClick="calendar.show({ id: this })" type="text"/>
+                       </td>
+                   </tr>
+               </table>
+               <div class="gjss4_2">
+                   <input onclick="searchBycondition_4()" value="提交"/>
+                   <input type="reset" value="重置"/>
+                   <input type="button" value="取消" />
+               </div>
+           </form>
+       </div>
+   </div>
+   
+   <!-- 设置添加弹出框 -->
+   <div class="pop_wrap6">
+       <div class="SS_tit">
+            <span>选择特定对象</span><i>×</i>
+       </div>
+       <div class="pop_wrap6_main">
+            <div class="SS_main_top">
+                <div class="selected">
+                    <div class="append_item">
+                        <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon.png">
+                      	  数据服务部
+                        <input type="hidden" value="75fb37b1-ad2a-49f1-9b7a-00cb937d3ae8">
+                        <span class="close">×</span>
+                    </div>
+                    <div class="tagList"></div>
+                    <div class="personnelList"></div>
+                    <input type="text" class="P_search ss_searchCreator" style="width: 520px; margin-top: 0px;" placeholder="输入搜索条件">
+                    <input type="hidden" class="currPage">
+                </div>
+            </div>
+            <div class="tab">
+                <span class="tab_dept active">部门</span>
+                <span class="tab_tag" style="display: none;">标签</span>
+                <span class="tab_group">公共群组</span>
+                <span class="tab_user">特定人员</span>
+                <span class="tab_batch">批量导入</span>
+                <span class="tab_senior" style="margin: 0;float: right;">高级筛选</span>
+            </div>
+            <div class="select_main_dept" style="display: block;">
+                <div class="nav_tit">
+                    <span><span>数联软件</span></span>
+                </div>
+                <ul class="select_list" id="department_table_5"> 
+                    <li></li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                           <i class=""></i>
+                           <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                           <span class="deptName">数据服务部</span>
+                           <input type="hidden" class="deptId" value="75fb37b1-ad2a-49f1-9b7a-00cb937d3ae8">
+                           <span class="ipt-cb input-cb-on"></span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                            <i class=""></i>
+                            <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                            <span class="deptName">互联网应用研发部</span>
+                            <input type="hidden" class="deptId" value="afeec7ca-52fd-48b7-96db-3750e2dfe5c7">
+                            <span class="ipt-cb input-cb"></span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                              <i class=""></i>
+                              <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                              <span class="deptName">综合部</span>
+                              <input type="hidden" class="deptId" value="861c0216-a0a1-40b6-8269-5dd00d1078cd">
+                              <span class="ipt-cb input-cb"></span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                             <i class=""></i>
+                             <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                             <span class="deptName">市场部</span>
+                             <input type="hidden" class="deptId" value="ca14e538-4125-4e32-9621-5e7fe034cc93">
+                             <span class="ipt-cb input-cb"></span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                             <i class=""></i>
+                             <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                             <span class="deptName">2016级学生</span>
+                             <input type="hidden" class="deptId" value="86a6ade8-e756-4802-9903-9aec1f10b5fa">
+                             <span class="ipt-cb input-cb"></span>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="jstree-wholerow">&nbsp;</div>
+                        <div class="listInfo">
+                             <i class=""></i>
+                             <img src="https://qy.do1.com.cn/qwy/manager/images/dept_icon01.png" alt="">
+                             <span class="deptName">2015级学生</span>
+                             <input type="hidden" class="deptId" value="cb13caa8-1bec-4c66-b2c3-b0eb5971642c">
+                             <span class="ipt-cb input-cb"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+       </div>
+       <div class="SS_btn">
+            <input type="button" value="确定" id="departcheck_5" class="btn blueBtn twoBtn mr10 mb0">
+       </div>
+   </div>
+   <!-- 添加位置弹出框 -->
+   <div class="pop_wrap3 baiduMap1">
+        <div class="SS_tit1">
+              设置考勤地址<i>X</i>
+        </div>
+        <div class="SS_box">
+            <div class="easyui-layout" fit="true" border="false">
+                <div class="kqdz mt10">
+                    <span>考勤地址:</span>
+                    <input id="region" type="textbox" value="宁波">
+                    <input id="keyword" type="textbox" style="width:200px;" value="宁波研发园A区3幢">
+                    <input type="button" value="搜索" onclick="searchKeyword()">
+                </div>
+                <div id="currentSetting" class="mt10">        
+                	    纬度:<input id="latitude" type="textbox" >
+                 	   经度:<input id="longitude" type="textbox" >
+                </div>
+                <div id="container"></div>
+                <div class="kqfw">
+                    	考勤范围:<input id="distacne" type="textbox" value="1000">米
+                </div>
+            </div>
+        </div>
+        <div class="SS_btn1">
+                <input type="button" id="locationSubmint" onclick="locationSubmint()" value="确认" class="btn blueBtn twoBtn mt5 mr10 enter">
+                <input type="button" value="取消" class="btn twoBtn quxiao">
+        </div>
+   </div>
+   <!--设置管理高级搜索弹出框 -->
+   <div class="gjss5">
+       <p  class="gjss51">高级搜索<span>x</span></p>
+       <div class="gjss5_1">
+          <form>
+               <table>
+                   <tr>
+                       <td>名称:</td>
+                       <td>
+                            <input id="condition_classname_5" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>创建时间:</td>
+                       <td>
+                            <input id="Text9" onClick="calendar.show({ id: this })" type="text"/>至
+                            <input id="Text10" onClick="calendar.show({ id: this })" type="text"/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>规则状态:</td>
+                       <td>
+                           <select id="condition_classstatus_5">
+                               <option>全部</option>
+                               <option>禁用</option>
+                               <option>启用</option>
+                               <option>草稿</option>
+                           </select>
+                       </td>
+                   </tr>
+               </table>
+               <div class="gjss5_2">
+                   <input  onclick="init_class_bycondition_5()" value="提交"/>
+                   <input type="reset" value="重置"/>
+                   <input type="button" value="取消" />
+               </div>
+           </form>
+       </div>
+   </div>
+   
+   
+
+<script type="text/javascript" src="js/jquery.datetimepicker.js"></script>
+<script type="text/javascript">
+    $('.tac').datetimepicker({
+        datepicker:false,
+        format:'H:i',
+        step:5
+    });
+</script>
+<!-- 
+<script type="text/javascript">
+ $("#publishShow").click(function(){
+        var str=$(".rq");
+        var len=str.length;
+        var chestr="";
+        for (i=0;i<len;i++)
+        {
+             if(str[i].checked==true)
+             {
+              chestr+=str[i].value+" ";
+             }
+        }
+        if(chestr!== "")
+        {
+         alert("复选框的值是："+chestr);
+        }
+
+        // 发布   时间不能为空
+        var tac=$(".tac");
+        var tlen=tac.length;
+        var re = /^(?:[01]\d|2[0-3])(?::[0-5]\d)$/;
+        for(i=0;i<tlen;i++)
+        {
+           if(!re.test(tac[i].value))
+             {
+              // alert("请输入时间");
+              tac[i].value="输入时间"
+              tac[i].style.color="red";
+             }
+        }
+ })
+ -->
+
+</script>
+<script>
+//选项卡的调用
+var mySwiper = new Swiper('.swiper-container',{
+    autoHeight: true,
+    onSlideChangeEnd: function(){
+        var height=$(document).height(); 
+    //    alert(height);
+        $(window.parent.document).find("iframe").css("height",height);
+    }
+
+});
+ $(".tabs li").on('click',function(e){
+    e.preventDefault();
+    $(".tabs .default").removeClass('default');
+    $(this).addClass('default');
+    mySwiper.swipeTo($(this).index());
+  });
+  $(".tabs li").click(function(e){
+    e.preventDefault();
+  });
+
+
+
+
+//日报导出弹出框调用
+$(function(){
+  $(".function ul li:first-child span").click(function(){
+    $(".prompt").slideDown(500);
+  });
+  $(".prompt_1>p>span,.an>span").click(function(){
+    $(".prompt").slideUp(500);
+  });
+});
+//月报导出弹出框调用
+$(function(){
+  $(".function_1 ul li:first-child span").click(function(){
+    $(".prompt2").slideDown(500);
+  });
+  $(".prompt2_1>p>span,.an2>span").click(function(){
+    $(".prompt2").slideUp(500);
+  });
+});
+//考勤明细导出弹出框调用
+$(function(){
+  $(".function3 ul li:first-child span").click(function(){
+    $(".prompt3").slideDown(500);
+  });
+  $(".prompt3_1>p>span,.an3>span").click(function(){
+    $(".prompt3").slideUp(500);
+  });
+});
+//考勤申诉导出弹出框调用
+$(function(){
+  $(".function4 ul li:first-child span").click(function(){
+    $(".prompt4").slideDown(500);
+  });
+  $(".prompt4_1>p>span,.an4>span").click(function(){
+    $(".prompt4").slideUp(500);
+  });
+});
+
+
+
+//调出隐藏页
+$(function(){
+  $(".function ul li:nth-child(2) span").click(function(){
+    $(".low_1").slideUp(500,function(){
+        $(".low_2").slideDown(500);
+    });
+  });
+  $(".a_1").click(function(){
+    $(".low_2").slideUp(500,function(){
+        $(".low_1").slideDown(500);
+    });
+  });
+  $("#btn1").click(function(){
+     $(".low_2").slideUp(0,function(){
+        $(".low_1").slideDown(0);
+    });
+  })
+});
+//调出考勤明细隐藏页
+$(function(){
+  $(".function3 ul li:nth-child(2) span").click(function(){
+    $(".low_3").fadeOut(500,function(){
+        $(".low_4").fadeIn(500);
+    });
+  });
+  $(".a_2").click(function(){
+    $(".low_4").fadeOut(500,function(){
+        $(".low_3").fadeIn(500);
+    });
+  });
+  $("#btn3").click(function(){
+     $(".low_4").slideUp(0,function(){
+        $(".low_3").slideDown(0);
+    });
+  })
+});
+
+//日报高级搜索弹出框
+$(function(){
+  $(".AdvancedSearch").click(function(){
+    $(".gjss").fadeIn(500);
+  });
+  $(".gjss1 span,.gjss_2 input:first-child,.gjss_2 input:last-child").click(function(){
+    $(".gjss").fadeOut(500);
+  });
+});
+
+//月报高级搜索弹出框
+$(function(){
+  $(".AdvancedSearch2").click(function(){
+    $(".gjss2").fadeIn(500);
+  });
+  $(".gjss21 span,.gjss2_2 input:first-child,.gjss2_2 input:last-child").click(function(){
+    $(".gjss2").fadeOut(500);
+  });
+});
+//考勤详情高级搜索弹出框
+$(function(){
+  $(".AdvancedSearch3").click(function(){
+    $(".gjss3").fadeIn(500);
+  });
+  $(".gjss31 span,.gjss3_2 input:first-child,.gjss3_2 input:last-child").click(function(){
+    $(".gjss3").fadeOut(500);
+  });
+});
+//考勤申诉高级搜索弹出框
+$(function(){
+  $(".AdvancedSearch4").click(function(){
+    $(".gjss4").fadeIn(500);
+  });
+  $(".gjss41 span,.gjss4_2 input:first-child,.gjss4_2 input:last-child").click(function(){
+    $(".gjss4").fadeOut(500);
+  });
+});
+//设置管理高级搜索弹出框
+$(function(){
+  $(".AdvancedSearch5").click(function(){
+    $(".gjss5").fadeIn(500);
+  });
+  $(".gjss51 span,.gjss5_2 input:first-child,.gjss5_2 input:last-child").click(function(){
+    $(".gjss5").fadeOut(500);
+  });
+});
+
+
+//批量导入弹出框
+$(function(){
+    $(".pldr_1").click(function(){
+     //    var dr=$(".sc input").val();
+          var dr=$("#importfile1").val();
+          
+          var file=$(".sc input")
+          var ldot = dr.lastIndexOf(".");
+          var type = dr.substring(ldot + 1);
+          if(dr==""||dr==null){
+              $(".batch").fadeIn(500);
+          }else if(type != "xls"){
+              $(".cw").fadeIn(500);
+              file.after(file.clone().val(""));      
+              file.remove();   
+          }
+          alert();
+     //     import_addition_record_excel();
+    })
+    $(".batch_1 p span,.qd").click(function(){
+         $(".batch").fadeOut(500);
+    });
+    $(".cw_1 p span:last-child,.qd_1").click(function(){
+         $(".cw").fadeOut(500);
+    });
+})
+
+// 月报是否考勤
+$(".yb1 ul li").click(function(){
+    $(".yb1 ul li").each(function(){
+        $(".yb1 ul li").removeClass("ys");
+    });
+    $(this).addClass("ys");
+});
+$(".yb1 ul li:last-child").click(function(){
+    $(".tlb1").fadeOut(500,function(){
+       $(".tlb2").fadeIn(500); 
+    });
+})
+$(".yb1 ul li:first-child").click(function(){
+    $(".tlb2").fadeOut(500,function(){
+        $(".tlb1").fadeIn(500);
+    });
+})
+// 考勤详情
+function kqxq(){
+	alert("111");
+	window.open(
+   'details.html','_blank',
+   'width=400px,height=600px,top=100px,left=500px'
+   )} 
+
+
+// 管理
+$(".gzgl").click(function(){
+    $(".setup").fadeOut(500,function(){
+        $(".gzgl_1").fadeIn(500);
+    });
+}) 
+$(".function5 ul li:first-child span").click(function(){
+    $(".gzgl_1").fadeOut(500,function(){
+        $(".setup").fadeIn(500);
+    });
+})
+// 添加
+//$(".addto").click(function(){
+//    $(".pop_wrap6").fadeIn(500);
+//})
+$(".SS_tit i").click(function(){
+    $(".pop_wrap6").fadeOut(500);
+})
+// 添加弹出框中的调用
+$(".pop_wrap6_main .ipt-cb").click(function(){
+    if($(this).is('.input-cb')){
+        $(this).removeClass('input-cb');
+        $(this).addClass('input-cb-on');
+    }else{
+        $(this).removeClass('input-cb-on');
+        $(this).addClass('input-cb');
+    }
+})
+// 设置页面复原
+$("#btn6").click(function(){
+     $(".setup").slideDown(0,function(){
+        $(".setup2").slideUp(0);
+        $(".gzgl_1").slideUp(0);
+    });
+  })
+  
+
+
+</script>
+</body>
+</html>
+

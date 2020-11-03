@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaSignLocationMapper">
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    <id column="sign_location_id" jdbcType="INTEGER" property="signLocationId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="scope" jdbcType="INTEGER" property="scope" />
+    <result column="access_group" jdbcType="INTEGER" property="accessGroup" />
+    <result column="amend_time" jdbcType="TIMESTAMP" property="amendTime" />
+    <result column="amender" jdbcType="INTEGER" property="amender" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    sign_location_id, address, longitude, latitude, scope, access_group, amend_time, 
+    amender, create_time, creator, is_delete
+  </sql>
+  <select id="selectByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_sign_location
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_sign_location
+    where sign_location_id = #{signLocationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_sign_location
+    where sign_location_id = #{signLocationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocationExample">
+    delete from oa_sign_location
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    insert into oa_sign_location (sign_location_id, address, longitude, 
+      latitude, scope, access_group, 
+      amend_time, amender, create_time, 
+      creator, is_delete)
+    values (#{signLocationId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{scope,jdbcType=INTEGER}, #{accessGroup,jdbcType=INTEGER}, 
+      #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    insert into oa_sign_location
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="signLocationId != null">
+        sign_location_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="accessGroup != null">
+        access_group,
+      </if>
+      <if test="amendTime != null">
+        amend_time,
+      </if>
+      <if test="amender != null">
+        amender,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="signLocationId != null">
+        #{signLocationId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null">
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null">
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null">
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocationExample" resultType="java.lang.Integer">
+    select count(*) from oa_sign_location
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update oa_sign_location
+    <set>
+      <if test="record.signLocationId != null">
+        sign_location_id = #{record.signLocationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scope != null">
+        scope = #{record.scope,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessGroup != null">
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null">
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null">
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update oa_sign_location
+    set sign_location_id = #{record.signLocationId,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      scope = #{record.scope,jdbcType=INTEGER},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    update oa_sign_location
+    <set>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null">
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null">
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null">
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sign_location_id = #{signLocationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    update oa_sign_location
+    set address = #{address,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      scope = #{scope,jdbcType=INTEGER},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where sign_location_id = #{signLocationId,jdbcType=INTEGER}
+  </update>
+  <resultMap extends="BaseResultMap" id="selectPageResult" type="com.sliansoft.slianOA.dataaccess.model.OaSignLocation">
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql">
+      <if test="oredCriteria.size&gt;0">     <if test="_parameter != null"> <include refid="Example_Where_Clause" /> </if>   and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql">
+      <if test="oredCriteria.size&gt;0">     <if test="_parameter != null"> <include refid="Example_Where_Clause" /> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql">
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSignLocationExample" resultMap="selectPageResult">
+    select a.* from oa_sign_location a where a.sign_location_id in 
+ (select top ${pageSize} sign_location_id from oa_sign_location 
+<include refid="select_by_page_outter_where_sql" /> 
+sign_location_id not in (select top ${skipRecordCount} sign_location_id from oa_sign_location  
+<include refid="select_by_page_inner_where_and_orderby_sql" /> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql" /> 
+)
+  </select>
+</mapper>

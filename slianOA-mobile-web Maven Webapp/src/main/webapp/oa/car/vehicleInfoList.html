@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>车辆管理</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	</head>
+
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div id="incomingDispatchList" ng-controller="myCtrl">
+			<div class="weui-cells__title" style="font-size:16px">
+				<p>车辆信息汇总</p>
+			</div>
+			<div id="" class="weui-cells">
+				<a class="weui-cell weui-cell_access" ng-repeat="obj in data" ng-click="detail(obj.vehicleId)">
+					<div class="weui-cell__bd">
+						<p>{{$index+1}}.车牌号{{obj.licensePlate}}</p>
+					</div>
+					<div class="weui-cell__ft">详细信息</div>
+				</a>
+			</div>
+		</div>
+	</body>
+	<script>
+		myApp.controller('myCtrl',function ($scope,$http) {
+			$scope.user = localStorage.getItem("user"); // 用户微信号
+			$scope.detail=function(id){
+				console.log(id);
+				var src='vehicleBasicInfo.html?id='+id;
+				window.location=src;
+			}
+			$scope.keysValue={};//无搜索条件
+			$scope.num=1;
+			
+			$scope.init = function(){
+				//请求数据
+				$http({
+					method:'POST',
+					url:'/mobile-ajax/auth/oaVehicle/vehicle/list.do',
+					params:{"wechatAccount":$scope.user,"keys":$scope.keysValue,"page":$scope.num,"rows":30}
+				}).success(function(data){
+					console.log(data)
+					$scope.data=data.rows;
+					$scope.totalPages=data.totalPages;
+				}).error(function(data){
+					$.toptip('系统出错', 'error');
+					//alert('数据请求失败')
+				})
+			}
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			if(localStorage.getItem("user")){
+				$scope.init();
+			}
+			
+			//下拉刷新，加载新数据
+			window.onload=function(){
+				$scope.loading=false;//滚动标记
+				$(document.body).infinite().on('infinite',function(){
+					if($scope.loading){
+						return;
+					}
+					$scope.loading=true;
+					$scope.num++;
+					console.log($scope.num);
+					if($scope.num>$scope.totalPages){
+						$.toast('数据已全部加载','text')
+					}else{
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicle/list.do',
+							params:{"wechatAccount":$scope.user,"keys":$scope.keysValue,"page":$scope.num,"rows":30}
+						}).success(function(data){
+							console.log(data);
+							console.log(data.rows)
+						/* 	for(var i=0;i<data.rows.length;i++){
+								$scope.data.push(data.rows[i]);
+							}
+							$scope.loading=false;
+							if(!$scope.$$phase) {
+								//$digest or $apply
+								$scope.$apply();
+							} */
+						}).error(function(data){
+							$.toptip('系统出错', 'error');
+							//alert('数据请求失败')
+						})
+					}
+				})
+
+			}
+		})
+	</script>
+</html>

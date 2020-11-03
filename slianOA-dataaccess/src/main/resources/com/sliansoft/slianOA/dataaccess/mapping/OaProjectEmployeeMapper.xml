@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaProjectEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    <id column="project_employee_id" property="projectEmployeeId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_title" property="projectTitle" jdbcType="VARCHAR" />
+    <result column="project_status" property="projectStatus" jdbcType="VARCHAR" />
+    <result column="project_begin_date" property="projectBeginDate" jdbcType="TIMESTAMP" />
+    <result column="project_end_date" property="projectEndDate" jdbcType="TIMESTAMP" />
+    <result column="project_status_description" property="projectStatusDescription" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="employee_role" property="employeeRole" jdbcType="VARCHAR" />
+    <result column="employee_begin_date" property="employeeBeginDate" jdbcType="TIMESTAMP" />
+    <result column="employee_end_date" property="employeeEndDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="employee_period" property="employeePeriod" jdbcType="INTEGER" />
+    <result column="project_contract_money" property="projectContractMoney" jdbcType="DECIMAL" />
+    <result column="project_corporate_money" property="projectCorporateMoney" jdbcType="DECIMAL" />
+    <result column="project_encourage" property="projectEncourage" jdbcType="DECIMAL" />
+    <result column="project_encourage_leader" property="projectEncourageLeader" jdbcType="DECIMAL" />
+    <result column="project_encourage_team" property="projectEncourageTeam" jdbcType="DECIMAL" />
+    <result column="funding_date" property="fundingDate" jdbcType="TIMESTAMP" />
+    <result column="funding_usage" property="fundingUsage" jdbcType="VARCHAR" />
+    <result column="funding_cost" property="fundingCost" jdbcType="DECIMAL" />
+    <result column="funding_left" property="fundingLeft" jdbcType="DECIMAL" />
+    <result column="funding_remarks" property="fundingRemarks" jdbcType="VARCHAR" />
+    <result column="project_encourage_sum" property="projectEncourageSum" jdbcType="DECIMAL" />
+    <result column="employee_performance_rate" property="employeePerformanceRate" jdbcType="DECIMAL" />
+    <result column="employee_performance_money" property="employeePerformanceMoney" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    project_employee_id, project_id, project_code, project_name, project_title, project_status, 
+    project_begin_date, project_end_date, project_status_description, update_date, customer_id, 
+    customer_name, employee_id, employee_name, employee_role, employee_begin_date, employee_end_date, 
+    remarks, creator, create_time, access_group, amender, amend_time, employee_period, 
+    project_contract_money, project_corporate_money, project_encourage, project_encourage_leader, 
+    project_encourage_team, funding_date, funding_usage, funding_cost, funding_left, 
+    funding_remarks, project_encourage_sum, employee_performance_rate, employee_performance_money
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_project_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_project_employee
+    where project_employee_id = #{projectEmployeeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_project_employee
+    where project_employee_id = #{projectEmployeeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployeeExample" >
+    delete from oa_project_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    insert into oa_project_employee (project_employee_id, project_id, project_code, 
+      project_name, project_title, project_status, 
+      project_begin_date, project_end_date, project_status_description, 
+      update_date, customer_id, customer_name, 
+      employee_id, employee_name, employee_role, 
+      employee_begin_date, employee_end_date, 
+      remarks, creator, create_time, 
+      access_group, amender, amend_time, 
+      employee_period, project_contract_money, project_corporate_money, 
+      project_encourage, project_encourage_leader, 
+      project_encourage_team, funding_date, funding_usage, 
+      funding_cost, funding_left, funding_remarks, 
+      project_encourage_sum, employee_performance_rate, 
+      employee_performance_money)
+    values (#{projectEmployeeId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{projectCode,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{projectTitle,jdbcType=VARCHAR}, #{projectStatus,jdbcType=VARCHAR}, 
+      #{projectBeginDate,jdbcType=TIMESTAMP}, #{projectEndDate,jdbcType=TIMESTAMP}, #{projectStatusDescription,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, 
+      #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, #{employeeRole,jdbcType=VARCHAR}, 
+      #{employeeBeginDate,jdbcType=TIMESTAMP}, #{employeeEndDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amender,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, 
+      #{employeePeriod,jdbcType=INTEGER}, #{projectContractMoney,jdbcType=DECIMAL}, #{projectCorporateMoney,jdbcType=DECIMAL}, 
+      #{projectEncourage,jdbcType=DECIMAL}, #{projectEncourageLeader,jdbcType=DECIMAL}, 
+      #{projectEncourageTeam,jdbcType=DECIMAL}, #{fundingDate,jdbcType=TIMESTAMP}, #{fundingUsage,jdbcType=VARCHAR}, 
+      #{fundingCost,jdbcType=DECIMAL}, #{fundingLeft,jdbcType=DECIMAL}, #{fundingRemarks,jdbcType=VARCHAR}, 
+      #{projectEncourageSum,jdbcType=DECIMAL}, #{employeePerformanceRate,jdbcType=DECIMAL}, 
+      #{employeePerformanceMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    insert into oa_project_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectEmployeeId != null" >
+        project_employee_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectCode != null" >
+        project_code,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectTitle != null" >
+        project_title,
+      </if>
+      <if test="projectStatus != null" >
+        project_status,
+      </if>
+      <if test="projectBeginDate != null" >
+        project_begin_date,
+      </if>
+      <if test="projectEndDate != null" >
+        project_end_date,
+      </if>
+      <if test="projectStatusDescription != null" >
+        project_status_description,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="employeeRole != null" >
+        employee_role,
+      </if>
+      <if test="employeeBeginDate != null" >
+        employee_begin_date,
+      </if>
+      <if test="employeeEndDate != null" >
+        employee_end_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="employeePeriod != null" >
+        employee_period,
+      </if>
+      <if test="projectContractMoney != null" >
+        project_contract_money,
+      </if>
+      <if test="projectCorporateMoney != null" >
+        project_corporate_money,
+      </if>
+      <if test="projectEncourage != null" >
+        project_encourage,
+      </if>
+      <if test="projectEncourageLeader != null" >
+        project_encourage_leader,
+      </if>
+      <if test="projectEncourageTeam != null" >
+        project_encourage_team,
+      </if>
+      <if test="fundingDate != null" >
+        funding_date,
+      </if>
+      <if test="fundingUsage != null" >
+        funding_usage,
+      </if>
+      <if test="fundingCost != null" >
+        funding_cost,
+      </if>
+      <if test="fundingLeft != null" >
+        funding_left,
+      </if>
+      <if test="fundingRemarks != null" >
+        funding_remarks,
+      </if>
+      <if test="projectEncourageSum != null" >
+        project_encourage_sum,
+      </if>
+      <if test="employeePerformanceRate != null" >
+        employee_performance_rate,
+      </if>
+      <if test="employeePerformanceMoney != null" >
+        employee_performance_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectEmployeeId != null" >
+        #{projectEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCode != null" >
+        #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTitle != null" >
+        #{projectTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBeginDate != null" >
+        #{projectBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectEndDate != null" >
+        #{projectEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectStatusDescription != null" >
+        #{projectStatusDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeRole != null" >
+        #{employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBeginDate != null" >
+        #{employeeBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeEndDate != null" >
+        #{employeeEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeePeriod != null" >
+        #{employeePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="projectContractMoney != null" >
+        #{projectContractMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="projectCorporateMoney != null" >
+        #{projectCorporateMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourage != null" >
+        #{projectEncourage,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourageLeader != null" >
+        #{projectEncourageLeader,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourageTeam != null" >
+        #{projectEncourageTeam,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingDate != null" >
+        #{fundingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fundingUsage != null" >
+        #{fundingUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="fundingCost != null" >
+        #{fundingCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingLeft != null" >
+        #{fundingLeft,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingRemarks != null" >
+        #{fundingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="projectEncourageSum != null" >
+        #{projectEncourageSum,jdbcType=DECIMAL},
+      </if>
+      <if test="employeePerformanceRate != null" >
+        #{employeePerformanceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="employeePerformanceMoney != null" >
+        #{employeePerformanceMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployeeExample" resultType="java.lang.Integer" >
+    select count(*) from oa_project_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_project_employee
+    <set >
+      <if test="record.projectEmployeeId != null" >
+        project_employee_id = #{record.projectEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectCode != null" >
+        project_code = #{record.projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectTitle != null" >
+        project_title = #{record.projectTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectStatus != null" >
+        project_status = #{record.projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectBeginDate != null" >
+        project_begin_date = #{record.projectBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectEndDate != null" >
+        project_end_date = #{record.projectEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.projectStatusDescription != null" >
+        project_status_description = #{record.projectStatusDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null" >
+        update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeName != null" >
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeRole != null" >
+        employee_role = #{record.employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeBeginDate != null" >
+        employee_begin_date = #{record.employeeBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.employeeEndDate != null" >
+        employee_end_date = #{record.employeeEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.employeePeriod != null" >
+        employee_period = #{record.employeePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectContractMoney != null" >
+        project_contract_money = #{record.projectContractMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectCorporateMoney != null" >
+        project_corporate_money = #{record.projectCorporateMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectEncourage != null" >
+        project_encourage = #{record.projectEncourage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectEncourageLeader != null" >
+        project_encourage_leader = #{record.projectEncourageLeader,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectEncourageTeam != null" >
+        project_encourage_team = #{record.projectEncourageTeam,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundingDate != null" >
+        funding_date = #{record.fundingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fundingUsage != null" >
+        funding_usage = #{record.fundingUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundingCost != null" >
+        funding_cost = #{record.fundingCost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundingLeft != null" >
+        funding_left = #{record.fundingLeft,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fundingRemarks != null" >
+        funding_remarks = #{record.fundingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectEncourageSum != null" >
+        project_encourage_sum = #{record.projectEncourageSum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.employeePerformanceRate != null" >
+        employee_performance_rate = #{record.employeePerformanceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.employeePerformanceMoney != null" >
+        employee_performance_money = #{record.employeePerformanceMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_project_employee
+    set project_employee_id = #{record.projectEmployeeId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      project_code = #{record.projectCode,jdbcType=VARCHAR},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      project_title = #{record.projectTitle,jdbcType=VARCHAR},
+      project_status = #{record.projectStatus,jdbcType=VARCHAR},
+      project_begin_date = #{record.projectBeginDate,jdbcType=TIMESTAMP},
+      project_end_date = #{record.projectEndDate,jdbcType=TIMESTAMP},
+      project_status_description = #{record.projectStatusDescription,jdbcType=VARCHAR},
+      update_date = #{record.updateDate,jdbcType=TIMESTAMP},
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      employee_role = #{record.employeeRole,jdbcType=VARCHAR},
+      employee_begin_date = #{record.employeeBeginDate,jdbcType=TIMESTAMP},
+      employee_end_date = #{record.employeeEndDate,jdbcType=TIMESTAMP},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amender = #{record.amender,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      employee_period = #{record.employeePeriod,jdbcType=INTEGER},
+      project_contract_money = #{record.projectContractMoney,jdbcType=DECIMAL},
+      project_corporate_money = #{record.projectCorporateMoney,jdbcType=DECIMAL},
+      project_encourage = #{record.projectEncourage,jdbcType=DECIMAL},
+      project_encourage_leader = #{record.projectEncourageLeader,jdbcType=DECIMAL},
+      project_encourage_team = #{record.projectEncourageTeam,jdbcType=DECIMAL},
+      funding_date = #{record.fundingDate,jdbcType=TIMESTAMP},
+      funding_usage = #{record.fundingUsage,jdbcType=VARCHAR},
+      funding_cost = #{record.fundingCost,jdbcType=DECIMAL},
+      funding_left = #{record.fundingLeft,jdbcType=DECIMAL},
+      funding_remarks = #{record.fundingRemarks,jdbcType=VARCHAR},
+      project_encourage_sum = #{record.projectEncourageSum,jdbcType=DECIMAL},
+      employee_performance_rate = #{record.employeePerformanceRate,jdbcType=DECIMAL},
+      employee_performance_money = #{record.employeePerformanceMoney,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    update oa_project_employee
+    <set >
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectCode != null" >
+        project_code = #{projectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectTitle != null" >
+        project_title = #{projectTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="projectStatus != null" >
+        project_status = #{projectStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBeginDate != null" >
+        project_begin_date = #{projectBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectEndDate != null" >
+        project_end_date = #{projectEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectStatusDescription != null" >
+        project_status_description = #{projectStatusDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeRole != null" >
+        employee_role = #{employeeRole,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBeginDate != null" >
+        employee_begin_date = #{employeeBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeeEndDate != null" >
+        employee_end_date = #{employeeEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="employeePeriod != null" >
+        employee_period = #{employeePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="projectContractMoney != null" >
+        project_contract_money = #{projectContractMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="projectCorporateMoney != null" >
+        project_corporate_money = #{projectCorporateMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourage != null" >
+        project_encourage = #{projectEncourage,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourageLeader != null" >
+        project_encourage_leader = #{projectEncourageLeader,jdbcType=DECIMAL},
+      </if>
+      <if test="projectEncourageTeam != null" >
+        project_encourage_team = #{projectEncourageTeam,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingDate != null" >
+        funding_date = #{fundingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fundingUsage != null" >
+        funding_usage = #{fundingUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="fundingCost != null" >
+        funding_cost = #{fundingCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingLeft != null" >
+        funding_left = #{fundingLeft,jdbcType=DECIMAL},
+      </if>
+      <if test="fundingRemarks != null" >
+        funding_remarks = #{fundingRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="projectEncourageSum != null" >
+        project_encourage_sum = #{projectEncourageSum,jdbcType=DECIMAL},
+      </if>
+      <if test="employeePerformanceRate != null" >
+        employee_performance_rate = #{employeePerformanceRate,jdbcType=DECIMAL},
+      </if>
+      <if test="employeePerformanceMoney != null" >
+        employee_performance_money = #{employeePerformanceMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where project_employee_id = #{projectEmployeeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    update oa_project_employee
+    set project_id = #{projectId,jdbcType=INTEGER},
+      project_code = #{projectCode,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_title = #{projectTitle,jdbcType=VARCHAR},
+      project_status = #{projectStatus,jdbcType=VARCHAR},
+      project_begin_date = #{projectBeginDate,jdbcType=TIMESTAMP},
+      project_end_date = #{projectEndDate,jdbcType=TIMESTAMP},
+      project_status_description = #{projectStatusDescription,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      employee_role = #{employeeRole,jdbcType=VARCHAR},
+      employee_begin_date = #{employeeBeginDate,jdbcType=TIMESTAMP},
+      employee_end_date = #{employeeEndDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amender = #{amender,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      employee_period = #{employeePeriod,jdbcType=INTEGER},
+      project_contract_money = #{projectContractMoney,jdbcType=DECIMAL},
+      project_corporate_money = #{projectCorporateMoney,jdbcType=DECIMAL},
+      project_encourage = #{projectEncourage,jdbcType=DECIMAL},
+      project_encourage_leader = #{projectEncourageLeader,jdbcType=DECIMAL},
+      project_encourage_team = #{projectEncourageTeam,jdbcType=DECIMAL},
+      funding_date = #{fundingDate,jdbcType=TIMESTAMP},
+      funding_usage = #{fundingUsage,jdbcType=VARCHAR},
+      funding_cost = #{fundingCost,jdbcType=DECIMAL},
+      funding_left = #{fundingLeft,jdbcType=DECIMAL},
+      funding_remarks = #{fundingRemarks,jdbcType=VARCHAR},
+      project_encourage_sum = #{projectEncourageSum,jdbcType=DECIMAL},
+      employee_performance_rate = #{employeePerformanceRate,jdbcType=DECIMAL},
+      employee_performance_money = #{employeePerformanceMoney,jdbcType=DECIMAL}
+    where project_employee_id = #{projectEmployeeId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployee" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaProjectEmployeeExample" >
+    select a.* from oa_project_employee a where a.project_employee_id in 
+ (select top ${pageSize} project_employee_id from oa_project_employee 
+<include refid="select_by_page_outter_where_sql"/> 
+project_employee_id not in (select top ${skipRecordCount} project_employee_id from oa_project_employee  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+ )
+  </select>
+</mapper>

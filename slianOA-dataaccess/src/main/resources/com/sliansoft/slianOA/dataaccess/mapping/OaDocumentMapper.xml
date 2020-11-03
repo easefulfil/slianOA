@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaDocumentMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaDocument" >
+    <id column="document_id" property="documentId" jdbcType="INTEGER" />
+    <result column="doc_number" property="docNumber" jdbcType="VARCHAR" />
+    <result column="doc_post_man" property="docPostMan" jdbcType="VARCHAR" />
+    <result column="doc_regist_person" property="docRegistPerson" jdbcType="VARCHAR" />
+    <result column="doc_time" property="docTime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="subtitle" property="subtitle" jdbcType="VARCHAR" />
+    <result column="doc_from_Institution" property="docFromInstitution" jdbcType="VARCHAR" />
+    <result column="doc_is_emergency" property="docIsEmergency" jdbcType="NVARCHAR" />
+    <result column="doc_from_num" property="docFromNum" jdbcType="VARCHAR" />
+    <result column="doc_pages" property="docPages" jdbcType="INTEGER" />
+    <result column="doc_copies" property="docCopies" jdbcType="INTEGER" />
+    <result column="doc_office_handing" property="docOfficeHanding" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="doc_draft_time" property="docDraftTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="doc_main_to_unit" property="docMainToUnit" jdbcType="VARCHAR" />
+    <result column="doc_copy_to_units" property="docCopyToUnits" jdbcType="VARCHAR" />
+    <result column="doc_send_time" property="docSendTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="view_employee_ids" property="viewEmployeeIds" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    document_id, doc_number, doc_post_man, doc_regist_person, doc_time, title, subtitle, 
+    doc_from_Institution, doc_is_emergency, doc_from_num, doc_pages, doc_copies, doc_office_handing, 
+    status, doc_draft_time, type, doc_main_to_unit, doc_copy_to_units, doc_send_time, 
+    remark, access_group, amend_time, amender, create_time, creator, view_employee_ids
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocumentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_document
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_document
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocumentExample" >
+    delete from oa_document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocument"  useGeneratedKeys="true" keyProperty="documentId" >
+    insert into oa_document (document_id, doc_number, doc_post_man, 
+      doc_regist_person, doc_time, title, 
+      subtitle, doc_from_Institution, doc_is_emergency, 
+      doc_from_num, doc_pages, doc_copies, 
+      doc_office_handing, status, doc_draft_time, 
+      type, doc_main_to_unit, doc_copy_to_units, 
+      doc_send_time, remark, access_group, 
+      amend_time, amender, create_time, 
+      creator, view_employee_ids)
+    values (#{documentId,jdbcType=INTEGER}, #{docNumber,jdbcType=VARCHAR}, #{docPostMan,jdbcType=VARCHAR}, 
+      #{docRegistPerson,jdbcType=VARCHAR}, #{docTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{subtitle,jdbcType=VARCHAR}, #{docFromInstitution,jdbcType=VARCHAR}, #{docIsEmergency,jdbcType=NVARCHAR}, 
+      #{docFromNum,jdbcType=VARCHAR}, #{docPages,jdbcType=INTEGER}, #{docCopies,jdbcType=INTEGER}, 
+      #{docOfficeHanding,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{docDraftTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{docMainToUnit,jdbcType=VARCHAR}, #{docCopyToUnits,jdbcType=VARCHAR}, 
+      #{docSendTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, 
+      #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{viewEmployeeIds,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocument" useGeneratedKeys="true" keyProperty="documentId" >
+    insert into oa_document
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="documentId != null" >
+        document_id,
+      </if>
+      <if test="docNumber != null" >
+        doc_number,
+      </if>
+      <if test="docPostMan != null" >
+        doc_post_man,
+      </if>
+      <if test="docRegistPerson != null" >
+        doc_regist_person,
+      </if>
+      <if test="docTime != null" >
+        doc_time,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subtitle != null" >
+        subtitle,
+      </if>
+      <if test="docFromInstitution != null" >
+        doc_from_Institution,
+      </if>
+      <if test="docIsEmergency != null" >
+        doc_is_emergency,
+      </if>
+      <if test="docFromNum != null" >
+        doc_from_num,
+      </if>
+      <if test="docPages != null" >
+        doc_pages,
+      </if>
+      <if test="docCopies != null" >
+        doc_copies,
+      </if>
+      <if test="docOfficeHanding != null" >
+        doc_office_handing,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="docDraftTime != null" >
+        doc_draft_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="docMainToUnit != null" >
+        doc_main_to_unit,
+      </if>
+      <if test="docCopyToUnits != null" >
+        doc_copy_to_units,
+      </if>
+      <if test="docSendTime != null" >
+        doc_send_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="documentId != null" >
+        #{documentId,jdbcType=INTEGER},
+      </if>
+      <if test="docNumber != null" >
+        #{docNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="docPostMan != null" >
+        #{docPostMan,jdbcType=VARCHAR},
+      </if>
+      <if test="docRegistPerson != null" >
+        #{docRegistPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="docTime != null" >
+        #{docTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docFromInstitution != null" >
+        #{docFromInstitution,jdbcType=VARCHAR},
+      </if>
+      <if test="docIsEmergency != null" >
+        #{docIsEmergency,jdbcType=NVARCHAR},
+      </if>
+      <if test="docFromNum != null" >
+        #{docFromNum,jdbcType=VARCHAR},
+      </if>
+      <if test="docPages != null" >
+        #{docPages,jdbcType=INTEGER},
+      </if>
+      <if test="docCopies != null" >
+        #{docCopies,jdbcType=INTEGER},
+      </if>
+      <if test="docOfficeHanding != null" >
+        #{docOfficeHanding,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="docDraftTime != null" >
+        #{docDraftTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="docMainToUnit != null" >
+        #{docMainToUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="docCopyToUnits != null" >
+        #{docCopyToUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="docSendTime != null" >
+        #{docSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocumentExample" resultType="java.lang.Integer" >
+    select count(*) from oa_document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_document
+    <set >
+      <if test="record.documentId != null" >
+        document_id = #{record.documentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.docNumber != null" >
+        doc_number = #{record.docNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docPostMan != null" >
+        doc_post_man = #{record.docPostMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docRegistPerson != null" >
+        doc_regist_person = #{record.docRegistPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docTime != null" >
+        doc_time = #{record.docTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtitle != null" >
+        subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docFromInstitution != null" >
+        doc_from_Institution = #{record.docFromInstitution,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docIsEmergency != null" >
+        doc_is_emergency = #{record.docIsEmergency,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.docFromNum != null" >
+        doc_from_num = #{record.docFromNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docPages != null" >
+        doc_pages = #{record.docPages,jdbcType=INTEGER},
+      </if>
+      <if test="record.docCopies != null" >
+        doc_copies = #{record.docCopies,jdbcType=INTEGER},
+      </if>
+      <if test="record.docOfficeHanding != null" >
+        doc_office_handing = #{record.docOfficeHanding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docDraftTime != null" >
+        doc_draft_time = #{record.docDraftTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docMainToUnit != null" >
+        doc_main_to_unit = #{record.docMainToUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docCopyToUnits != null" >
+        doc_copy_to_units = #{record.docCopyToUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.docSendTime != null" >
+        doc_send_time = #{record.docSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.viewEmployeeIds != null" >
+        view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_document
+    set document_id = #{record.documentId,jdbcType=INTEGER},
+      doc_number = #{record.docNumber,jdbcType=VARCHAR},
+      doc_post_man = #{record.docPostMan,jdbcType=VARCHAR},
+      doc_regist_person = #{record.docRegistPerson,jdbcType=VARCHAR},
+      doc_time = #{record.docTime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      doc_from_Institution = #{record.docFromInstitution,jdbcType=VARCHAR},
+      doc_is_emergency = #{record.docIsEmergency,jdbcType=NVARCHAR},
+      doc_from_num = #{record.docFromNum,jdbcType=VARCHAR},
+      doc_pages = #{record.docPages,jdbcType=INTEGER},
+      doc_copies = #{record.docCopies,jdbcType=INTEGER},
+      doc_office_handing = #{record.docOfficeHanding,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      doc_draft_time = #{record.docDraftTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      doc_main_to_unit = #{record.docMainToUnit,jdbcType=VARCHAR},
+      doc_copy_to_units = #{record.docCopyToUnits,jdbcType=VARCHAR},
+      doc_send_time = #{record.docSendTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocument" >
+    update oa_document
+    <set >
+      <if test="docNumber != null" >
+        doc_number = #{docNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="docPostMan != null" >
+        doc_post_man = #{docPostMan,jdbcType=VARCHAR},
+      </if>
+      <if test="docRegistPerson != null" >
+        doc_regist_person = #{docRegistPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="docTime != null" >
+        doc_time = #{docTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="docFromInstitution != null" >
+        doc_from_Institution = #{docFromInstitution,jdbcType=VARCHAR},
+      </if>
+      <if test="docIsEmergency != null" >
+        doc_is_emergency = #{docIsEmergency,jdbcType=NVARCHAR},
+      </if>
+      <if test="docFromNum != null" >
+        doc_from_num = #{docFromNum,jdbcType=VARCHAR},
+      </if>
+      <if test="docPages != null" >
+        doc_pages = #{docPages,jdbcType=INTEGER},
+      </if>
+      <if test="docCopies != null" >
+        doc_copies = #{docCopies,jdbcType=INTEGER},
+      </if>
+      <if test="docOfficeHanding != null" >
+        doc_office_handing = #{docOfficeHanding,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="docDraftTime != null" >
+        doc_draft_time = #{docDraftTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="docMainToUnit != null" >
+        doc_main_to_unit = #{docMainToUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="docCopyToUnits != null" >
+        doc_copy_to_units = #{docCopyToUnits,jdbcType=VARCHAR},
+      </if>
+      <if test="docSendTime != null" >
+        doc_send_time = #{docSendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocument" >
+    update oa_document
+    set doc_number = #{docNumber,jdbcType=VARCHAR},
+      doc_post_man = #{docPostMan,jdbcType=VARCHAR},
+      doc_regist_person = #{docRegistPerson,jdbcType=VARCHAR},
+      doc_time = #{docTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      doc_from_Institution = #{docFromInstitution,jdbcType=VARCHAR},
+      doc_is_emergency = #{docIsEmergency,jdbcType=NVARCHAR},
+      doc_from_num = #{docFromNum,jdbcType=VARCHAR},
+      doc_pages = #{docPages,jdbcType=INTEGER},
+      doc_copies = #{docCopies,jdbcType=INTEGER},
+      doc_office_handing = #{docOfficeHanding,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      doc_draft_time = #{docDraftTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      doc_main_to_unit = #{docMainToUnit,jdbcType=VARCHAR},
+      doc_copy_to_units = #{docCopyToUnits,jdbcType=VARCHAR},
+      doc_send_time = #{docSendTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR}
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaDocument" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaDocumentExample" >
+    select a.* from oa_document a where a.document_id in 
+ (select top ${pageSize} document_id from oa_document 
+<include refid="select_by_page_outter_where_sql"/> 
+document_id not in (select top ${skipRecordCount} document_id from oa_document 
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+<include refid="select_by_page_outter_orderby_sql"/>
+  </select>
+</mapper>

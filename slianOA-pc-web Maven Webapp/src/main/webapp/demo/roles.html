@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>角色管理</title>
+	<link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/syExtEasyUI.js"></script>
+	<script type="text/javascript" src="../js/syExtJavascript.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+	<script type="text/javascript" src="pagejs/roles.js"></script>
+	
+	<!-- <script type="text/javascript" src="../js/syUtil.js"></script>  -->
+</head>
+<body>
+<!-- <noscript>
+<div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;"> <img src="/pcbas-analysis/images/noscript.gif" alt='抱歉，请开启脚本支持！' /> </div>
+</noscript>
+<div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
+  <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;"> <img src="../images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...</div>
+</div> -->
+<div class="easyui-layout" fit="true" border="false")>
+	<div region="north" data-options="border:false,title:'查询',iconCls:'icon-search'"
+		style="height:62px;overflow:hidden;">
+		<form id="searchForm">
+			<table class="tableForm datagrid-toolbar" style="width:100%;height:100%;">
+				<tr>
+					<th>角色名称</th>
+					<td><input name="name" id="name" style="width:315px;" placeholder="请输入角色名称中包含的字符" />
+						<a id="check" onclick="javascript:searchRoles()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+						<a id="empty" onclick="javascript:clearRoles()" class="easyui-linkbutton" data-options="iconCls:'icon-empty'">清空</a>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div region="center" title="角色管理" border="false">
+		<table id="datagrid"></table>
+	</div>
+</div>
+<!-- “授权”弹出框： -->
+<div id="authorize">
+
+	<ul id="rsid" name="rsid"></ul>
+</div>	
+
+</body>
+</html>

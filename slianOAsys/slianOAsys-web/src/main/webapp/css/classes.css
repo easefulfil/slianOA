@@ -1,0 +1,851 @@
+/*设置页面*/
+.setup{
+    font: 14px 'Microsoft YaHei', "微软雅黑", Arial, Lucida Grande, Tahoma, sans-serif;
+    color: #333;
+}
+.setup ul li{
+    border-bottom:1px solid #dbdbdd;
+    padding: 20px;
+    overflow: hidden;
+}
+.setup_1{
+    float:left;
+    width:80%;
+}
+.setup_l p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.setup_r{
+    color:#139dea;
+    display: block;
+    float: right;
+    padding-top: 10px;
+}
+.c999{
+    color: #999;
+}
+.mt5{
+    margin-top: 5px;
+}
+.separate_set{
+    float: right;
+    padding-top: 10px;
+    color: #CCCCCC;
+}
+.mr10{
+    margin-right: 10px;
+}
+/*新增规则*/
+.topMainBar{
+    margin-top: 20px;
+}
+.clearfix{
+    zoom: 1;
+}
+.fleft, .fl{
+    float: left;
+    display: inline;
+}
+.twoBtn {
+    padding: 5px 20px;
+}
+.btn {
+    font-size: 14px;
+    line-height: 30px;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    cursor: pointer;
+}
+.solid{
+    background: #dbdbdb;
+    height: 1px;
+    margin-top: 10px;
+}
+.cMain{
+    margin-top: 20px;
+    position: relative;
+}
+.form{
+    font-size: 14px;
+    margin-bottom: 9px;
+    border:none;
+}
+.form .form-item{
+    margin-bottom: 9px;
+    clear: both;
+}
+.new_form .form-item .title{
+    float: left;
+    width: 140px;
+    text-align: right;
+    line-height:32px;
+    font-size: 14px;
+}
+.mustInput{
+    color: red;
+    margin-right: 5px;
+    font-style: normal;
+}
+.new_form .form-field{
+    margin-left: 150px;
+    font-size: 14px;
+}
+.new_form .form-item input{
+    vertical-align: -3px;
+}
+.form label {
+    font-size: 14px;
+    line-height: 30px;
+}
+.mr20 {
+    margin-right: 20px;
+}
+.form .form-text{
+    width: 290px;
+    border:1px solid #ccc;
+    height:18px;
+    border-radius: 4px;
+    padding: 6px 4px;
+}
+.form .input-text{
+    padding: 6px 4px;
+    margin-left: 0px;
+    width: 60px;
+    border: 1px solid #cccccc;
+}
+.groupSelect {
+    max-height: 150px;
+    width: 450px;
+    background: #efefef;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px 10px;
+}
+.form .label_radio.active{
+    background: none repeat scroll 0 0 #fff9f0;
+    border: 1px solid #139dea;
+    color: #139dea;
+}
+.form .label_radio{
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 0 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.label_radio input{
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+    margin-top: 8px;
+}
+.label_radio label{
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+}
+#chooseDeptAndUs{
+    background: none repeat scroll 0 0 #f0f0f0;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 10px;
+    position: relative;
+}
+.chooseDeptAndUs .addDeptUser{
+    border:1px solid rgb(203, 203, 203);
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    width: 58px;
+    height: 26px;
+    display: inline-block;
+    line-height: 26px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.ml5 {
+    margin-left: 5px;
+}
+
+.blue {
+    color: #139dea;
+}
+.chooseDeptAndUs .clearSelected {
+    float: right;
+    color: #999;
+    line-height: 28px;
+    cursor: pointer;
+}
+.mb30 {
+    margin-bottom: 30px;
+}
+.mt30 {
+    margin-top: 30px;
+}
+.dashed{
+    border-top:1px dashed #ccc;
+}
+/*.form .form-text{
+    width: 290px;
+}*/
+.mapItem1 .h15 {
+    height: 15px;
+    vertical-align: -3px;
+    margin: 0;
+}
+.fRed, .red{
+    color: red;
+}
+.kaoq_Rule .w40 {
+    width: 40px!important;
+    margin: 0 8px;
+}
+.switch {
+    background: none repeat scroll 0 0 #f6f6f6;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding-left: 5px;
+}
+.w40 {
+    width: 40px;
+}
+.fleft, .fl{
+    float: left;
+}
+.switch .off {
+    background: url("https://qy.do1.com.cn/qwy/manager/images/switch_off.png") no-repeat scroll right center;
+    cursor: pointer;
+    float: right;
+    height: 30px;
+    margin-left: 100px;
+    width: 50px;
+}
+.switch .on {
+    background: url("https://qy.do1.com.cn/qwy/manager/images/switch_on.png") no-repeat scroll right center;
+    cursor: pointer;
+    float: right;
+    height: 30px;
+    margin-left: 100px;
+    width: 50px;
+}
+.timeAxisWrap{
+    overflow: hidden;
+    border: 1px solid #ccc;
+    padding-bottom: 25px;
+    background: #fff;
+}
+
+.mb20{
+    margin-bottom: 20px!important;
+}
+.timeAxisBox{
+    position: relative;
+    margin: 120px 20px 0;
+    font-size: 0;
+    width: 900px;
+}
+.timeAxisBox .starAxis {
+    position: absolute;
+    left: 5px;
+    bottom: 8px;
+}
+.timeAxisBox .starAxis::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    display: block;
+    position: absolute;
+    bottom: 60px;
+    left: -4px;
+}
+.timeAxisBox .starAxis span {
+    margin-left: -5px;
+    display: block;
+}
+.c999 {
+    color: #999;
+}
+.f20, .fz20 {
+    font-size:19px;
+}
+.timeAxisBox .starAxis::after {
+    content: '';
+    height: 70px;
+    width: 2px;
+    display: block;
+    background: #ccc;
+}
+.timeAxisBox .axis {
+    height: 8px;
+    background-color: #ccc;
+    display: inline-block;
+}
+.flex {
+    display: flex!important;
+}
+.flexItem {
+    -webkit-box-flex: 1!important;
+    flex: 1!important;
+}
+.timeAxisBox .kq_item.qiandaoBox {
+    color: #80c056;
+    background: #80c056;
+}
+.timeAxisBox .kq_item {
+    width: 50%;
+    height: 8px;
+    background: #ff9600;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+.timeAxisBox .kq {
+    position: absolute;
+    width: 50px;
+    left: 50%;
+    margin-left: -25px;
+    bottom: 8px;
+    padding-bottom: 30px;
+}
+.timeAxisBox .qiandaoBox .kq::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #80c056;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -5px;
+}
+.timeAxisBox .kq span {
+    line-height: 1;
+    display: block;
+}
+.timeAxisBox .qiandaoBox .kq ::after{
+    content: '';
+    width: 2px;
+    height: 15px;
+    display: block;
+    background: #80c056;
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+}
+.timeAxisBox .kq span {
+    line-height: 1;
+    display: block;
+}
+.timeAxisBox .kqText {
+    position: absolute;
+    left: 50%;
+    margin-left: -40px;
+    width: 80px;
+    top: 8px;
+}
+.timeAxisBox .kq_item.qiantuiBox {
+    color: #ff9600;
+    background: #ff9600;
+}
+.timeAxisBox .qiantuiBox .kq::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff9600;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -5px;
+}
+.timeAxisBox .endAxis {
+    position: absolute;
+    right: 5px;
+    bottom: 8px;
+    padding-bottom: 70px;
+    text-align: right;
+}
+.timeAxisBox .endAxis::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    display: block;
+    position: absolute;
+    bottom: 60px;
+    right: -4px;
+}
+.timeAxisBox .endAxis span {
+    margin-right: -5px;
+    display: block;
+}
+.timeAxisBox .endAxis::after {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 70px;
+    background: #ccc;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.timeAxisBox .qiantuiBox .kq ::after {
+    content: '';
+    width: 2px;
+    height: 15px;
+    display: block;
+    background: #ff9600;
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+}
+.f12, .fz12 {
+    font-size: 12px;
+}
+.kaoq_Rule .w60 {
+    width: 60px!important;
+    margin: 0 8px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+.overflow, .ohidden {
+    overflow: hidden;
+    zoom: 1;
+}
+.f14, .fz14 {
+    font-size: 14px !important;
+}
+.kaoq_Rule .form-item-bgf6f5f4 {
+    background: #f6f5f4;
+    border: 1px solid #ccc;
+    padding: 10px 15px 5px 10px;
+    float: left;
+}
+.w700 {
+    width: 700px;
+}
+.mt5 {
+    margin-top: 5px;
+}
+a {
+    color: #139dea;
+}
+.kaoq_Rule .mt80 {
+    margin-top: 80px!important;
+}
+.add_icon {
+    background: #80c056;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 17px;
+    position: relative;
+    width: 17px;
+    margin-left: 10px;
+    margin-top: 8px;
+    display: inline-block;
+}
+.vt {
+    vertical-align: top;
+}
+.add_icon > i {
+    color: white;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: bold;
+    left: 1px;
+    position: absolute;
+    top: -6px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.kaoq_Rule select#yuefen{
+    height: 32px;
+    width: 80px;
+    margin-left: 10px;
+    color: #333;
+    font-family: inherit;
+    border:1px solid #ccc;
+    border-radius:4px;
+    position: relative;
+    top: 4px;
+}
+.kaoq_Rule .form-item-bgf6f5f4 {
+    background: #f6f5f4;
+    border: 1px solid #ccc;
+    padding: 10px 15px 5px 10px;
+    float: left;
+}
+.w94p {
+    width: 94%;
+}
+.form label {
+    /* display: block; */
+    font-size: 14px;
+    line-height: 30px;
+}
+.dashed {
+    background: url("https://qy.do1.com.cn/qwy/manager/images/dashed.png") repeat scroll 0 0;
+    height: 1px;
+}
+.mb15 {
+    margin-bottom: 15px;
+}
+.ml80 {
+    margin-left: 80px;
+}
+.kaoq_Rule .w80 {
+    width: 80px!important;
+    margin: 0 8px;
+}
+.tcenter {
+    text-align: center;
+}
+.form a.btn {
+    padding: 4px 16px;
+    line-height: 22px;
+}
+.form .btn {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    padding: 0 16px;
+    font-size: 14px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 30px;
+    text-decoration: none;
+}
+.ml10 {
+    margin-left: 10px;
+}
+#chooseGivenUser {
+    background: none repeat scroll 0 0 #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+}
+.mr5 {
+    margin-right: 5px;
+}
+.form .form-action {
+    clear: both;
+    text-align: center;
+}
+.tcform_action {
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+.form input.btn {
+    padding: 4px 20px;
+}
+.cMain .btn {
+    line-height: 22px;
+}
+.form .orangeBtn {
+    padding: 5px 20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+.form .btn {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    padding: 0 16px;
+    font-size: 14px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 30px;
+    text-decoration: none;
+}
+.blueBtn {
+    background:#1FADC7;
+    color: #fff;
+    border: 1px solid #ccc;
+    font-weight:bold;
+}
+/*管理*/
+.gzgl_1{
+    display:none;
+}
+/*添加弹出框*/
+.pop_wrap6{
+    background: #f7f7f7;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    height:auto;
+    margin-left:-300px;
+    overflow: auto;
+    position: absolute;
+    left:50%;
+    top:380px;
+    width: 600px;
+    z-index: 1101;
+    border-radius: 2px;
+    display: none;
+}
+.SS_tit {
+    background: #ececec;
+    color: #333;
+    font-size: 18px;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+    position: relative;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+.SS_tit i {
+    cursor: pointer;
+    font-style: normal;
+    position: absolute;
+    right: 0;
+    width: 50px;
+    text-align: center;
+    color: #bbb;
+    font-size: 28px;
+}
+.pop_wrap6_main {
+    width: 100%;
+}
+.SS_main_top {
+    padding: 20px;
+    border-bottom: 1px solid #e4e4e4;
+}
+.SS_main_top .selected {
+    background: #fff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    max-height: 110px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+.SS_main_top .selected .tagList {
+    display: inline;
+    vertical-align: middle;
+}
+.SS_main_top .selected .personnelList {
+    display: inline;
+    vertical-align: middle;
+}
+.SS_main_top .selected .P_search {
+    border: none;
+    padding: 0 5px;
+    line-height: 20px;
+    vertical-align: middle;
+    width: 520px;
+    margin: 0;
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+}
+.pop_wrap6_main .tab {
+    padding: 0 20px;
+    border-bottom: 1px solid #e4e4e4;
+}
+.pop_wrap6_main .tab .active {
+    border-bottom: 3px solid #1EB8D6;
+}
+.pop_wrap6_main .tab span {
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    margin-right: 15px;
+    padding: 0 10px;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.pop_wrap6_main .nav_tit {
+    padding: 15px 0 10px;
+    margin-left: 20px;
+}
+.pop_wrap6_main .select_list {
+    height: 361px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: relative;
+}
+.pop_wrap6_main .select_list li {
+    line-height: 30px;
+}
+.clearfix {
+    zoom: 1;
+}
+.pop_wrap6_main .select_list li .jstree-wholerow {
+    width: 100%;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    height: 30px;
+}
+.pop_wrap6_main .select_list li .listInfo {
+    padding-left: 35px;
+    cursor: pointer;
+    position: relative;
+    width: auto;
+}
+.pop_wrap6_main .select_list li i {
+    width: 0;
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    left: 20px;
+    top: 12px;
+}
+.pop_wrap6_main .select_list li img {
+    width: 16px;
+    height: 16px;
+}
+.pop_wrap6_main .select_list li span {
+    margin-left: 10px;
+}
+.pop_wrap6_main .ipt-cb {
+    margin-top: 8px;
+    float: right;
+    margin-right: 15px;
+}
+.input-cb {
+    content: "";
+    background: url("https://qy.do1.com.cn/qwy/manager/images/checkbox_off.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+.input-cb-on{
+    content: "";
+    background: url("https://qy.do1.com.cn/qwy/manager/images/checkbox_on.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+.pop_wrap6 .SS_btn {
+    margin-top: 0;
+}
+.SS_btn {
+    margin-top: 30px;
+    text-align: center;
+    background: #ececec;
+    padding: 10px;
+}
+input.orangeBtn {
+    padding: 0 20px;
+}
+.mb0 {
+    margin-bottom: 0 !important;
+}
+.pop_wrap6_main .append_item {
+    list-style: none;
+    width: auto;
+    display: inline-block;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+.pop_wrap6_main .append_item img {
+    width: 26px;
+    height: 24px;
+    list-style: none;
+    margin-right: 5px;
+    vertical-align: top;
+}
+.pop_wrap6_main .append_item .close {
+    color: #afafaf;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    border-radius: 100%;
+    margin-right: 5px;
+    text-align: center;
+    margin-top: 3px;
+    vertical-align: text-bottom;
+    opacity: 1;
+}
+.pop_wrap6_main .append_item .close:hover {
+    background: #ffb164;
+    color: #fff;
+    opacity: 1;
+}
+.chooseDeptAndUs .selected {
+    background: #fff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    max-height: 110px;
+    overflow: auto;
+    margin-top: 10px;
+}
+.chooseDeptAndUs .append_item {
+    list-style: none;
+    width: auto;
+    display: inline-block;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: top;
+    margin-top: 2px;
+    margin-right: 2px;
+    border-radius: 3px;
+}
+.chooseDeptAndUs .append_item img {
+    width: 26px;
+    height: 24px;
+    list-style: none;
+    margin-right: 5px;
+    vertical-align: top;
+}
+.chooseDeptAndUs .append_item .close {
+    color: #afafaf;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 17px;
+    border-radius: 100%;
+    margin-right: 5px;
+    text-align: center;
+    margin-top: 3px;
+    vertical-align: text-bottom;
+    opacity: 1;
+}
+.chooseDeptAndUs .tagList {
+    display: inline;
+    vertical-align: middle;
+}
+.chooseDeptAndUs .personnelList {
+    display: inline;
+    vertical-align: middle;
+}
+.chooseDeptAndUs .append_item .close:hover {
+    background: #ffb164;
+    color: #fff;
+    opacity: 1;
+}

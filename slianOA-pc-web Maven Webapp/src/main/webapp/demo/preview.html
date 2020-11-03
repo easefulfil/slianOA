@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"
+	charset="utf-8"></script>
+<title>预览</title>
+
+<style>
+h1 {
+	text-align: center;
+}
+</style>
+
+<script>
+//获取url中的参数
+    	function GetRequest() {
+    	var url = location.search; // 获取url中"?"符后的字串
+    	var theRequest = new Object();
+    	if (url.indexOf("?") != -1) {
+    		var str = url.substr(1);
+    		strs = str.split("&");
+    		for (var i = 0; i < strs.length; i++) {
+    			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+    		}
+    	}
+    	return theRequest;
+    }
+    
+    window.onload=function() {
+        	var Request = new Object();
+        	Request = GetRequest();
+        	var a=Request['id'];
+        	
+        	$.ajax({ 
+    	        url :getContextPath()+'/news/list.do?keys={id:'+a+'}&page=1&rows=1',
+    	        type : 'POST', 
+    	        dataType : 'json', 
+    	        success : function(res) { 
+    	           
+    	            document.getElementById("news").innerHTML=res.rows[0].newsContent;
+    	         }, 
+    	        error : function() { 
+    	            $.messager.alert("系统提示","修改失败,请重试！","warning");
+    	        } 
+    	     });
+        	
+        };
+
+
+</script>
+
+</head>
+<body>
+	<div align="center" style="width:100%;">
+		<div  id="news" align="left" style="width:600px;">
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+</html>

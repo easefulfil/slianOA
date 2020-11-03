@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>考勤日历</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+  <!--  <script type='text/javascript' src='jquery.js'></script>-->
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script> -->
+	<script type="text/javascript" src="stringUtil.js"></script> 
+	<style>
+		#left ul li{
+			font-size: 1rem;}
+		#right ul li{
+			font-size: 1rem;}
+		#left ul li:first-child{
+			color:#66cc66;
+			}
+		#left ul li:nth-child(2){
+			color:#ff6666;
+			}
+		#left ul li:nth-child(3){
+			color:#66ccff;
+			}
+		#left ul li:last-child{
+			color:#9D2BD6;
+			}
+		#right ul li:first-child{
+			color:#ff9933;
+			}
+		#right ul li:nth-child(2){
+			color:#cccc66;
+			}
+		#right ul li:last-child{
+			color:#FFFF33;
+			}
+		#left{
+			float:left;
+			width:50%;
+		}
+		#right{
+			float:left;
+			width:50%;margin: 0 auto;
+		}
+		.zt{
+			background:#66ccff;
+			border-radius:50%;
+		}
+		.zc{
+			background:#66cc66;
+			border-radius:50%;
+		}
+		.cd{
+			background:#ff6666;
+			border-radius:50%;
+		}
+		.yc{
+			background:#cccc66;
+			border-radius:50%;
+		}
+		.kb{
+			background:#ff9933;
+			border-radius:50%;
+		}
+		.qj{
+			background:#FFFF33;
+			border-radius:50%;
+		}
+		.cc{
+			background:#9D2BD6;
+			border-radius:50%;
+		}
+	</style>
+	
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+       <div class="content" ng-controller="myCtrl">
+	       	<div class="card">
+	      		  <div data-toggle="date" id='calendar-inline'></div>	  
+	        </div>
+            <div class="card">
+		         <div class="card-content">
+			          <div class="card-content-inner">
+				          	<div id="left">
+					          	<ul>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">正常：<span id="normal" ng-bind="zc"></span>天</span></li>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">迟到：<span id="late" ng-bind="cd"></span>次</span></li>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">早退：<span id="leave" ng-bind="zt"></span>次</span></li>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">出差：<span id="workout" ng-bind="cc"></span>次</span></li>
+					          	</ul>
+					        </div>
+				          	<div id="right">
+					          	<ul>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">旷工：<span id="absenteesim" ng-bind="kg"></span>天</span></li>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">异常：<span id="miss" ng-bind="yc"></span>次</span></li>
+					          		<li><span style="font-size: 0.7rem;color: #333333;">请假：<span id="askForLeave" ng-bind="qj"></span>次</span></li>
+					          	</ul>
+				          	</div>
+			          		<div style="clear:both"></div>
+			          </div>
+		         </div>
+		 	</div>
+	  </div>
+    <script type="text/javascript">
+		myApp.controller('myCtrl',function ($scope,$http) {
+			$scope.user = localStorage.getItem('user');
+			$scope.getLastDay=function (year,month)   
+					{   
+						 var new_year = year;  //取当前的年份   
+						 var new_month = month++;//取下一个月的第一天，方便计算（最后一天不固定）   
+						 if(month>12)      //如果当前大于12月，则年份转到下一年   
+						 {   
+						 new_month -=12;    //月份减   
+						 new_year++;      //年份增   
+						 }   
+						 var new_date = new Date(new_year,new_month,1);        //取当年当月中的第一天   
+						 return (new Date(new_date.getTime()-1000*60*60*24)).getDate();//获取当月最后一天日期   
+					} 
+			
+			//获取用户部门信息
+			//console.log(localStorage.getItem('name'));
+			 if(localStorage.getItem('name')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+			}else{
+				$http({
+					method:'POST',
+					url:'slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+					params:{"wechatAccount":$scope.user}
+				}).success(function (data) {
+					console.log(data);
+					localStorage.setItem('name',data.name);
+					localStorage.setItem('department',data.department);
+				}).error(function (data) {
+					console.log(data);
+				})
+			} 
+
+			$("#calendar-inline").calendar({});
+			$('a.picker-calendar-prev-year').css('display','none');
+			$('a.picker-calendar-next-year').css('display','none');
+			//页面加载时获取当前月考勤日历
+			var date=$($('div.picker-calendar-months-wrapper>div')[1]).find('div.picker-calendar-day');
+			console.log(date);
+			console.log($(date[0]).attr('data-date'));
+			console.log($(date[date.length-1]).attr('data-date'));
+			console.log($(date[20]).attr('data-date'));
+			var newDate=$(date[20]).attr('data-date').split('-');
+			console.log(newDate);
+			
+			//一个月的开始时间和结束时间日期
+			var mon=Number(newDate[1])+1
+			var startDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-01';
+			console.log($scope.getLastDay(newDate[0],mon));
+			var lastDate=$scope.getLastDay(newDate[0],mon);
+			var endDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-'+lastDate;
+			console.log(startDate+'****'+endDate);
+						
+			console.log(startDate);
+			//月份转换
+			/* var arrStart=($(date[0]).attr('data-date')).split('-');
+			var arrEnd=($(date[date.length-1]).attr('data-date')).split('-');
+			var startDate=(arrStart[0]+'-'+(Number(arrStart[1])+1)+'-'+arrStart[2]);
+			var endDate=(arrEnd[0]+'-'+(Number(arrEnd[1])+1)+'-'+arrEnd[2]); */
+		//	console.log(startDate+'*****'+endDate);
+						
+			$scope.init = function(startDate,endDate){
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaAttendance/attendance/list.do',
+					params:{"wechatAccount":$scope.user,"keys":{'startDate':startDate,'endDate':endDate},'pageNow':1}
+				}).success(function (data) {
+				//	console.log('***********')
+					console.log(data);
+					var data=data['rows'];
+					$scope.zt=0;
+					$scope.cd=0;
+					$scope.zc=0;
+					$scope.yc=0;
+					$scope.kg=0;
+					$scope.qj=0;
+					$scope.cc=0;
+		//			console.log("这里是测试"+data.length);
+					for(var i=0;i<data.length;i++){
+			//			console.log(data[i]['signDay']);
+				//		console.log(data[i]['status']);
+						var src=data[i]['signDay'].split('-');
+					//	console.log(src);
+					//	console.log(src[1]-0);
+						var newSrc=src[0]+'-'+(src[1]-1)+'-'+(src[2]-0);
+					//	console.log(newSrc);
+						var type=data[i]['status'];
+						switch(type){
+						case '早退':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('zt');
+							$scope.zt++;
+							break;
+						case '迟到':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('cd');
+							$scope.cd++;
+							break;
+						case '正常':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('zc');
+							$scope.zc++;
+							break;
+						case '异常':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('yc');
+							$scope.yc++;
+							break;
+						case '旷工':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('kb');
+							$scope.kg++;
+							break;
+						case '请假':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('qj');
+							$scope.qj++;
+							break;
+						case '出差':
+							$('div.picker-calendar-month-current>div.picker-calendar-row').find('div[data-date="'+newSrc+'"]').find('span').addClass('cc');
+							$scope.cc++;
+							break;
+						}
+					}
+				}).error(function (data) {
+				//	console.log(data);
+				})
+			}
+			
+			$scope.$on('setUser',function(d,res){
+	    		$scope.user = res;
+	    		$scope.init(startDate,endDate);
+	    	})
+			
+	    	if(localStorage.getItem('user')){
+	    		$scope.user = localStorage.getItem('user')
+	    		$scope.init(startDate,endDate);
+	    	}
+			
+			
+			//切换月
+			$('a.picker-calendar-next-month').on('click',function () {
+				var date=$($('div.picker-calendar-months-wrapper>div')[2]).find('div.picker-calendar-day');
+				console.log($(date[0]).attr('data-date'));
+				console.log($(date[date.length-1]).attr('data-date'));
+				
+				console.log($(date[20]).attr('data-date'));
+				var newDate=$(date[20]).attr('data-date').split('-');
+				console.log(newDate);
+				
+				//一个月的开始时间和结束时间日期
+				var mon=Number(newDate[1])+1
+				var startDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-01';
+				console.log($scope.getLastDay(newDate[0],mon));
+				var lastDate=$scope.getLastDay(newDate[0],mon);
+				var endDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-'+lastDate;
+				console.log(startDate+'****'+endDate);
+				
+				
+		/* 		//月份转换
+				var arrStart=($(date[0]).attr('data-date')).split('-');
+				var arrEnd=($(date[date.length-1]).attr('data-date')).split('-');
+				var startDate=(arrStart[0]+'-'+(Number(arrStart[1])+1)+'-'+arrStart[2]);
+				var endDate=(arrEnd[0]+'-'+(Number(arrEnd[1])+1)+'-'+arrEnd[2]); */
+				console.log(startDate+'*****'+endDate);
+				$scope.init(startDate,endDate);
+			});
+			$('a.picker-calendar-prev-month').on('click',function () {
+				var date=$($('div.picker-calendar-months-wrapper>div')[0]).find('div.picker-calendar-day');
+				console.log($(date[0]).attr('data-date'));
+				console.log($(date[date.length-1]).attr('data-date'));
+				
+				console.log($(date[20]).attr('data-date'));
+				var newDate=$(date[20]).attr('data-date').split('-');
+				console.log(newDate);
+				
+				//一个月的开始时间和结束时间日期
+				var mon=Number(newDate[1])+1
+				var startDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-01';
+				console.log($scope.getLastDay(newDate[0],mon));
+				var lastDate=$scope.getLastDay(newDate[0],mon);
+				var endDate=newDate[0]+'-'+(mon>9?mon:'0'+mon)+'-'+lastDate;
+				console.log(startDate+'****'+endDate);
+				
+				
+		/* 		//月份转换
+				var arrStart=($(date[0]).attr('data-date')).split('-');
+				var arrEnd=($(date[date.length-1]).attr('data-date')).split('-');
+				var startDate=(arrStart[0]+'-'+(Number(arrStart[1])+1)+'-'+arrStart[2]);
+				var endDate=(arrEnd[0]+'-'+(Number(arrEnd[1])+1)+'-'+arrEnd[2]); */
+				console.log(startDate+'*****'+endDate);
+				$scope.init(startDate,endDate);
+			})
+
+
+
+		})
+
+     </script>
+     </body>
+</html>

@@ -1,0 +1,146 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>角色分配</title>
+<link rel="stylesheet" type="text/css"
+	href="../js/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+
+<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="../js/syExtEasyUI.js"></script>
+<script type="text/javascript" src="../js/syUtil.js"></script> 
+
+
+</head>
+ -->
+<body>
+	<script type="text/javascript" charset="utf-8">
+
+		var datagrid_roles;
+		var userId = sy.getUrlParam("userId");
+		var editRow = undefined;//行编辑标志
+		var IS_INIT_DATAGRID = true;
+
+		$(function() {
+
+			datagrid_roles = $('#datagrid_roles').datagrid(
+					{
+						//url : "van_task.json",/* ?userId="+userId, */
+						title : '',
+						iconCls : 'icon-save',
+						//pagination : true,// 进度条
+						//		pageSize : 10,// 每页显示10条
+						//		pageList : [ 10, 20, 30, 40, 50 ],// 选择每页显示条数
+						fit : true,
+						width : 600,
+						fitColumns : false,// 设置false页面变窄时显示横向滚动条
+						nowarp : false,// 表格内容自动折行
+						border : false,
+						idField : 'id',// 翻页选择标记（便于多页删除）
+						remoteSort : false,// 定义是否从服务器给数据排序。
+						striped : true,// 为true是交替显示行背景
+						url : getContextPath()
+								+ '/usersRoles/getHttpRoles.do?userId='+ userId,
+						columns : [ [ {
+							title : '选择框',
+							field : 'checked',
+							width : 90,
+							// sortable:true,
+							checkbox : true,
+
+						}, {
+							field : "id",
+							title : '角色编号',
+							width : 80,
+							hidden : true
+						}, {
+							field : "name",
+							title : '用户名称',
+							width : 100,
+						}, {
+							field : "description",
+							title : '描述',
+							width : 350
+						} ] ],
+						onLoadSuccess : function(data) {
+							if (data) {
+								$.each(data.rows, function(index, item) {
+									if (item.checked) {
+										$('#datagrid_roles').datagrid(
+												'checkRow', index);
+									}
+								});
+							}
+							
+							//数据加载完成，将初始化变量置为false
+							IS_INIT_DATAGRID = false;
+							
+							//隐藏title中的 checkall  uncheckall checkbox
+							$('.datagrid-header-check input').eq(1).css('display','none')
+						},
+						onCheck:function(index,row){
+						
+							if(IS_INIT_DATAGRID)
+								return;
+								
+							saveUserRole(userId,row.id,"insert");
+							
+							
+							datagrid.datagrid('reload');
+							
+						},
+						onUncheck:function(index,row){
+
+							saveUserRole(userId,row.id,"delete");
+							
+							
+							datagrid.datagrid('reload');
+							
+						}
+					});
+
+		});
+		
+function saveUserRole(userId,roleId,operType){
+	
+	$.ajax({
+		type:"post",
+		url:getContextPath()+"/usersRoles/"+operType+".do",// getContextPath()+'/resources/getTreegrid.do'+'?id=10',//
+		async:false,
+		data:{
+			roleId:roleId,
+			userId:userId
+		},
+		dataType:'json',
+		success:function(result){
+			//initOrgaInfo(roleId,node.id,treeData);
+			
+			if(result.success)
+				return ;
+			alert(result.msg);
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown){
+	          //通常情况下textStatus和errorThrown只有其中一个包含信息
+	          this;   //调用本次ajax请求时传递的options参数
+	          alert(textStatus + errorThrown);
+	          return false;
+		}
+	});
+}
+	</script>
+	<div class="easyui-layout" fit="true" border="false">
+		<div region="center" title="" border="false">
+			<table id="datagrid_roles"></table>
+
+		</div>
+	</div>
+	<!-- <input id="cc" name="dept" value="aa"> -->
+</body>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+<!-- </html> -->

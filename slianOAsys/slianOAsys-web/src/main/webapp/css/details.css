@@ -1,0 +1,271 @@
+@media screen and (min-width:1024px){
+	.wrap_inner{
+	    position: relative;
+	    width: 700px;
+	    margin: 0 auto;
+	    padding: 0 20px;
+	    background-color: #fff;
+	}
+}
+
+/* 全局通用
+----------------------------------------------- */
+body {
+ background-color: #EEEEEE;
+ font-family: Microsoft Yahei, \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, Arial, Verdana, sans-serif;
+ font-size: 12px;
+ color: #333;
+ margin: 0;
+ padding: 0;
+}
+body, button, input, textarea {
+ font-size: 12px;
+ line-height: 1.531;
+ outline: none;
+ margin: 0;
+ padding: 0;
+ border: 0;
+}
+p, ul, ol, dl, dt, dd, form, blockquote {
+ margin: 0;
+ padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+ font-size: 12px;
+ margin: 0;
+ padding: 0;
+ font-weight: normal;
+}
+img {
+ border: 0;
+}
+ul, ol {
+ list-style: none;
+}
+img {
+ border: 0;
+}
+a {
+ text-decoration: none;
+ color: #626262;
+}
+a:hover {
+ text-decoration: none;
+}
+input, textarea, select {
+ vertical-align: middle;
+}
+*:focus {
+ outline: none;
+}
+em, i {
+ font-style: normal;
+}
+.bold {
+ font-weight: bold;
+}
+.clear {
+ clear: both;
+ display: block;
+ height: 0;
+ line-height: 0;
+ font-size: 0;
+}
+.clearfix:after {
+ content: ".";
+ display: block;
+ height: 0;
+ clear: both;
+ visibility: hidden;
+}
+*html .clearfix {
+ height: 1%;
+}
+*+html .clearfix {
+ height: 1%;
+}
+.none {
+ display: none;
+}
+.cue {
+ color: #999;
+}
+p.cue {
+ margin-top: 5px;
+}
+.cueRed {
+ color: #C00;
+}
+.ml {
+ padding-left: 10px;
+}
+.pl {
+ padding-left: 10px;
+}
+.pr {
+ padding-right: 10px;
+}
+.unread {
+ font-weight: bold;
+}
+#vcode {
+ cursor: pointer;
+}
+.cl{
+    clear:both;
+}
+body{background: #fbfbfb;}
+html {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+}
+
+/*头部*/
+.wrap {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.wrap_inner{
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    height:580px;
+}
+.article_detail{
+    background: #ffffff;
+}
+.avator_title{
+    padding: 10px;
+    border-bottom: 1px solid #e4e4e4;
+}
+.flexbox{
+    display: flex;
+}
+.avator{
+    width:40px;
+    height:40px;
+    margin-right:10px;
+    min-width:38px;
+
+}
+.avator img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+.flexItem{
+    flex: 1;
+}
+.flexItem h3{
+    font-size: 16px;
+}
+.flexItem p{
+    font-size: 14px;
+    color: #666666;
+}
+
+
+.f-item{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+    position: relative;
+}
+.item-text {
+    color: #333;
+}
+.inner-f-item {
+    padding: 15px 10px;
+    position: relative;
+}
+.f-item-title{
+    font-weight: 700;
+    margin-right: 10px;
+}
+.divUrl{
+    position: relative;
+    padding-right: 15px;
+    color: #999;
+}
+
+.item-text-right{
+    text-align: right;
+    color: #666;
+}
+.todayDate{
+	border-top: 1px solid #dadada;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    overflow: hidden;
+    color: #333;
+    padding-left: 8px;
+}
+.todayDate span {
+    padding: 0 5px;
+}
+.todayDate div{
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+}
+.green{
+    color: #32CD32!important;
+}
+
+.qiandaoCon .f-item{
+    width: auto;
+    margin: 0 10px;
+}
+.borderNone{
+    border: none!important;
+}
+.qiandao-item{
+    padding: 15px 0;
+}
+.flexCenter, .ps {
+    align-items: center;
+    display: flex;
+}
+.pieceLeft {
+    margin-right: 10px;
+}
+.time {
+    color: #999;
+    font-size: 12px;
+}
+.kaoqinTime {
+    font-size: 16px;
+}
+.c999 {
+    color: #999;
+}
+.kaoqinCon {
+    font-size: 13px;
+    background: url(https://qy.do1.com.cn/qwy/jsp/wap/images/mapMarker.png) no-repeat left 2px;
+    background-size: 10px auto;
+    padding-left: 15px;
+}
+.pieceRight {
+    margin-left: 10px;
+    position: relative;
+}
+.qiandao {
+    color: #32cd32;
+    font-size: 20px;
+}
+.letter_bar {
+    background: #f1f0f6;
+    color: #8f8e93;
+    padding: 9px 10px 4px 10px;
+    font-weight: 700;
+    border-bottom: 1px solid #dfdfdd;
+    position: relative;
+}
+

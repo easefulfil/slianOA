@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+	<title>Document</title>
+	<link href="css/preview.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	 <div id="wrap_main" class="wrap">
+            <div id="main" class="wrap_inner">
+                <div class="article_detail">
+                    <div s="" class="name_list_detail">
+                        <ul id="clientItemId">
+                            <li class="flexbox"><span>类型：</span>
+                                <p class="flexItem" id="checkType">固定规则</p>
+                            </li>
+                            <li class="flexbox"><span>规则名称：</span>
+                                <p class="flexItem" id="checkName">新考勤</p>
+                            </li>
+                            <li class="flexbox" style="display:none"><span>简称：</span>
+                                <p class="flexItem" id="shortName"></p>
+                            </li>
+                            <li class="flexbox" style="display:none"><span>分组：</span>
+                                <p class="flexItem" id="groupName"></p>
+                            </li>
+                            <li class="flexbox"><span>列表序号：</span>
+                                <p class="flexItem" id="listSort">0</p>
+                            </li>
+                            <li class="flexbox" id="addressbox"><span>考勤位置：</span>
+                                <div style="border-bottom:0px;" id="otherAddress"><p class="flexItem" id="address">浙江省宁波市鄞州区聚贤路; 800米</p><p class="flexItem" id="address">宁波市鄞州区浙江大学软件学院宁波分院-教学楼; 800米</p></div>
+                            </li>
+                            <li class="flexbox"><span>考勤IP：</span>
+                                <p class="flexItem" id="signIP">未设置</p></li>
+                                <li class="flexbox" style="display: none;" id="isShake"><span>摇一摇：</span>
+                                <p class="flexItem" id="shakeInfo"></p>
+                            </li>
+                            <li class="flexbox"><span>智能考勤机：</span>
+                                <p class="flexItem" id="machineNames"></p>
+                            </li>
+                            <li class="flexbox" style="display: none;" id="isElastic"><span>弹性工作制：</span>
+                                <p class="flexItem" id="elasticInfo"></p></li>
+                            <li class="flexbox"><span>开始时间：</span>
+                                <p class="flexItem" id="refreshTime">每天 07:00</p></li>
+                            <div style="border-bottom:1px solid #eee" id="signSet">
+                            <li class="flexbox"><span>签到时间：</span><p class="flexItem">09:00&nbsp;可延迟0分钟；有提醒；限制：07:00~09:15</p></li><li class="flexbox"><span>签退时间：</span><p class="flexItem">17:30&nbsp;可提前0分钟；有提醒；限制：17:30~23:55</p></li></div>
+                            <li class="flexbox" id="restTime"><span>休息时间：</span>
+                                <p class="flexItem" id="restInfo">统计当天工作时长时，在已考勤的时间里减去0 小时</p>
+                            </li>
+                            <li class="flexbox" id="overTime"><span>加班时间：</span>
+                                <p class="flexItem" id="overTimeInfo">最后一个签退时间后9 小时以上算加班</p>
+                            </li>
+                            <li class="flexbox" id="monthDatebox"><span>考勤月度：</span>
+                                <p class="flexItem" id="signMonth">1号至当月31号</p>
+                            </li>
+
+                            <li class="flexbox" id="workDatesDesbox"><span>工作日：</span>
+                                <p class="flexItem" id="workDates">星期一、星期二、星期三、星期四、星期五</p></li>
+                            <li class="flexbox" id="removeDatebox"><span>排除日期：</span>
+                                <p class="flexItem" id="minusDates">2017-01-01至2017-01-02;2017-01-27至2017-02-02;2017-04-02至2017-04-04;2017-04-29至2017-05-01;2017-05-28至2017-05-30;2017-10-01至2017-10-08</p></li>
+                            <li class="flexbox" id="addDatebox"><span>增加日期：</span>
+                                <p class="flexItem" id="addDates">2017-04-01;2017-05-27;2017-09-30</p></li>
+                        </ul>
+
+                    </div>
+                    <div class="action_btn"> <a href="#" class="btn">返回</a></div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

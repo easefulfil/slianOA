@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaOilCardMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    <id column="oil_card_id" property="oilCardId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="oc_number" property="ocNumber" jdbcType="VARCHAR" />
+    <result column="oc_corp" property="ocCorp" jdbcType="VARCHAR" />
+    <result column="manage_time" property="manageTime" jdbcType="TIMESTAMP" />
+    <result column="oc_balance" property="ocBalance" jdbcType="DOUBLE" />
+    <result column="balance_reg_time" property="balanceRegTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="view_employee_ids" property="viewEmployeeIds" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sliansoft.slianOA.dataaccess.model.OaOilCard" extends="BaseResultMap" >
+    <result column="is_delete" property="isDelete" jdbcType="BINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oil_card_id, employee_id, oc_number, oc_corp, manage_time, oc_balance, balance_reg_time, 
+    remark, access_group, amend_time, amender, create_time, creator, view_employee_ids
+  </sql>
+  <sql id="Blob_Column_List" >
+    is_delete
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from oa_oil_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_oil_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from oa_oil_card
+    where oil_card_id = #{oilCardId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_oil_card
+    where oil_card_id = #{oilCardId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCardExample" >
+    delete from oa_oil_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    insert into oa_oil_card (oil_card_id, employee_id, oc_number, 
+      oc_corp, manage_time, oc_balance, 
+      balance_reg_time, remark, access_group, 
+      amend_time, amender, create_time, 
+      creator, view_employee_ids, is_delete
+      )
+    values (#{oilCardId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{ocNumber,jdbcType=VARCHAR}, 
+      #{ocCorp,jdbcType=VARCHAR}, #{manageTime,jdbcType=TIMESTAMP}, #{ocBalance,jdbcType=DOUBLE}, 
+      #{balanceRegTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, 
+      #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{viewEmployeeIds,jdbcType=VARCHAR}, #{isDelete,jdbcType=BINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    insert into oa_oil_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oilCardId != null" >
+        oil_card_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="ocNumber != null" >
+        oc_number,
+      </if>
+      <if test="ocCorp != null" >
+        oc_corp,
+      </if>
+      <if test="manageTime != null" >
+        manage_time,
+      </if>
+      <if test="ocBalance != null" >
+        oc_balance,
+      </if>
+      <if test="balanceRegTime != null" >
+        balance_reg_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oilCardId != null" >
+        #{oilCardId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="ocNumber != null" >
+        #{ocNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ocCorp != null" >
+        #{ocCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="manageTime != null" >
+        #{manageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ocBalance != null" >
+        #{ocBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="balanceRegTime != null" >
+        #{balanceRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCardExample" resultType="java.lang.Integer" >
+    select count(*) from oa_oil_card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_oil_card
+    <set >
+      <if test="record.oilCardId != null" >
+        oil_card_id = #{record.oilCardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ocNumber != null" >
+        oc_number = #{record.ocNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ocCorp != null" >
+        oc_corp = #{record.ocCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manageTime != null" >
+        manage_time = #{record.manageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ocBalance != null" >
+        oc_balance = #{record.ocBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.balanceRegTime != null" >
+        balance_reg_time = #{record.balanceRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.viewEmployeeIds != null" >
+        view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=BINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update oa_oil_card
+    set oil_card_id = #{record.oilCardId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      oc_number = #{record.ocNumber,jdbcType=VARCHAR},
+      oc_corp = #{record.ocCorp,jdbcType=VARCHAR},
+      manage_time = #{record.manageTime,jdbcType=TIMESTAMP},
+      oc_balance = #{record.ocBalance,jdbcType=DOUBLE},
+      balance_reg_time = #{record.balanceRegTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      is_delete = #{record.isDelete,jdbcType=BINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_oil_card
+    set oil_card_id = #{record.oilCardId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      oc_number = #{record.ocNumber,jdbcType=VARCHAR},
+      oc_corp = #{record.ocCorp,jdbcType=VARCHAR},
+      manage_time = #{record.manageTime,jdbcType=TIMESTAMP},
+      oc_balance = #{record.ocBalance,jdbcType=DOUBLE},
+      balance_reg_time = #{record.balanceRegTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    update oa_oil_card
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="ocNumber != null" >
+        oc_number = #{ocNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ocCorp != null" >
+        oc_corp = #{ocCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="manageTime != null" >
+        manage_time = #{manageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ocBalance != null" >
+        oc_balance = #{ocBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="balanceRegTime != null" >
+        balance_reg_time = #{balanceRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BINARY},
+      </if>
+    </set>
+    where oil_card_id = #{oilCardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    update oa_oil_card
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      oc_number = #{ocNumber,jdbcType=VARCHAR},
+      oc_corp = #{ocCorp,jdbcType=VARCHAR},
+      manage_time = #{manageTime,jdbcType=TIMESTAMP},
+      oc_balance = #{ocBalance,jdbcType=DOUBLE},
+      balance_reg_time = #{balanceRegTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BINARY}
+    where oil_card_id = #{oilCardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    update oa_oil_card
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      oc_number = #{ocNumber,jdbcType=VARCHAR},
+      oc_corp = #{ocCorp,jdbcType=VARCHAR},
+      manage_time = #{manageTime,jdbcType=TIMESTAMP},
+      oc_balance = #{ocBalance,jdbcType=DOUBLE},
+      balance_reg_time = #{balanceRegTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR}
+    where oil_card_id = #{oilCardId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaOilCard" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaOilCardExample" >
+    select a.* from oa_oil_card a where a.oil_card_id in 
+ (select top ${pageSize} oil_card_id from oa_oil_card 
+<include refid="select_by_page_outter_where_sql"/> 
+oil_card_id not in (select top ${skipRecordCount} oil_card_id from oa_oil_card  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+  </select>
+</mapper>

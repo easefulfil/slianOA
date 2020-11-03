@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>车辆维修申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<style>
+			.buttons.weui-flex{
+					width:100%;
+					padding-left:5%;
+				}
+			/* .SH,.YY{
+				display:none;
+			} */
+		</style>
+	</head>
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">车辆维修申请</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.applyName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请时间</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.applyTime"></label> </div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.licensePlate"></label> </div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">预计费用(元)</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.maintainPlanCost"></label> </div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">维修项目</label></div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.maintainProject"></label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">备注</label></div>
+					</div>
+					<div style="text-align:center;">
+						<div  id="remark" ng-bind="data.remark"></div>
+					</div>
+					
+						<!-- 审批结果 -->
+					<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">审批结果</label></div>
+							<div class="weui-cell__bd"><label class="weui-label" ng-bind="sp.result"></label></div>
+						</div>
+					<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">审批意见：</label>
+							</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<div ng-bind="sp.opinion"  ></div>
+						</div>
+					</div>
+				</div>				
+		</div>
+	</body>
+	<script type="text/javascript">
+	
+	myApp.controller('myCtrl',function ($scope,$http,$location) {
+		$scope.user = localStorage.getItem("user"); // 用户微信号
+		console.log($location.absUrl().split('&'));
+		var srcArr=$location.absUrl().split('&');
+		var id=srcArr[0].split('id=')[1];
+		var result=decodeURIComponent(srcArr[1].split('Result=')[1]);
+		var opinion=decodeURIComponent(srcArr[2].split('Opinion=')[1]);
+		$scope.sp={"result":result,"opinion":opinion};
+		console.log(result+"***"+opinion);
+		
+		$scope.init = function(){
+			//获取数据信息
+			$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleMaintain/getById.do',
+					params:{'wechatAccount':$scope.user,'vehicleMaintainId':id}
+				}).success(function(data){
+					console.log(data)
+					$scope.data=data;
+				}).error(function(){
+					$.alert('数据请求失败')
+				});
+		}
+		
+		$scope.$on('setUser',function(d,res){
+			$scope.init();
+		})
+		
+		if(localStorage.getItem('user')){
+			$scope.user = localStorage.getItem('user');
+			$scope.init();
+		}
+		//点击查看详情
+		$scope.detail=function () {
+			console.log('查看详情');
+			
+		}
+	})
+
+	
+	
+	/* 	myApp.controller('myCtrl',function ($scope,$http,$location) {
+			$scope.id=($location.absUrl()).split('id=')[1];
+			$scope.user = localStorage.getItem("user"); // 用户微信号
+			$scope.user=localStorage.getItem("user");
+			$('input#applyTime').datetimePicker();
+			
+			$scope.initList = function(){
+			
+				//依据ID查找详情		
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleMaintain/getById.do',
+					params:{'wechatAccount':$scope.user,'vehicleMaintainId',$scope.id}
+				}).success(function(data){
+					console.log(data);
+					$scope.data=data;
+				}).error(function(data){
+					console.log(data);
+				})	
+				
+			}
+			
+			$scope.init = function(){
+				if(localStorage.getItem('user'){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						console.log(data);
+						localStorage.setItem('name',data.name);
+						localStorage.setItem('department',data.department);
+						localStorage.setItem('id',data.id);
+						$scope.basic=data;
+						$scope.initList();
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			}
+			
+			if(localStorage.getItem("user")){
+				$scope.user = localStorage.getItem("user");
+				$scope.init();
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			//获取用户部门信息
+			console.log(localStorage.getItem('name'));
+			if(localStorage.getItem('id') && localStorage.getItem('basic') && localStorage.getItem('user')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+				$scope.initList();
+			}
+			else{
+				$scope.init();
+			}
+			
+		}) */
+	</script>
+</html>
+

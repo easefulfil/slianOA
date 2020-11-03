@@ -1,0 +1,400 @@
+<script type="text/javascript" charset="utf-8">
+	var datagrid;
+	var editRow = undefined;//行编辑标志
+	$(function() {
+		datagrid = $('#datagrid')
+				.datagrid(
+						{
+							url : 'manage.json',
+							title : '',
+							iconCls : 'icon-save',
+							//pagination : true,//进度条
+							pageSize : 10,//每页显示10条
+							//pageList : [ 10, 20, 30, 40, 50 ],//选择每页显示条数
+							fit : true,
+							fitColumns : true,//设置false页面变窄时显示横向滚动条
+							nowrap : false,//表格内容自动折行
+							border : false,
+							idField : 'doc_no',//翻页选择标记（便于多页删除）
+							sortName : 'doc_no',
+							remoteSort: false,
+							//sortOrder : 'desc',
+							columns : [ [ {
+								title : '编号',
+								field : 'id',
+								width : 100,
+								sortable : true,
+								checkbox : true,
+
+							}, {
+								title : '托单号',
+								field : 'doc_no',
+								width : 120,
+								sortable : true,
+								editor : {
+					                     type : 'validatebox',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '客户',
+								field : 'client',
+								width : 120,
+								editor : {
+					                     type : 'combobox',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '业务类型',
+								field : 'type',
+								width : 80,
+								editor : {
+					                     type : 'combobox',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '箱型尺寸',
+								field : 'box',
+								width : 100,
+								sortable : true,
+								editor : {
+					                     type : 'combobox',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '吨位',
+								field : 'ton',
+								width : 60,
+								sortable : true,
+								editor : {
+					                     type : 'text',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '立方',
+								field : 'cube',
+								width : 60,
+								editor : {
+					                     type : 'text',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '地址',
+								field : 'addr',
+								width : 150,
+								sortable : true,
+								editor : {
+					                     type : 'text',
+					                     options : {
+						                   required : true
+					                     }
+				                        }
+							}, {
+								title : '车牌号',
+								field : 'no',
+								width : 100,
+								sortable : true,
+								editor : {
+									type : 'combobox',
+									options : {
+										required : true
+									}
+								}
+							}, {
+								title : '司机',
+								field : 'driver',
+								width : 100,
+								sortable : true,
+								editor : {
+									type : 'combobox',
+									options : {
+										required : true
+									}
+								}
+							}, {
+								title : '出车时间',
+								field : 'drive_time',
+								width : 150,
+								sortable : true,
+								editor : {
+									type : 'datetimebox',
+									options : {
+										required : true
+									}
+								}
+							}, {
+								title : '审核状态',
+								field : 'check',
+								width : 100,
+								sortable : true,
+								editor : {
+									type : 'combobox',
+									options : {
+										required : true
+									}
+								}
+							}, {
+								title : '托单来源',
+								field : 'from',
+								width : 100,
+								sortable : true,
+								editor : {
+									type : 'combobox',
+									options : {
+										required : true
+									}
+								}
+							}, {
+								title : '日志记录',
+								field : 'detail',
+								width : 100,
+								sortable : true,
+								formatter: function(value,row,index){
+      	 return '<a href="javascript:void(0)" onclick="constructionManager(\'' + row.id+ '\')">查看日志</a>  '	
+     }  	
+							}] ],//合并单元格
+							toolbar : [
+									{
+										text : '录入',
+										iconCls : 'icon-driveedit',
+										handler : function() {
+											if (editRow != undefined) {
+												datagrid.datagrid('endEdit',
+														editRow);
+											}
+											//datagrid.datagrid('appendRow', {//末尾增加
+
+											//});
+											if (editRow == undefined) {
+												datagrid.datagrid('insertRow',
+														{//首行增加
+															index : 0,
+															row : {
+															}
+														});
+												var rows = datagrid
+														.datagrid('getRows');
+												//datagrid.datagrid('beginEdit', rows.length - 1);//开启行编辑模式，在末尾插入index索引从零开始，因此减1
+												datagrid.datagrid('beginEdit',
+														0);
+												editRow = 0;
+											}
+										}
+
+									},
+									'-',
+									{
+										text : '导入',
+										iconCls : 'icon-drivego',
+										handler : function newimport(){
+    $('#dlg').dialog('open').dialog('setTitle','');
+    $('#fm').form('clear');
+    //url = 'save_import.php';
+    }
+									}, 
+									'-',
+									{
+										text : '审核',
+										iconCls : 'icon-ok',
+										handler : function() {
+											datagrid.datagrid('endEdit',
+													editRow);
+										}
+									},
+									'-',
+									{
+										text : '删除',
+										iconCls : 'icon-remove',
+										handler : function() {
+											var rows = datagrid
+													.datagrid('getSelections');//获得选中项
+											if (rows.length > 0) {
+												$.messager
+														.confirm(
+																'请确认',
+																'您确定要删除当前选择的所有项吗？',
+																function(b) {
+																	if (b) {
+																		var ids = [];
+																		for (i = 0; i < rows.length; i++) {
+																			ids
+																					.push(rows[i].id);
+																		}
+																		console
+																				.info(ids
+																						.join(','));
+																	}
+																});
+											} else {
+												$.messager.alert('提示',
+														'请选择要删除的记录', 'info');
+											}
+										}
+									},
+									'-',
+									{
+										text : '编辑',
+										iconCls : 'icon-edit',
+										handler : function() {
+											var rows = datagrid
+													.datagrid('getSelections');
+											if (rows.length == 1) {
+												if (editRow != undefined) {
+													datagrid.datagrid(
+															'endEdit', editRow);
+												}
+												if (editRow == undefined) {
+													var index = datagrid
+															.datagrid(
+																	'getRowIndex',
+																	rows[0]);
+													datagrid.datagrid(
+															'beginEdit', index);
+													editRow = index;
+													datagrid
+															.datagrid('unselectAll');
+												}
+											}
+										}
+									},
+									'-',
+									{
+										text : '保存',
+										iconCls : 'icon-save',
+										handler : function() {
+											datagrid.datagrid('endEdit',
+													editRow);
+										}
+									}, '-', {
+										text : '取消',
+										iconCls : 'icon-redo',
+										handler : function() {
+											editRow = undefined;
+											datagrid.datagrid('rejectChanges');
+											//datagrid.datagrid('unselectAll');
+										}
+									}, '-' ],
+							onAfterEdit : function(rowIndex, rowData, changes) {
+								console.info(rowData);//向后台传递的数据
+								editRow = undefined;
+							},
+							onClickRow : function(rowIndex, rowData) {//单击编辑行
+								if (editRow != undefined) {
+									datagrid.datagrid('endEdit', editRow);
+								}
+								if (editRow == undefined) {
+
+									var rows = datagrid.datagrid('getRows');
+									datagrid.datagrid('beginEdit', rowIndex);
+									editRow = rowIndex;
+								}
+							}
+						});
+	});
+</script>
+ <script type="text/javascript">
+ function constructionManager(){
+$('#w').window('open')}
+ </script>
+
+
+<style type="text/css">
+    #fm{
+    margin:0;
+    padding:10px 30px;
+    }
+    .ftitle{
+    font-size:14px;
+    font-weight:bold;
+    padding:5px 0;
+    margin-bottom:10px;
+    border-bottom:1px solid #ccc;
+    }
+    .fitem{
+    margin-bottom:5px;
+    }
+    .fitem label{
+    display:inline-block;
+    width:100px;
+    }
+    </style>
+
+<div class="easyui-layout" fit="true" border="false">
+	<div region="north" border="false" title="查询" iconCls="icon-search"
+		style="height:112px;overflow:hidden;">
+		<form id="name">
+			<table class="tableForm datagrid-toolbar"
+				style="width:100%;height:100%;">
+				<tr>
+					<th>业务类型</th>
+					<td><select class="easyui-combobox" style="width:320px" data-options="multiple:false">
+					        <option value="全部">全部</option>
+							<option value="拖卡">拖卡</option>
+							<option value="中烟">中烟</option>
+							<option value="烟草">烟草</option>
+							<option value="危品">危品</option>
+							<option value="冷链">冷链</option>
+							<option value="普货">普货</option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>审核状态</th>
+					<td><select class="easyui-combobox" panelHeight="auto" style="width:320px">
+					       <option value="全部">全部</option>
+				           <option value="待审核">待审核</option>
+				           <option value="已确认">已审核</option>
+				           <option value="已驳回">已驳回</option>
+			        </select></td>
+				</tr>
+				<tr>
+					<th>出车时间</th>
+					<td><input name="createdatetimeStart"
+						class="easyui-datetimebox" editable="false" style="width:155px;" />至<input
+						name="createdatetimeEnd" class="easyui-datetimebox"
+						editable="false" style="width:155px;" /> <a
+						href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"
+						onclick="cd.user.search();">查询</a> <a href="javascript:void(0);"
+						class="easyui-linkbutton" iconCls="icon-undo" onclick="cd.user.clear();">清空</a></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div region="center" title="" border="false" fit="true" >
+		<table id="datagrid"></table>
+	</div>
+</div>
+<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+    closed="true" buttons="#dlg-buttons">
+    <div class="ftitle">导入托单</div>
+    <form id="fm" method="post" novalidate>
+    <div class="fitem">
+    <label>Excel导入:</label>
+    <input import="excel">
+    </div>
+    <div class="fitem">
+    <label>Webservice导入:</label>
+    <input import="webservice">
+    </div>
+	<div class="fitem">
+    <label>XML导入:</label>
+    <input import="excel">
+    </div>
+    </form>
+    </div>
+	<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveimport()">确定</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+    </div>
+<div id="w" class="easyui-window" href="#" title="查看日志" border="false" data-options="iconCls:'icon-box',minimizable:false,closable:true,closed:true" style="width:500px;height:200px;" >
+	</div>

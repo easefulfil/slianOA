@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaSuitMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    <id column="suit_id" property="suitId" jdbcType="INTEGER" />
+    <result column="appraised_person" property="appraisedPerson" jdbcType="VARCHAR" />
+    <result column="site" property="site" jdbcType="VARCHAR" />
+    <result column="entrusting_date" property="entrustingDate" jdbcType="TIMESTAMP" />
+    <result column="entrusting_person" property="entrustingPerson" jdbcType="VARCHAR" />
+    <result column="case_number" property="caseNumber" jdbcType="VARCHAR" />
+    <result column="receivable" property="receivable" jdbcType="DOUBLE" />
+    <result column="received" property="received" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="apprasing_person" property="apprasingPerson" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    suit_id, appraised_person, site, entrusting_date, entrusting_person, case_number, 
+    receivable, received, status, access_group, amend_time, amender, create_time, creator, 
+    remark, apprasing_person
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_suit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_suit
+    where suit_id = #{suitId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_suit
+    where suit_id = #{suitId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuitExample" >
+    delete from oa_suit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    insert into oa_suit (suit_id, appraised_person, site, 
+      entrusting_date, entrusting_person, case_number, 
+      receivable, received, status, 
+      access_group, amend_time, amender, 
+      create_time, creator, remark, 
+      apprasing_person)
+    values (#{suitId,jdbcType=INTEGER}, #{appraisedPerson,jdbcType=VARCHAR}, #{site,jdbcType=VARCHAR}, 
+      #{entrustingDate,jdbcType=TIMESTAMP}, #{entrustingPerson,jdbcType=VARCHAR}, #{caseNumber,jdbcType=VARCHAR}, 
+      #{receivable,jdbcType=DOUBLE}, #{received,jdbcType=DOUBLE}, #{status,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{apprasingPerson,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    insert into oa_suit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suitId != null" >
+        suit_id,
+      </if>
+      <if test="appraisedPerson != null" >
+        appraised_person,
+      </if>
+      <if test="site != null" >
+        site,
+      </if>
+      <if test="entrustingDate != null" >
+        entrusting_date,
+      </if>
+      <if test="entrustingPerson != null" >
+        entrusting_person,
+      </if>
+      <if test="caseNumber != null" >
+        case_number,
+      </if>
+      <if test="receivable != null" >
+        receivable,
+      </if>
+      <if test="received != null" >
+        received,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="apprasingPerson != null" >
+        apprasing_person,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suitId != null" >
+        #{suitId,jdbcType=INTEGER},
+      </if>
+      <if test="appraisedPerson != null" >
+        #{appraisedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null" >
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustingDate != null" >
+        #{entrustingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entrustingPerson != null" >
+        #{entrustingPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNumber != null" >
+        #{caseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receivable != null" >
+        #{receivable,jdbcType=DOUBLE},
+      </if>
+      <if test="received != null" >
+        #{received,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="apprasingPerson != null" >
+        #{apprasingPerson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuitExample" resultType="java.lang.Integer" >
+    select count(*) from oa_suit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_suit
+    <set >
+      <if test="record.suitId != null" >
+        suit_id = #{record.suitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.appraisedPerson != null" >
+        appraised_person = #{record.appraisedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.site != null" >
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrustingDate != null" >
+        entrusting_date = #{record.entrustingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.entrustingPerson != null" >
+        entrusting_person = #{record.entrustingPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseNumber != null" >
+        case_number = #{record.caseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivable != null" >
+        receivable = #{record.receivable,jdbcType=DOUBLE},
+      </if>
+      <if test="record.received != null" >
+        received = #{record.received,jdbcType=DOUBLE},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apprasingPerson != null" >
+        apprasing_person = #{record.apprasingPerson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_suit
+    set suit_id = #{record.suitId,jdbcType=INTEGER},
+      appraised_person = #{record.appraisedPerson,jdbcType=VARCHAR},
+      site = #{record.site,jdbcType=VARCHAR},
+      entrusting_date = #{record.entrustingDate,jdbcType=TIMESTAMP},
+      entrusting_person = #{record.entrustingPerson,jdbcType=VARCHAR},
+      case_number = #{record.caseNumber,jdbcType=VARCHAR},
+      receivable = #{record.receivable,jdbcType=DOUBLE},
+      received = #{record.received,jdbcType=DOUBLE},
+      status = #{record.status,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      apprasing_person = #{record.apprasingPerson,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    update oa_suit
+    <set >
+      <if test="appraisedPerson != null" >
+        appraised_person = #{appraisedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="site != null" >
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustingDate != null" >
+        entrusting_date = #{entrustingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entrustingPerson != null" >
+        entrusting_person = #{entrustingPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="caseNumber != null" >
+        case_number = #{caseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="receivable != null" >
+        receivable = #{receivable,jdbcType=DOUBLE},
+      </if>
+      <if test="received != null" >
+        received = #{received,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="apprasingPerson != null" >
+        apprasing_person = #{apprasingPerson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where suit_id = #{suitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    update oa_suit
+    set appraised_person = #{appraisedPerson,jdbcType=VARCHAR},
+      site = #{site,jdbcType=VARCHAR},
+      entrusting_date = #{entrustingDate,jdbcType=TIMESTAMP},
+      entrusting_person = #{entrustingPerson,jdbcType=VARCHAR},
+      case_number = #{caseNumber,jdbcType=VARCHAR},
+      receivable = #{receivable,jdbcType=DOUBLE},
+      received = #{received,jdbcType=DOUBLE},
+      status = #{status,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      apprasing_person = #{apprasingPerson,jdbcType=VARCHAR}
+    where suit_id = #{suitId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaSuit" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaSuitExample" >
+    select a.* from oa_suit a where a.suit_id in 
+ (select top ${pageSize} suit_id from oa_suit 
+<include refid="select_by_page_outter_where_sql"/> 
+suit_id not in (select top ${skipRecordCount} suit_id from oa_suit  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+<include refid="select_by_page_outter_orderby_sql"/> 
+  </select>
+</mapper>

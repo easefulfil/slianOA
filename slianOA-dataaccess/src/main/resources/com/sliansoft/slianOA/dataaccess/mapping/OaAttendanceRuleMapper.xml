@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaAttendanceRuleMapper">
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    <id column="attendance_rule_id" jdbcType="INTEGER" property="attendanceRuleId" />
+    <result column="attend_name" jdbcType="VARCHAR" property="attendName" />
+    <result column="attend_address" jdbcType="VARCHAR" property="attendAddress" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="scope" jdbcType="INTEGER" property="scope" />
+    <result column="work_days" jdbcType="REAL" property="workDays" />
+    <result column="signin_time" jdbcType="VARCHAR" property="signinTime" />
+    <result column="signin_begin_time" jdbcType="VARCHAR" property="signinBeginTime" />
+    <result column="signin_end_time" jdbcType="VARCHAR" property="signinEndTime" />
+    <result column="signout_time" jdbcType="VARCHAR" property="signoutTime" />
+    <result column="signout_begin_time" jdbcType="VARCHAR" property="signoutBeginTime" />
+    <result column="signout_endtime" jdbcType="VARCHAR" property="signoutEndtime" />
+    <result column="sign_location_ids" jdbcType="VARCHAR" property="signLocationIds" />
+    <result column="unattend_days" jdbcType="VARCHAR" property="unattendDays" />
+    <result column="view_employee_ids" jdbcType="VARCHAR" property="viewEmployeeIds" />
+    <result column="is_monday" jdbcType="INTEGER" property="isMonday" />
+    <result column="is_tuesdany" jdbcType="INTEGER" property="isTuesdany" />
+    <result column="is_wednesday" jdbcType="INTEGER" property="isWednesday" />
+    <result column="is_thursday" jdbcType="INTEGER" property="isThursday" />
+    <result column="is_friday" jdbcType="INTEGER" property="isFriday" />
+    <result column="is_saturday" jdbcType="INTEGER" property="isSaturday" />
+    <result column="is_sunday" jdbcType="INTEGER" property="isSunday" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="access_group" jdbcType="INTEGER" property="accessGroup" />
+    <result column="amend_time" jdbcType="TIMESTAMP" property="amendTime" />
+    <result column="amender" jdbcType="INTEGER" property="amender" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    attendance_rule_id, attend_name, attend_address, latitude, longitude, scope, work_days, 
+    signin_time, signin_begin_time, signin_end_time, signout_time, signout_begin_time, 
+    signout_endtime, sign_location_ids, unattend_days, view_employee_ids, is_monday, 
+    is_tuesdany, is_wednesday, is_thursday, is_friday, is_saturday, is_sunday, status, 
+    access_group, amend_time, amender, create_time, creator, is_delete
+  </sql>
+  <select id="selectByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_attendance_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_attendance_rule
+    where attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from oa_attendance_rule
+    where attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRuleExample">
+    delete from oa_attendance_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    insert into oa_attendance_rule (attendance_rule_id, attend_name, attend_address, 
+      latitude, longitude, scope, 
+      work_days, signin_time, signin_begin_time, 
+      signin_end_time, signout_time, signout_begin_time, 
+      signout_endtime, sign_location_ids, unattend_days, 
+      view_employee_ids, is_monday, is_tuesdany, 
+      is_wednesday, is_thursday, is_friday, 
+      is_saturday, is_sunday, status, 
+      access_group, amend_time, amender, 
+      create_time, creator, is_delete
+      )
+    values (#{attendanceRuleId,jdbcType=INTEGER}, #{attendName,jdbcType=VARCHAR}, #{attendAddress,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{scope,jdbcType=INTEGER}, 
+      #{workDays,jdbcType=REAL}, #{signinTime,jdbcType=VARCHAR}, #{signinBeginTime,jdbcType=VARCHAR}, 
+      #{signinEndTime,jdbcType=VARCHAR}, #{signoutTime,jdbcType=VARCHAR}, #{signoutBeginTime,jdbcType=VARCHAR}, 
+      #{signoutEndtime,jdbcType=VARCHAR}, #{signLocationIds,jdbcType=VARCHAR}, #{unattendDays,jdbcType=VARCHAR}, 
+      #{viewEmployeeIds,jdbcType=VARCHAR}, #{isMonday,jdbcType=INTEGER}, #{isTuesdany,jdbcType=INTEGER}, 
+      #{isWednesday,jdbcType=INTEGER}, #{isThursday,jdbcType=INTEGER}, #{isFriday,jdbcType=INTEGER}, 
+      #{isSaturday,jdbcType=INTEGER}, #{isSunday,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    insert into oa_attendance_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attendanceRuleId != null">
+        attendance_rule_id,
+      </if>
+      <if test="attendName != null">
+        attend_name,
+      </if>
+      <if test="attendAddress != null">
+        attend_address,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="workDays != null">
+        work_days,
+      </if>
+      <if test="signinTime != null">
+        signin_time,
+      </if>
+      <if test="signinBeginTime != null">
+        signin_begin_time,
+      </if>
+      <if test="signinEndTime != null">
+        signin_end_time,
+      </if>
+      <if test="signoutTime != null">
+        signout_time,
+      </if>
+      <if test="signoutBeginTime != null">
+        signout_begin_time,
+      </if>
+      <if test="signoutEndtime != null">
+        signout_endtime,
+      </if>
+      <if test="signLocationIds != null">
+        sign_location_ids,
+      </if>
+      <if test="unattendDays != null">
+        unattend_days,
+      </if>
+      <if test="viewEmployeeIds != null">
+        view_employee_ids,
+      </if>
+      <if test="isMonday != null">
+        is_monday,
+      </if>
+      <if test="isTuesdany != null">
+        is_tuesdany,
+      </if>
+      <if test="isWednesday != null">
+        is_wednesday,
+      </if>
+      <if test="isThursday != null">
+        is_thursday,
+      </if>
+      <if test="isFriday != null">
+        is_friday,
+      </if>
+      <if test="isSaturday != null">
+        is_saturday,
+      </if>
+      <if test="isSunday != null">
+        is_sunday,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="accessGroup != null">
+        access_group,
+      </if>
+      <if test="amendTime != null">
+        amend_time,
+      </if>
+      <if test="amender != null">
+        amender,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attendanceRuleId != null">
+        #{attendanceRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="attendName != null">
+        #{attendName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendAddress != null">
+        #{attendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="workDays != null">
+        #{workDays,jdbcType=REAL},
+      </if>
+      <if test="signinTime != null">
+        #{signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signinBeginTime != null">
+        #{signinBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signinEndTime != null">
+        #{signinEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutTime != null">
+        #{signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutBeginTime != null">
+        #{signoutBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutEndtime != null">
+        #{signoutEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="signLocationIds != null">
+        #{signLocationIds,jdbcType=VARCHAR},
+      </if>
+      <if test="unattendDays != null">
+        #{unattendDays,jdbcType=VARCHAR},
+      </if>
+      <if test="viewEmployeeIds != null">
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isMonday != null">
+        #{isMonday,jdbcType=INTEGER},
+      </if>
+      <if test="isTuesdany != null">
+        #{isTuesdany,jdbcType=INTEGER},
+      </if>
+      <if test="isWednesday != null">
+        #{isWednesday,jdbcType=INTEGER},
+      </if>
+      <if test="isThursday != null">
+        #{isThursday,jdbcType=INTEGER},
+      </if>
+      <if test="isFriday != null">
+        #{isFriday,jdbcType=INTEGER},
+      </if>
+      <if test="isSaturday != null">
+        #{isSaturday,jdbcType=INTEGER},
+      </if>
+      <if test="isSunday != null">
+        #{isSunday,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null">
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null">
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null">
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRuleExample" resultType="java.lang.Integer">
+    select count(*) from oa_attendance_rule
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update oa_attendance_rule
+    <set>
+      <if test="record.attendanceRuleId != null">
+        attendance_rule_id = #{record.attendanceRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attendName != null">
+        attend_name = #{record.attendName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendAddress != null">
+        attend_address = #{record.attendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null">
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.longitude != null">
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.scope != null">
+        scope = #{record.scope,jdbcType=INTEGER},
+      </if>
+      <if test="record.workDays != null">
+        work_days = #{record.workDays,jdbcType=REAL},
+      </if>
+      <if test="record.signinTime != null">
+        signin_time = #{record.signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinBeginTime != null">
+        signin_begin_time = #{record.signinBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinEndTime != null">
+        signin_end_time = #{record.signinEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutTime != null">
+        signout_time = #{record.signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutBeginTime != null">
+        signout_begin_time = #{record.signoutBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutEndtime != null">
+        signout_endtime = #{record.signoutEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signLocationIds != null">
+        sign_location_ids = #{record.signLocationIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unattendDays != null">
+        unattend_days = #{record.unattendDays,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewEmployeeIds != null">
+        view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMonday != null">
+        is_monday = #{record.isMonday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isTuesdany != null">
+        is_tuesdany = #{record.isTuesdany,jdbcType=INTEGER},
+      </if>
+      <if test="record.isWednesday != null">
+        is_wednesday = #{record.isWednesday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isThursday != null">
+        is_thursday = #{record.isThursday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isFriday != null">
+        is_friday = #{record.isFriday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSaturday != null">
+        is_saturday = #{record.isSaturday,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSunday != null">
+        is_sunday = #{record.isSunday,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null">
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null">
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null">
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update oa_attendance_rule
+    set attendance_rule_id = #{record.attendanceRuleId,jdbcType=INTEGER},
+      attend_name = #{record.attendName,jdbcType=VARCHAR},
+      attend_address = #{record.attendAddress,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      scope = #{record.scope,jdbcType=INTEGER},
+      work_days = #{record.workDays,jdbcType=REAL},
+      signin_time = #{record.signinTime,jdbcType=VARCHAR},
+      signin_begin_time = #{record.signinBeginTime,jdbcType=VARCHAR},
+      signin_end_time = #{record.signinEndTime,jdbcType=VARCHAR},
+      signout_time = #{record.signoutTime,jdbcType=VARCHAR},
+      signout_begin_time = #{record.signoutBeginTime,jdbcType=VARCHAR},
+      signout_endtime = #{record.signoutEndtime,jdbcType=VARCHAR},
+      sign_location_ids = #{record.signLocationIds,jdbcType=VARCHAR},
+      unattend_days = #{record.unattendDays,jdbcType=VARCHAR},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      is_monday = #{record.isMonday,jdbcType=INTEGER},
+      is_tuesdany = #{record.isTuesdany,jdbcType=INTEGER},
+      is_wednesday = #{record.isWednesday,jdbcType=INTEGER},
+      is_thursday = #{record.isThursday,jdbcType=INTEGER},
+      is_friday = #{record.isFriday,jdbcType=INTEGER},
+      is_saturday = #{record.isSaturday,jdbcType=INTEGER},
+      is_sunday = #{record.isSunday,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    update oa_attendance_rule
+    <set>
+      <if test="attendName != null">
+        attend_name = #{attendName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendAddress != null">
+        attend_address = #{attendAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="workDays != null">
+        work_days = #{workDays,jdbcType=REAL},
+      </if>
+      <if test="signinTime != null">
+        signin_time = #{signinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signinBeginTime != null">
+        signin_begin_time = #{signinBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signinEndTime != null">
+        signin_end_time = #{signinEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutTime != null">
+        signout_time = #{signoutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutBeginTime != null">
+        signout_begin_time = #{signoutBeginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutEndtime != null">
+        signout_endtime = #{signoutEndtime,jdbcType=VARCHAR},
+      </if>
+      <if test="signLocationIds != null">
+        sign_location_ids = #{signLocationIds,jdbcType=VARCHAR},
+      </if>
+      <if test="unattendDays != null">
+        unattend_days = #{unattendDays,jdbcType=VARCHAR},
+      </if>
+      <if test="viewEmployeeIds != null">
+        view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="isMonday != null">
+        is_monday = #{isMonday,jdbcType=INTEGER},
+      </if>
+      <if test="isTuesdany != null">
+        is_tuesdany = #{isTuesdany,jdbcType=INTEGER},
+      </if>
+      <if test="isWednesday != null">
+        is_wednesday = #{isWednesday,jdbcType=INTEGER},
+      </if>
+      <if test="isThursday != null">
+        is_thursday = #{isThursday,jdbcType=INTEGER},
+      </if>
+      <if test="isFriday != null">
+        is_friday = #{isFriday,jdbcType=INTEGER},
+      </if>
+      <if test="isSaturday != null">
+        is_saturday = #{isSaturday,jdbcType=INTEGER},
+      </if>
+      <if test="isSunday != null">
+        is_sunday = #{isSunday,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null">
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null">
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null">
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    update oa_attendance_rule
+    set attend_name = #{attendName,jdbcType=VARCHAR},
+      attend_address = #{attendAddress,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      scope = #{scope,jdbcType=INTEGER},
+      work_days = #{workDays,jdbcType=REAL},
+      signin_time = #{signinTime,jdbcType=VARCHAR},
+      signin_begin_time = #{signinBeginTime,jdbcType=VARCHAR},
+      signin_end_time = #{signinEndTime,jdbcType=VARCHAR},
+      signout_time = #{signoutTime,jdbcType=VARCHAR},
+      signout_begin_time = #{signoutBeginTime,jdbcType=VARCHAR},
+      signout_endtime = #{signoutEndtime,jdbcType=VARCHAR},
+      sign_location_ids = #{signLocationIds,jdbcType=VARCHAR},
+      unattend_days = #{unattendDays,jdbcType=VARCHAR},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      is_monday = #{isMonday,jdbcType=INTEGER},
+      is_tuesdany = #{isTuesdany,jdbcType=INTEGER},
+      is_wednesday = #{isWednesday,jdbcType=INTEGER},
+      is_thursday = #{isThursday,jdbcType=INTEGER},
+      is_friday = #{isFriday,jdbcType=INTEGER},
+      is_saturday = #{isSaturday,jdbcType=INTEGER},
+      is_sunday = #{isSunday,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER}
+  </update>
+  <resultMap extends="BaseResultMap" id="selectPageResult" type="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRule">
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql">
+      <if test="oredCriteria.size&gt;0">     <if test="_parameter != null"> <include refid="Example_Where_Clause" /> </if>   and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql">
+      <if test="oredCriteria.size&gt;0">     <if test="_parameter != null"> <include refid="Example_Where_Clause" /> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql">
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceRuleExample" resultMap="selectPageResult">
+    select a.* from oa_attendance_rule a where a.attendance_rule_id in 
+ (select top ${pageSize} attendance_rule_id from oa_attendance_rule 
+<include refid="select_by_page_outter_where_sql" /> 
+attendance_rule_id not in (select top ${skipRecordCount} attendance_rule_id from oa_attendance_rule  
+<include refid="select_by_page_inner_where_and_orderby_sql" /> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql" /> 
+ )
+  </select>
+</mapper>

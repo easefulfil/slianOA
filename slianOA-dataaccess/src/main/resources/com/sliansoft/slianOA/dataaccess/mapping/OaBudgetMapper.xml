@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaBudgetMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    <id column="budget_id" property="budgetId" jdbcType="INTEGER" />
+    <result column="budget_type" property="budgetType" jdbcType="VARCHAR" />
+    <result column="budget_type_name" property="budgetTypeName" jdbcType="VARCHAR" />
+    <result column="budget_purpose" property="budgetPurpose" jdbcType="VARCHAR" />
+    <result column="happen_date" property="happenDate" jdbcType="TIMESTAMP" />
+    <result column="income" property="income" jdbcType="DECIMAL" />
+    <result column="expense" property="expense" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="budget_status" property="budgetStatus" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="record_version" property="recordVersion" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    budget_id, budget_type, budget_type_name, budget_purpose, happen_date, income, expense, 
+    balance, project_id, project_name, employee_id, employee_name, budget_status, description, 
+    create_time, creator, access_group, amender, amend_time, record_version, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudgetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_budget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_budget
+    where budget_id = #{budgetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_budget
+    where budget_id = #{budgetId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudgetExample" >
+    delete from oa_budget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    insert into oa_budget (budget_id, budget_type, budget_type_name, 
+      budget_purpose, happen_date, income, 
+      expense, balance, project_id, 
+      project_name, employee_id, employee_name, 
+      budget_status, description, create_time, 
+      creator, access_group, amender, 
+      amend_time, record_version, is_deleted
+      )
+    values (#{budgetId,jdbcType=INTEGER}, #{budgetType,jdbcType=VARCHAR}, #{budgetTypeName,jdbcType=VARCHAR}, 
+      #{budgetPurpose,jdbcType=VARCHAR}, #{happenDate,jdbcType=TIMESTAMP}, #{income,jdbcType=DECIMAL}, 
+      #{expense,jdbcType=DECIMAL}, #{balance,jdbcType=DECIMAL}, #{projectId,jdbcType=INTEGER}, 
+      #{projectName,jdbcType=VARCHAR}, #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{budgetStatus,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{accessGroup,jdbcType=INTEGER}, #{amender,jdbcType=INTEGER}, 
+      #{amendTime,jdbcType=TIMESTAMP}, #{recordVersion,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    insert into oa_budget
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="budgetId != null" >
+        budget_id,
+      </if>
+      <if test="budgetType != null" >
+        budget_type,
+      </if>
+      <if test="budgetTypeName != null" >
+        budget_type_name,
+      </if>
+      <if test="budgetPurpose != null" >
+        budget_purpose,
+      </if>
+      <if test="happenDate != null" >
+        happen_date,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="expense != null" >
+        expense,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="budgetStatus != null" >
+        budget_status,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="recordVersion != null" >
+        record_version,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="budgetId != null" >
+        #{budgetId,jdbcType=INTEGER},
+      </if>
+      <if test="budgetType != null" >
+        #{budgetType,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetTypeName != null" >
+        #{budgetTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetPurpose != null" >
+        #{budgetPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="happenDate != null" >
+        #{happenDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="expense != null" >
+        #{expense,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetStatus != null" >
+        #{budgetStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordVersion != null" >
+        #{recordVersion,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudgetExample" resultType="java.lang.Integer" >
+    select count(*) from oa_budget
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_budget
+    <set >
+      <if test="record.budgetId != null" >
+        budget_id = #{record.budgetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.budgetType != null" >
+        budget_type = #{record.budgetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.budgetTypeName != null" >
+        budget_type_name = #{record.budgetTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.budgetPurpose != null" >
+        budget_purpose = #{record.budgetPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.happenDate != null" >
+        happen_date = #{record.happenDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.income != null" >
+        income = #{record.income,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expense != null" >
+        expense = #{record.expense,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeName != null" >
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.budgetStatus != null" >
+        budget_status = #{record.budgetStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordVersion != null" >
+        record_version = #{record.recordVersion,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_budget
+    set budget_id = #{record.budgetId,jdbcType=INTEGER},
+      budget_type = #{record.budgetType,jdbcType=VARCHAR},
+      budget_type_name = #{record.budgetTypeName,jdbcType=VARCHAR},
+      budget_purpose = #{record.budgetPurpose,jdbcType=VARCHAR},
+      happen_date = #{record.happenDate,jdbcType=TIMESTAMP},
+      income = #{record.income,jdbcType=DECIMAL},
+      expense = #{record.expense,jdbcType=DECIMAL},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      budget_status = #{record.budgetStatus,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amender = #{record.amender,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      record_version = #{record.recordVersion,jdbcType=INTEGER},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    update oa_budget
+    <set >
+      <if test="budgetType != null" >
+        budget_type = #{budgetType,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetTypeName != null" >
+        budget_type_name = #{budgetTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetPurpose != null" >
+        budget_purpose = #{budgetPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="happenDate != null" >
+        happen_date = #{happenDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=DECIMAL},
+      </if>
+      <if test="expense != null" >
+        expense = #{expense,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="budgetStatus != null" >
+        budget_status = #{budgetStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordVersion != null" >
+        record_version = #{recordVersion,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where budget_id = #{budgetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    update oa_budget
+    set budget_type = #{budgetType,jdbcType=VARCHAR},
+      budget_type_name = #{budgetTypeName,jdbcType=VARCHAR},
+      budget_purpose = #{budgetPurpose,jdbcType=VARCHAR},
+      happen_date = #{happenDate,jdbcType=TIMESTAMP},
+      income = #{income,jdbcType=DECIMAL},
+      expense = #{expense,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      project_id = #{projectId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      budget_status = #{budgetStatus,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amender = #{amender,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      record_version = #{recordVersion,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where budget_id = #{budgetId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaBudget" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   ) and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaBudgetExample" >
+    select a.* from oa_budget a where a.budget_id in 
+ (select top ${pageSize} budget_id from oa_budget 
+<include refid="select_by_page_outter_where_sql"/> 
+budget_id not in (select top ${skipRecordCount} budget_id from oa_budget  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+
+  </select>
+</mapper>

@@ -1,0 +1,31 @@
+数据授权实现由原来Dao层扩展Mapper实现，改为Service实现，具体实现方式及过程
+
+数据授权范围：
+1、查询方法，通常是通过*Exmaple进行查询的方法，比如：getByBage；
+	delete，update方法情况较少
+2、insert，getById等方法不需要做数据权限控制
+
+
+
+数据授权流程：
+1、com.siansoft.dataAuthorize.service.DataAuthorityService.java
+	该类定义了setExampleByAuthorization(Object, Object, HttpSession)方法，该方法根据当前的session对象，给指定的Example，Criteria对象设置数据授权信息，通过反射机制进行实现
+	
+	
+2、所有需要进行数据授权业务类*ServiceImpl，类中需定义 set*Example(*Example example),*代表具体的model名，
+	可参考OaDcoumentServiceImple.java中的   setOaDcoumentExmapler(OaDcoumentExmaple exmaple)方法
+	
+	
+	
+4、针对查询方法
+	均需要在*ServiceImpl的set*Example方法最后一行调用DataAuthorityService.setExampleByAuthorization (example,criteria,session);添加数据授权信息 
+	可以参考setOaDcoumentExmapler(OaDcoumentExmaple exmaple)方法 的最后一行
+	
+
+5、针对update，delete方法。该系统暂时不考虑，如需考虑，按下来思路实现
+	update，将update记录的Creator，accessgroup参数传人到DataAuthorityService的方法进行验证，返回对应的验证信息
+	
+	delete，需向查询出记录的Creator，accessgroup，并将两个值传人到DataAuthorityService的方法进行验证，返回对应的验证信息
+	
+
+

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>车辆保险信息详情</title>
+	<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+	<link rel="stylesheet" href="../css/extra.css" />
+	<link rel="stylesheet" href="../css/example.css" />
+	<link rel="stylesheet" href="../css/weui.css" />
+	<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<style>
+		div.long{
+			width:160px;
+		}
+	</style>
+</head>
+
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+	<div ng-controller="myCtrl">
+		<div id="vehicleInsuranceInfo" class="page__bd">
+			<div class="weui-form-preview">
+				<div class="weui-cells">
+					<div class="weui-cell_change">
+						<p>车辆保险信息</p>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd">
+							<label class="weui-label">车牌号：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.vehicleId">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">品牌名称：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.trademark">刘伟</label>
+						</div>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd">
+							<label class="weui-label">保险单号：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.insuranceNumber">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd long">
+							<label class="weui-label">保险开始时间：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.beginTime">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd long">
+							<label class="weui-label">保险结束时间 ：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.endTime">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">保险金额：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.insuranceAmount">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd">
+							<label class="weui-label">保险公司：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.insuranceCompany">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">办理人：</label>
+						</div>
+						<div class="weui-cell__bd">
+							<label class="weui-label" ng-bind="data.insuranceConductor">123456789</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">备注：</label>
+						</div>
+					</div>
+					<div style="text-align:center;">
+						<textarea ng-bind="data.remark" rows="4" cols="30" readonly>123456789</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		myApp.controller('myCtrl',function ($scope,$http,$location) {
+			
+			console.log($location.absUrl());
+			var id=$location.absUrl().split('id=')[1];
+			$scope.user=localStorage.getItem("user");
+			
+			$scope.init = function(){
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleInsurance/getById.do',
+					params:{'wechatAccount':$scope.user,"vehicleInsuranceId":id}
+				}).success(function (data) {
+					console.log(data);
+				//	$scope.data=data['rows'][0];
+					$scope.data=data;
+				}).error(function (data) {
+					$.toptip('系统出错', 'error');
+				})
+			}
+			
+
+			if(localStorage.getItem("user")){
+				$scope.user = localStorage.getItem("user");
+				$scope.init();
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+		})
+	</script>
+</body>
+</html>
+

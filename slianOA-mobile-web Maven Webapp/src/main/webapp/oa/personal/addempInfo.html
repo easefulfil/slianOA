@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>员工信息录入</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script src="../js/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script src="../js/oa-util.js"></script>
+		<script type="text/javascript" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" src="../js/picker.js"></script>
+	    <script>
+        $( function() {
+           $( "input" ).radio();
+		   $("#department").selectmenu();
+         } );
+        </script>
+<!--         <script>
+     //定义了城市的二维数组，里面的顺序跟省份的顺序是相同的。通过selectedIndex获得省份的下标值来得到相应的城市数组
+     var post=[
+     ["销售经理","销售专员","市场部实习生"],
+     ["行政人事经理","行政专员","人事专员","综合部实习生"],
+     ["互联网应用研发部经理","网页美工设计","UI设计","web 前端开发工程师","互联网应用研发部"],
+     ["数据应用服务部经理","Java 开发工程师","数据应用服务部实习生"]
+
+     ];
+     function getpost(){
+         //获得部门下拉框的对象，根据getElementById获取ID属性。
+
+         var sltDepartment=document.getElementById("department");
+
+         //获得岗位下拉框的对象
+         var sltpost=document.getElementById("post");
+
+         //得到对应部门的城市数组
+         console.log(sltdepartment.selectedIndex);
+         var departmentpost=post[sltdepartment.selectedIndex - 1];
+
+         //清空岗位下拉框，仅留提示选项
+         sltpost.length=1;
+
+         //将岗位数组中的值填充到岗位下拉框中
+         for(var i=0;i<departmentpost.length;i++){
+             sltpost[i+1]=new Option(departmentpost[i],departmentpost[i]);
+         }
+     }
+ </script> -->
+
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div class="page__bd" ng-controller="myCtrl">
+		        
+<!-- 				<div class="weui-cells_title">信息完善</div> -->
+				<div class="weui-cells weui-cells_form">
+					
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+						<div class="weui-cell__bd"><input class="weui-input" ng-model="emp.name"></input></div>
+					</div>
+					<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+                        <label for="sex-1">男</label>
+                        <input type="radio" ng.model="emp.sex" name="radio-1" id="sex-1">
+                        <label for="sex-2">女</label>
+                        <input type="radio" ng.model="emp.sex" name="radio-1" id="sex-2">
+
+                    </div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">出生年月</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.birthday" class="weui-input" type="number" id="number" placeholder="如1995-04-19"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">籍贯</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.from" class="weui-input" type="text" id="place" placeholder="如：浙江省宁波市"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">民族</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.nation" class="weui-input" type="text" id="place" placeholder="请输入民族"/></div>
+					</div>
+		            <div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">身份证号</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.Idcard" class="weui-input" type="number" id="number" placeholder="请输入身份证号码"/></div>
+					</div>
+					<div class="weui-cell">
+					    <div class="weui-cell__hd"><label class="weui-label">户口性质</label></div>
+                            <label for="house-1">农村户口</label>
+                            <input type="radio" ng.model="emp.house" name="radio-2" id="house-1">
+                            <label for="house-2">城市户口</label>
+                            <input type="radio" ng.model="emp.house" name="radio-2" id="house-2">
+                    </div>
+					 <div class="weui-cell"> 
+						<div class="weui-cell__hd"><label class="weui-label">教育经历</label></div> 
+						<div class="weui-cell__bd"><textarea class="weui-textarea" ng-model="emp.eduExperience" placeholder="请输入教育经历，如2013-2017 xx学校 本科 xx专业" rows="3"></textarea> 
+<!--                         <div class="weui-textarea-counter"><span>0</span>/200</div>  -->
+						</div> 
+					</div> 
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.cellphone" class="weui-input" type="number" pattern="[0-9]*" id="place" placeholder="请输入手机号"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">邮箱</label></div>
+						<div class="weui-cell__bd"><input ng-model="emp.email" class="weui-input" type="text" id="place" placeholder="请输入常用邮箱"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">居住地</label></div>
+						<div class="weui-cell__bd">
+							<input ng-model="emp.address" class="weui-input" placeholder="请输入现居地" />
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">微信号</label></div>
+						<div class="weui-cell__bd">
+							<input ng-model="emp.wexin" class="weui-input" placeholder="请输入微信号" />
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">紧急联系人及其联系方式</label></div>
+						<div class="weui-cell__bd">
+							<input ng-model="emp.emergency" class="weui-input" placeholder="如xxx+1384759563" />
+						</div>
+					</div>
+<!-- 					<div class="weui-cell">
+                         <div class="weui-cell__hd"><label for="department">部门</label></div>
+                            <select name="department" id="department" onchange="getpost()">
+                            <option>市场部</option>
+                            <option>综合部</option>
+                            <option selected="selected">互联网应用研发部</option>
+                            <option>数据应用服务部</option>
+                            </select>
+                            <SELECT id="post">
+                            <OPTION VALUE="0">请选择所在岗位 </OPTION>
+                            </SELECT>
+                    </div> -->
+						<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">部门及职位</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" id="department" ng-model="emp.department" placeholder="部门及职位"/>
+						</div>
+					</div>
+				</div>
+
+					
+		</div>
+				
+				<div class="weui-btn-area">
+            		<input type="button" value="提交" ng-click="submit()" class="weui-btn weui-btn_primary" id="showTooltips"/>
+    </div>
+       			
+		
+	</body>
+	<script src="../js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<script type="text/javascript">
+	$("#department").picker({
+		  title: "请选择",
+		  cols: [
+		    {
+		      textAlign: 'center',
+		      values: ['市场部','综合部','互联网应用研发部','数据应用服务部']
+		    },
+		    {
+		      textAlign: 'center',
+		      values: ['经理','实习生','职工']
+		    }
+			
+		  ]
+		});
+		
+		myApp.controller('myCtrl',function ($scope,$http) {
+			
+			$scope.user = localStorage.getItem("user"); 
+		
+			//获取用户部门信息
+			$scope.emp={
+				name:'',
+				sex:'',
+				birthday:'',
+				from:'',
+				nation:'',
+				Idcard:'',
+				department:'',
+				Idcard:'',
+				house:'',
+				cellphone:'',
+				email:'',
+				address:'',
+				wexin:'',
+				eduExperience:'',
+				emergency:''
+			}
+
+			
+			
+			$scope.submit=function () {
+					var flag=($scope.emp.name=='')||($scope.emp.department=='')||($scope.emp.Idcard=='')||($scope.emp.cellphone=='')||($scope.emp.email=='');
+					if(flag){
+						$.alert('请检查输入')
+					}else{
+						var obj={};
+						obj.name=encodeURIComponent($scope.emp.name);
+						obj.department=$scope.emp.department;
+						obj.Idcard=$scope.emp.Idcard;
+						obj.cellphone=$scope.emp.cellphone;
+						obj.email=$scope.emp.email;
+						obj.address=encodeURIComponent($scope.emp.address);
+						obj.eduExperience=encodeURIComponent($scope.emp.school);
+						obj.wexin=encodeURIComponent($scope.emp.wexin);
+						
+						obj['wechatAccount']=$scope.user;	
+						$http({
+							url:'/slianOA-pc-web/mobile-ajax/auth/employee/insert.do',
+							params:obj
+						}).success(function(data){
+							console.log(data);
+							$.toptip('操作成功', 'success');
+							$("#showTooltips").attr('disabled',true);
+							$("#showTooltips").css('backgroundColor','#B2B2B2');
+						}).error(function(data){
+							console.log(data);
+							$.toptip('操作失败', 'error');
+						})
+					}	
+				}
+				
+				
+
+		})
+		
+</script>
+</html>
+

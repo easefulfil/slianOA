@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaMonthlyMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    <id column="monthly_id" property="monthlyId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="need_attendance_days" property="needAttendanceDays" jdbcType="INTEGER" />
+    <result column="real_attendance_days" property="realAttendanceDays" jdbcType="INTEGER" />
+    <result column="late_times" property="lateTimes" jdbcType="INTEGER" />
+    <result column="late_minutes" property="lateMinutes" jdbcType="INTEGER" />
+    <result column="leave_early_times" property="leaveEarlyTimes" jdbcType="INTEGER" />
+    <result column="leave_early_minutes" property="leaveEarlyMinutes" jdbcType="INTEGER" />
+    <result column="absent_days" property="absentDays" jdbcType="INTEGER" />
+    <result column="casual_leave_days" property="casualLeaveDays" jdbcType="INTEGER" />
+    <result column="sick_leave_days" property="sickLeaveDays" jdbcType="INTEGER" />
+    <result column="other_leave_days" property="otherLeaveDays" jdbcType="INTEGER" />
+    <result column="date_details" property="dateDetails" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    monthly_id, employee_id, employee_name, department, need_attendance_days, real_attendance_days, 
+    late_times, late_minutes, leave_early_times, leave_early_minutes, absent_days, casual_leave_days, 
+    sick_leave_days, other_leave_days, date_details, creator, create_time, access_group, 
+    amender, amend_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthlyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_monthly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_monthly
+    where monthly_id = #{monthlyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_monthly
+    where monthly_id = #{monthlyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthlyExample" >
+    delete from oa_monthly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    insert into oa_monthly (monthly_id, employee_id, employee_name, 
+      department, need_attendance_days, real_attendance_days, 
+      late_times, late_minutes, leave_early_times, 
+      leave_early_minutes, absent_days, casual_leave_days, 
+      sick_leave_days, other_leave_days, date_details, 
+      creator, create_time, access_group, 
+      amender, amend_time)
+    values (#{monthlyId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{employeeName,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{needAttendanceDays,jdbcType=INTEGER}, #{realAttendanceDays,jdbcType=INTEGER}, 
+      #{lateTimes,jdbcType=INTEGER}, #{lateMinutes,jdbcType=INTEGER}, #{leaveEarlyTimes,jdbcType=INTEGER}, 
+      #{leaveEarlyMinutes,jdbcType=INTEGER}, #{absentDays,jdbcType=INTEGER}, #{casualLeaveDays,jdbcType=INTEGER}, 
+      #{sickLeaveDays,jdbcType=INTEGER}, #{otherLeaveDays,jdbcType=INTEGER}, #{dateDetails,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{accessGroup,jdbcType=INTEGER}, 
+      #{amender,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    insert into oa_monthly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monthlyId != null" >
+        monthly_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="needAttendanceDays != null" >
+        need_attendance_days,
+      </if>
+      <if test="realAttendanceDays != null" >
+        real_attendance_days,
+      </if>
+      <if test="lateTimes != null" >
+        late_times,
+      </if>
+      <if test="lateMinutes != null" >
+        late_minutes,
+      </if>
+      <if test="leaveEarlyTimes != null" >
+        leave_early_times,
+      </if>
+      <if test="leaveEarlyMinutes != null" >
+        leave_early_minutes,
+      </if>
+      <if test="absentDays != null" >
+        absent_days,
+      </if>
+      <if test="casualLeaveDays != null" >
+        casual_leave_days,
+      </if>
+      <if test="sickLeaveDays != null" >
+        sick_leave_days,
+      </if>
+      <if test="otherLeaveDays != null" >
+        other_leave_days,
+      </if>
+      <if test="dateDetails != null" >
+        date_details,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monthlyId != null" >
+        #{monthlyId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttendanceDays != null" >
+        #{needAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="realAttendanceDays != null" >
+        #{realAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="lateTimes != null" >
+        #{lateTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lateMinutes != null" >
+        #{lateMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEarlyTimes != null" >
+        #{leaveEarlyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEarlyMinutes != null" >
+        #{leaveEarlyMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="absentDays != null" >
+        #{absentDays,jdbcType=INTEGER},
+      </if>
+      <if test="casualLeaveDays != null" >
+        #{casualLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="sickLeaveDays != null" >
+        #{sickLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="otherLeaveDays != null" >
+        #{otherLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="dateDetails != null" >
+        #{dateDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthlyExample" resultType="java.lang.Integer" >
+    select count(*) from oa_monthly
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_monthly
+    <set >
+      <if test="record.monthlyId != null" >
+        monthly_id = #{record.monthlyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeName != null" >
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needAttendanceDays != null" >
+        need_attendance_days = #{record.needAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.realAttendanceDays != null" >
+        real_attendance_days = #{record.realAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.lateTimes != null" >
+        late_times = #{record.lateTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.lateMinutes != null" >
+        late_minutes = #{record.lateMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveEarlyTimes != null" >
+        leave_early_times = #{record.leaveEarlyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.leaveEarlyMinutes != null" >
+        leave_early_minutes = #{record.leaveEarlyMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="record.absentDays != null" >
+        absent_days = #{record.absentDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.casualLeaveDays != null" >
+        casual_leave_days = #{record.casualLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.sickLeaveDays != null" >
+        sick_leave_days = #{record.sickLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.otherLeaveDays != null" >
+        other_leave_days = #{record.otherLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.dateDetails != null" >
+        date_details = #{record.dateDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_monthly
+    set monthly_id = #{record.monthlyId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      need_attendance_days = #{record.needAttendanceDays,jdbcType=INTEGER},
+      real_attendance_days = #{record.realAttendanceDays,jdbcType=INTEGER},
+      late_times = #{record.lateTimes,jdbcType=INTEGER},
+      late_minutes = #{record.lateMinutes,jdbcType=INTEGER},
+      leave_early_times = #{record.leaveEarlyTimes,jdbcType=INTEGER},
+      leave_early_minutes = #{record.leaveEarlyMinutes,jdbcType=INTEGER},
+      absent_days = #{record.absentDays,jdbcType=INTEGER},
+      casual_leave_days = #{record.casualLeaveDays,jdbcType=INTEGER},
+      sick_leave_days = #{record.sickLeaveDays,jdbcType=INTEGER},
+      other_leave_days = #{record.otherLeaveDays,jdbcType=INTEGER},
+      date_details = #{record.dateDetails,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amender = #{record.amender,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    update oa_monthly
+    <set >
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="needAttendanceDays != null" >
+        need_attendance_days = #{needAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="realAttendanceDays != null" >
+        real_attendance_days = #{realAttendanceDays,jdbcType=INTEGER},
+      </if>
+      <if test="lateTimes != null" >
+        late_times = #{lateTimes,jdbcType=INTEGER},
+      </if>
+      <if test="lateMinutes != null" >
+        late_minutes = #{lateMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEarlyTimes != null" >
+        leave_early_times = #{leaveEarlyTimes,jdbcType=INTEGER},
+      </if>
+      <if test="leaveEarlyMinutes != null" >
+        leave_early_minutes = #{leaveEarlyMinutes,jdbcType=INTEGER},
+      </if>
+      <if test="absentDays != null" >
+        absent_days = #{absentDays,jdbcType=INTEGER},
+      </if>
+      <if test="casualLeaveDays != null" >
+        casual_leave_days = #{casualLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="sickLeaveDays != null" >
+        sick_leave_days = #{sickLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="otherLeaveDays != null" >
+        other_leave_days = #{otherLeaveDays,jdbcType=INTEGER},
+      </if>
+      <if test="dateDetails != null" >
+        date_details = #{dateDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where monthly_id = #{monthlyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    update oa_monthly
+    set employee_id = #{employeeId,jdbcType=INTEGER},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      need_attendance_days = #{needAttendanceDays,jdbcType=INTEGER},
+      real_attendance_days = #{realAttendanceDays,jdbcType=INTEGER},
+      late_times = #{lateTimes,jdbcType=INTEGER},
+      late_minutes = #{lateMinutes,jdbcType=INTEGER},
+      leave_early_times = #{leaveEarlyTimes,jdbcType=INTEGER},
+      leave_early_minutes = #{leaveEarlyMinutes,jdbcType=INTEGER},
+      absent_days = #{absentDays,jdbcType=INTEGER},
+      casual_leave_days = #{casualLeaveDays,jdbcType=INTEGER},
+      sick_leave_days = #{sickLeaveDays,jdbcType=INTEGER},
+      other_leave_days = #{otherLeaveDays,jdbcType=INTEGER},
+      date_details = #{dateDetails,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amender = #{amender,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP}
+    where monthly_id = #{monthlyId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaMonthly" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   ) and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaMonthlyExample" >
+    select a.* from oa_monthly a where a.monthly_id in 
+ (select top ${pageSize} monthly_id from oa_monthly 
+<include refid="select_by_page_outter_where_sql"/> 
+monthly_id not in (select top ${skipRecordCount} monthly_id from oa_monthly  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+
+  </select>
+</mapper>

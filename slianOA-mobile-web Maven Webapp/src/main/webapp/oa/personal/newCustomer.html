@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>添加客户</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div id="noticePreview" class="page__bd" ng-controller="myCtrl">
+			<!-- 	<div>{{notice}}</div> -->
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">新建客户信息</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" id="start4" ng-model="customer.customerName" placeholder="姓名"/>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" id="sex" ng-model="customer.type" placeholder="性别"/>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">公司</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" id="start4" ng-model="customer.customerCompany" placeholder="公司"/>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">手机</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="tel" id="start3" maxlength="11" minlength="11"  ng-model="customer.customerCellPhone" placeholder="手机"/>
+						</div>
+					</div>
+					 <div class="weui-cell">
+			            <div class="weui-cell__hd">
+			                <label class="weui-label">QQ</label>
+			            </div>
+			            <div class="weui-cell__bd">
+			                <input class="weui-input" id="suo" type="number" ng-model="customer.customerQQ" placeholder="QQ">
+			            </div>
+			        </div>
+			        <div class="weui-cell">
+			            <div class="weui-cell__hd">
+			                <label class="weui-label">Email</label>
+			            </div>
+			            <div class="weui-cell__bd">
+			                <input class="weui-input" id="bumen" type="email" ng-model="customer.email" placeholder="电子邮箱">
+			            </div>
+			        </div>
+				</div>
+				<div class="weui-btn-area">
+            		<input type="button" value="提交" class="weui-btn weui-btn_primary" ng-click="submit()" id="showTooltips"/>
+       			</div>
+		</div>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<script>
+		
+		$("#sex").picker({
+			  title: "请选择",
+			  cols: [
+			    {
+			      textAlign: 'center',
+			      values: ['男','女']
+			    }
+			  ]
+			});
+		
+			myApp.controller('myCtrl',function ($scope,$http) {
+				$scope.user = localStorage.getItem('user');
+				var oTo=new Date();
+				console.log(oTo.toLocaleDateString());
+				$scope.customer={
+					customerName:'',
+					customerQQ:'',
+					customerCellPhone:'',
+					email:'',
+					customerCompany:''
+				};
+				//提交
+				$scope.submit=function () {
+					var flag=($scope.customer.customerName=='')||($scope.customer.customerCellPhone==undefined);
+					if(flag){
+						$.alert('请检查你的输入');
+					}else{
+						var obj={};
+						obj.customerName=encodeURIComponent($scope.customer.customerName);
+						obj.customerCompany=encodeURIComponent($scope.customer.customerCompany);
+						obj.email=$scope.customer.email;
+						obj.customerCellPhone=$scope.customer.customerCellPhone;
+						obj.customerQq=$scope.customer.customerQQ;
+						obj.type =encodeURIComponent($scope.customer.type);
+						console.log(obj);
+						if(obj.customerName){
+							var temp = JSON.stringify(obj); // 序列化
+							$http({
+								url:'/slianOA-pc-web/mobile-ajax/auth/customer/save.do',
+								params:{"wechatAccount":$scope.user,'keys':temp}
+							}).success(function(data){
+								console.log(data);
+								//$.toast("操作成功");
+								$.toptip('操作成功', 'success');
+								$("#showTooltips").attr('disabled',true);
+								$("#showTooltips").css('backgroundColor','#B2B2B2');
+								
+							}).error(function(data){
+								console.log(data);
+							})
+						}else{
+							$.toptip('请填写姓名', 'error');
+						}
+					}
+				}
+				
+			})
+			  
+		</script>
+	</body>
+</html>

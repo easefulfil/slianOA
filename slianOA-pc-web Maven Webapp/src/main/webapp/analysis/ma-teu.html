@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>销售经理客户实时分析图</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo/demo.css">
+    <script src="../jquery-easyui-1.3.6/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../jquery-easyui-1.3.6/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../Exteasyui/datetimebox.js"></script>
+    <script src="pagejs/echarts.js"></script>
+    <script src="pagejs/ma-teu.js"></script>
+     <script src="../js/jquery.jdirk.js"></script>
+      <script src="pagejs/utils.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    <div>
+  		<label for="startdate">开始时间：</label>
+  		<input id="startdate" class="easyui-datebox" type="text"/>
+  		<label for="enddate">结束时间：</label>
+  		<input id="enddate" class="easyui-datebox" type="text"/>
+  		<label for="topnum">TOP：</label>
+  		<select id="topnum" class="easyui-combobox" data-options="onSelect:setHeight" editable="false" panelHeight="100px">
+										<option value="5">5</option>
+										<option value="10" selected>10</option>
+										<option value="20">20</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+		</select>
+  		<a id="search" iconCls="icon-search" class="easyui-linkbutton">查询</a>
+  		<br>
+  			<p>
+  			<label for="counterman">选择销售：</label>
+  			<input class="counterman easyui-combobox" 
+  			style="width:150px;"
+  			data-options="
+  				valueField: 'id',
+  				textField: 'name',
+  				url: getContextPath()+'/analysisbasicdataset/getcountermans.do',
+  				onChange: function(){
+  					var countermanid = $('.counterman').combobox('getValue');
+  					var url;
+  					if(countermanid){
+  						if((/^[0-9]*$/g.test(countermanid))){
+  							url  = getContextPath()+'/analysisbasicdataset/getcustomersformanager.do?countermanid='+countermanid;
+  							$('.customer').combobox('clear');
+  							$('.customer').combobox('reload',url);
+  						}else{
+  							$('.customer').combobox('clear');
+  						}
+  					}else
+  						return; 
+  				}"/>
+  			
+  			<label for="customer">选择客户：</label>
+  			<input class="customer easyui-combobox" 
+  			style="width:250px;"
+  			data-options="
+  			valueField: 'id',
+  			textField: 'name'
+  			"/>
+  			</p>	
+  	</div>
+
+  	<div id="main" style="height:400px"></div>
+    <div id="main1" style="height:400px"></div>
+    <div id="main2" style="height:400px"></div>
+    <div id="main3" style="height:400px"></div>
+    <div id="main4" style="height:400px"></div>
+
+  </body>
+</html>

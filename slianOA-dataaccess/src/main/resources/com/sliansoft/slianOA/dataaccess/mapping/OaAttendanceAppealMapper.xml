@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaAttendanceAppealMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    <id column="appeal_id" property="appealId" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="appeal_name" property="appealName" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="attendance_time" property="attendanceTime" jdbcType="TIMESTAMP" />
+    <result column="abnormal_situation" property="abnormalSituation" jdbcType="VARCHAR" />
+    <result column="appeal_times" property="appealTimes" jdbcType="INTEGER" />
+    <result column="approve_state" property="approveState" jdbcType="VARCHAR" />
+    <result column="attendance_details" property="attendanceDetails" jdbcType="VARCHAR" />
+    <result column="appeal_date" property="appealDate" jdbcType="TIMESTAMP" />
+    <result column="attendance_rules" property="attendanceRules" jdbcType="VARCHAR" />
+    <result column="appeal_reason" property="appealReason" jdbcType="VARCHAR" />
+    <result column="approve_name" property="approveName" jdbcType="VARCHAR" />
+    <result column="approve_date" property="approveDate" jdbcType="TIMESTAMP" />
+    <result column="approve_content" property="approveContent" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    appeal_id, account, appeal_name, department, attendance_time, abnormal_situation, 
+    appeal_times, approve_state, attendance_details, appeal_date, attendance_rules, appeal_reason, 
+    approve_name, approve_date, approve_content, access_group, amend_time, amender, create_time, 
+    creator
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppealExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_attendance_appeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_attendance_appeal
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_attendance_appeal
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppealExample" >
+    delete from oa_attendance_appeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    insert into oa_attendance_appeal (appeal_id, account, appeal_name, 
+      department, attendance_time, abnormal_situation, 
+      appeal_times, approve_state, attendance_details, 
+      appeal_date, attendance_rules, appeal_reason, 
+      approve_name, approve_date, approve_content, 
+      access_group, amend_time, amender, 
+      create_time, creator)
+    values (#{appealId,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{appealName,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{attendanceTime,jdbcType=TIMESTAMP}, #{abnormalSituation,jdbcType=VARCHAR}, 
+      #{appealTimes,jdbcType=INTEGER}, #{approveState,jdbcType=VARCHAR}, #{attendanceDetails,jdbcType=VARCHAR}, 
+      #{appealDate,jdbcType=TIMESTAMP}, #{attendanceRules,jdbcType=VARCHAR}, #{appealReason,jdbcType=VARCHAR}, 
+      #{approveName,jdbcType=VARCHAR}, #{approveDate,jdbcType=TIMESTAMP}, #{approveContent,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    insert into oa_attendance_appeal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appealId != null" >
+        appeal_id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="appealName != null" >
+        appeal_name,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="attendanceTime != null" >
+        attendance_time,
+      </if>
+      <if test="abnormalSituation != null" >
+        abnormal_situation,
+      </if>
+      <if test="appealTimes != null" >
+        appeal_times,
+      </if>
+      <if test="approveState != null" >
+        approve_state,
+      </if>
+      <if test="attendanceDetails != null" >
+        attendance_details,
+      </if>
+      <if test="appealDate != null" >
+        appeal_date,
+      </if>
+      <if test="attendanceRules != null" >
+        attendance_rules,
+      </if>
+      <if test="appealReason != null" >
+        appeal_reason,
+      </if>
+      <if test="approveName != null" >
+        approve_name,
+      </if>
+      <if test="approveDate != null" >
+        approve_date,
+      </if>
+      <if test="approveContent != null" >
+        approve_content,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appealId != null" >
+        #{appealId,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="appealName != null" >
+        #{appealName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceTime != null" >
+        #{attendanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="abnormalSituation != null" >
+        #{abnormalSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="appealTimes != null" >
+        #{appealTimes,jdbcType=INTEGER},
+      </if>
+      <if test="approveState != null" >
+        #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceDetails != null" >
+        #{attendanceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="appealDate != null" >
+        #{appealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attendanceRules != null" >
+        #{attendanceRules,jdbcType=VARCHAR},
+      </if>
+      <if test="appealReason != null" >
+        #{appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approveName != null" >
+        #{approveName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveDate != null" >
+        #{approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveContent != null" >
+        #{approveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppealExample" resultType="java.lang.Integer" >
+    select count(*) from oa_attendance_appeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_attendance_appeal
+    <set >
+      <if test="record.appealId != null" >
+        appeal_id = #{record.appealId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealName != null" >
+        appeal_name = #{record.appealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendanceTime != null" >
+        attendance_time = #{record.attendanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.abnormalSituation != null" >
+        abnormal_situation = #{record.abnormalSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealTimes != null" >
+        appeal_times = #{record.appealTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.approveState != null" >
+        approve_state = #{record.approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendanceDetails != null" >
+        attendance_details = #{record.attendanceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealDate != null" >
+        appeal_date = #{record.appealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.attendanceRules != null" >
+        attendance_rules = #{record.attendanceRules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appealReason != null" >
+        appeal_reason = #{record.appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveName != null" >
+        approve_name = #{record.approveName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveDate != null" >
+        approve_date = #{record.approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approveContent != null" >
+        approve_content = #{record.approveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_attendance_appeal
+    set appeal_id = #{record.appealId,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=VARCHAR},
+      appeal_name = #{record.appealName,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      attendance_time = #{record.attendanceTime,jdbcType=TIMESTAMP},
+      abnormal_situation = #{record.abnormalSituation,jdbcType=VARCHAR},
+      appeal_times = #{record.appealTimes,jdbcType=INTEGER},
+      approve_state = #{record.approveState,jdbcType=VARCHAR},
+      attendance_details = #{record.attendanceDetails,jdbcType=VARCHAR},
+      appeal_date = #{record.appealDate,jdbcType=TIMESTAMP},
+      attendance_rules = #{record.attendanceRules,jdbcType=VARCHAR},
+      appeal_reason = #{record.appealReason,jdbcType=VARCHAR},
+      approve_name = #{record.approveName,jdbcType=VARCHAR},
+      approve_date = #{record.approveDate,jdbcType=TIMESTAMP},
+      approve_content = #{record.approveContent,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    update oa_attendance_appeal
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="appealName != null" >
+        appeal_name = #{appealName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceTime != null" >
+        attendance_time = #{attendanceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="abnormalSituation != null" >
+        abnormal_situation = #{abnormalSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="appealTimes != null" >
+        appeal_times = #{appealTimes,jdbcType=INTEGER},
+      </if>
+      <if test="approveState != null" >
+        approve_state = #{approveState,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceDetails != null" >
+        attendance_details = #{attendanceDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="appealDate != null" >
+        appeal_date = #{appealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attendanceRules != null" >
+        attendance_rules = #{attendanceRules,jdbcType=VARCHAR},
+      </if>
+      <if test="appealReason != null" >
+        appeal_reason = #{appealReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approveName != null" >
+        approve_name = #{approveName,jdbcType=VARCHAR},
+      </if>
+      <if test="approveDate != null" >
+        approve_date = #{approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveContent != null" >
+        approve_content = #{approveContent,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    update oa_attendance_appeal
+    set account = #{account,jdbcType=VARCHAR},
+      appeal_name = #{appealName,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      attendance_time = #{attendanceTime,jdbcType=TIMESTAMP},
+      abnormal_situation = #{abnormalSituation,jdbcType=VARCHAR},
+      appeal_times = #{appealTimes,jdbcType=INTEGER},
+      approve_state = #{approveState,jdbcType=VARCHAR},
+      attendance_details = #{attendanceDetails,jdbcType=VARCHAR},
+      appeal_date = #{appealDate,jdbcType=TIMESTAMP},
+      attendance_rules = #{attendanceRules,jdbcType=VARCHAR},
+      appeal_reason = #{appealReason,jdbcType=VARCHAR},
+      approve_name = #{approveName,jdbcType=VARCHAR},
+      approve_date = #{approveDate,jdbcType=TIMESTAMP},
+      approve_content = #{approveContent,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER}
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppeal" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppealExample" >
+    select a.* from oa_attendance_appeal a where a.appeal_id in 
+ (select top ${pageSize} appeal_id from oa_attendance_appeal 
+<include refid="select_by_page_outter_where_sql"/> 
+appeal_id not in (select top ${skipRecordCount} appeal_id from oa_attendance_appeal  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+  </select>
+  
+  
+  
+  <sql id="select_by_page1_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    where   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page1_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page1_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage1" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceAppealExample" >
+    select a.* from oa_attendance_appeal a where a.approve_state='待审批' and a.appeal_id in 
+ (select top ${pageSize} appeal_id from oa_attendance_appeal 
+<include refid="select_by_page1_outter_where_sql"/> 
+appeal_id not in (select top ${skipRecordCount} appeal_id from oa_attendance_appeal  
+<include refid="select_by_page1_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page1_outter_orderby_sql"/> 
+)
+  </select>
+</mapper>

@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.SysOrganizationStructureMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="superior" property="superior" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="org_used_name" property="orgUsedName" jdbcType="VARCHAR" />
+    <result column="license_key" property="licenseKey" jdbcType="VARCHAR" />
+    <result column="management_status" property="managementStatus" jdbcType="INTEGER" />
+    <result column="assay_office" property="assayOffice" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="INTEGER" />
+    <result column="ZZJGDMZH" property="zzjgdmzh" jdbcType="VARCHAR" />
+    <result column="approval_number" property="approvalNumber" jdbcType="VARCHAR" />
+    <result column="ZGSFJ" property="zgsfj" jdbcType="VARCHAR" />
+    <result column="approval_date" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="period_validity_begin" property="periodValidityBegin" jdbcType="TIMESTAMP" />
+    <result column="period_validity_end" property="periodValidityEnd" jdbcType="TIMESTAMP" />
+    <result column="property" property="property" jdbcType="VARCHAR" />
+    <result column="FQDWXZ" property="fqdwxz" jdbcType="VARCHAR" />
+    <result column="financial_resources" property="financialResources" jdbcType="VARCHAR" />
+    <result column="DZBXS" property="dzbxs" jdbcType="VARCHAR" />
+    <result column="SLZCZE" property="slzcze" jdbcType="DOUBLE" />
+    <result column="office_area" property="officeArea" jdbcType="DOUBLE" />
+    <result column="isAnalysis" property="isanalysis" jdbcType="VARCHAR" />
+    <result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="INTEGER" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="website" property="website" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="scope_business" property="scopeBusiness" jdbcType="VARCHAR" />
+    <result column="SCHPDJRQ" property="schpdjrq" jdbcType="TIMESTAMP" />
+    <result column="change_information" property="changeInformation" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="member_number" property="memberNumber" jdbcType="INTEGER" />
+    <result column="assistant_number" property="assistantNumber" jdbcType="INTEGER" />
+    <result column="judicial_number" property="judicialNumber" jdbcType="INTEGER" />
+    <result column="identify_number" property="identifyNumber" jdbcType="INTEGER" />
+    <result column="parttime_assistant_number" property="parttimeAssistantNumber" jdbcType="INTEGER" />
+    <result column="parttime_number1" property="parttimeNumber1" jdbcType="INTEGER" />
+    <result column="parttime_number2" property="parttimeNumber2" jdbcType="INTEGER" />
+    <result column="parttime_number3" property="parttimeNumber3" jdbcType="INTEGER" />
+    <result column="continuity" property="continuity" jdbcType="VARCHAR" />
+    <result column="legal_man_name" property="legalManName" jdbcType="VARCHAR" />
+    <result column="legal_man_post" property="legalManPost" jdbcType="VARCHAR" />
+    <result column="legal_man_sex" property="legalManSex" jdbcType="VARCHAR" />
+    <result column="legal_man_phone" property="legalManPhone" jdbcType="VARCHAR" />
+    <result column="charge_name" property="chargeName" jdbcType="VARCHAR" />
+    <result column="charge_post" property="chargePost" jdbcType="VARCHAR" />
+    <result column="charge_sex" property="chargeSex" jdbcType="VARCHAR" />
+    <result column="charge_phone" property="chargePhone" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="branch_charge" property="branchCharge" jdbcType="VARCHAR" />
+    <result column="branch_license_key" property="branchLicenseKey" jdbcType="VARCHAR" />
+    <result column="branch_period_validity_begin" property="branchPeriodValidityBegin" jdbcType="TIMESTAMP" />
+    <result column="branch_period_validity_end" property="branchPeriodValidityEnd" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, superior, name, status, org_used_name, license_key, management_status, assay_office, 
+    category, ZZJGDMZH, approval_number, ZGSFJ, approval_date, period_validity_begin, 
+    period_validity_end, property, FQDWXZ, financial_resources, DZBXS, SLZCZE, office_area, 
+    isAnalysis, abbreviation, contacts, head, phone, fax, postcode, website, address, 
+    scope_business, SCHPDJRQ, change_information, access_group, create_time, creator, 
+    amend_time, amender, member_number, assistant_number, judicial_number, identify_number, 
+    parttime_assistant_number, parttime_number1, parttime_number2, parttime_number3, 
+    continuity, legal_man_name, legal_man_post, legal_man_sex, legal_man_phone, charge_name, 
+    charge_post, charge_sex, charge_phone, branch_name, branch_charge, branch_license_key, 
+    branch_period_validity_begin, branch_period_validity_end
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_organization_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_organization_structure
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_organization_structure
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructureExample" >
+    delete from sys_organization_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    insert into sys_organization_structure (id, superior, name, 
+      status, org_used_name, license_key, 
+      management_status, assay_office, category, 
+      ZZJGDMZH, approval_number, ZGSFJ, 
+      approval_date, period_validity_begin, 
+      period_validity_end, property, FQDWXZ, 
+      financial_resources, DZBXS, SLZCZE, 
+      office_area, isAnalysis, abbreviation, 
+      contacts, head, phone, 
+      fax, postcode, website, 
+      address, scope_business, SCHPDJRQ, 
+      change_information, access_group, create_time, 
+      creator, amend_time, amender, 
+      member_number, assistant_number, judicial_number, 
+      identify_number, parttime_assistant_number, 
+      parttime_number1, parttime_number2, parttime_number3, 
+      continuity, legal_man_name, legal_man_post, 
+      legal_man_sex, legal_man_phone, charge_name, 
+      charge_post, charge_sex, charge_phone, 
+      branch_name, branch_charge, branch_license_key, 
+      branch_period_validity_begin, branch_period_validity_end
+      )
+    values (#{id,jdbcType=INTEGER}, #{superior,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{orgUsedName,jdbcType=VARCHAR}, #{licenseKey,jdbcType=VARCHAR}, 
+      #{managementStatus,jdbcType=INTEGER}, #{assayOffice,jdbcType=VARCHAR}, #{category,jdbcType=INTEGER}, 
+      #{zzjgdmzh,jdbcType=VARCHAR}, #{approvalNumber,jdbcType=VARCHAR}, #{zgsfj,jdbcType=VARCHAR}, 
+      #{approvalDate,jdbcType=TIMESTAMP}, #{periodValidityBegin,jdbcType=TIMESTAMP}, 
+      #{periodValidityEnd,jdbcType=TIMESTAMP}, #{property,jdbcType=VARCHAR}, #{fqdwxz,jdbcType=VARCHAR}, 
+      #{financialResources,jdbcType=VARCHAR}, #{dzbxs,jdbcType=VARCHAR}, #{slzcze,jdbcType=DOUBLE}, 
+      #{officeArea,jdbcType=DOUBLE}, #{isanalysis,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=INTEGER}, #{head,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, #{website,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{scopeBusiness,jdbcType=VARCHAR}, #{schpdjrq,jdbcType=TIMESTAMP}, 
+      #{changeInformation,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{memberNumber,jdbcType=INTEGER}, #{assistantNumber,jdbcType=INTEGER}, #{judicialNumber,jdbcType=INTEGER}, 
+      #{identifyNumber,jdbcType=INTEGER}, #{parttimeAssistantNumber,jdbcType=INTEGER}, 
+      #{parttimeNumber1,jdbcType=INTEGER}, #{parttimeNumber2,jdbcType=INTEGER}, #{parttimeNumber3,jdbcType=INTEGER}, 
+      #{continuity,jdbcType=VARCHAR}, #{legalManName,jdbcType=VARCHAR}, #{legalManPost,jdbcType=VARCHAR}, 
+      #{legalManSex,jdbcType=VARCHAR}, #{legalManPhone,jdbcType=VARCHAR}, #{chargeName,jdbcType=VARCHAR}, 
+      #{chargePost,jdbcType=VARCHAR}, #{chargeSex,jdbcType=VARCHAR}, #{chargePhone,jdbcType=VARCHAR}, 
+      #{branchName,jdbcType=VARCHAR}, #{branchCharge,jdbcType=VARCHAR}, #{branchLicenseKey,jdbcType=VARCHAR}, 
+      #{branchPeriodValidityBegin,jdbcType=TIMESTAMP}, #{branchPeriodValidityEnd,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    insert into sys_organization_structure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="superior != null" >
+        superior,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="orgUsedName != null" >
+        org_used_name,
+      </if>
+      <if test="licenseKey != null" >
+        license_key,
+      </if>
+      <if test="managementStatus != null" >
+        management_status,
+      </if>
+      <if test="assayOffice != null" >
+        assay_office,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="zzjgdmzh != null" >
+        ZZJGDMZH,
+      </if>
+      <if test="approvalNumber != null" >
+        approval_number,
+      </if>
+      <if test="zgsfj != null" >
+        ZGSFJ,
+      </if>
+      <if test="approvalDate != null" >
+        approval_date,
+      </if>
+      <if test="periodValidityBegin != null" >
+        period_validity_begin,
+      </if>
+      <if test="periodValidityEnd != null" >
+        period_validity_end,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="fqdwxz != null" >
+        FQDWXZ,
+      </if>
+      <if test="financialResources != null" >
+        financial_resources,
+      </if>
+      <if test="dzbxs != null" >
+        DZBXS,
+      </if>
+      <if test="slzcze != null" >
+        SLZCZE,
+      </if>
+      <if test="officeArea != null" >
+        office_area,
+      </if>
+      <if test="isanalysis != null" >
+        isAnalysis,
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="website != null" >
+        website,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="scopeBusiness != null" >
+        scope_business,
+      </if>
+      <if test="schpdjrq != null" >
+        SCHPDJRQ,
+      </if>
+      <if test="changeInformation != null" >
+        change_information,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="memberNumber != null" >
+        member_number,
+      </if>
+      <if test="assistantNumber != null" >
+        assistant_number,
+      </if>
+      <if test="judicialNumber != null" >
+        judicial_number,
+      </if>
+      <if test="identifyNumber != null" >
+        identify_number,
+      </if>
+      <if test="parttimeAssistantNumber != null" >
+        parttime_assistant_number,
+      </if>
+      <if test="parttimeNumber1 != null" >
+        parttime_number1,
+      </if>
+      <if test="parttimeNumber2 != null" >
+        parttime_number2,
+      </if>
+      <if test="parttimeNumber3 != null" >
+        parttime_number3,
+      </if>
+      <if test="continuity != null" >
+        continuity,
+      </if>
+      <if test="legalManName != null" >
+        legal_man_name,
+      </if>
+      <if test="legalManPost != null" >
+        legal_man_post,
+      </if>
+      <if test="legalManSex != null" >
+        legal_man_sex,
+      </if>
+      <if test="legalManPhone != null" >
+        legal_man_phone,
+      </if>
+      <if test="chargeName != null" >
+        charge_name,
+      </if>
+      <if test="chargePost != null" >
+        charge_post,
+      </if>
+      <if test="chargeSex != null" >
+        charge_sex,
+      </if>
+      <if test="chargePhone != null" >
+        charge_phone,
+      </if>
+      <if test="branchName != null" >
+        branch_name,
+      </if>
+      <if test="branchCharge != null" >
+        branch_charge,
+      </if>
+      <if test="branchLicenseKey != null" >
+        branch_license_key,
+      </if>
+      <if test="branchPeriodValidityBegin != null" >
+        branch_period_validity_begin,
+      </if>
+      <if test="branchPeriodValidityEnd != null" >
+        branch_period_validity_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="superior != null" >
+        #{superior,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUsedName != null" >
+        #{orgUsedName,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseKey != null" >
+        #{licenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="managementStatus != null" >
+        #{managementStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assayOffice != null" >
+        #{assayOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="zzjgdmzh != null" >
+        #{zzjgdmzh,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalNumber != null" >
+        #{approvalNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="zgsfj != null" >
+        #{zgsfj,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDate != null" >
+        #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodValidityBegin != null" >
+        #{periodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodValidityEnd != null" >
+        #{periodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="fqdwxz != null" >
+        #{fqdwxz,jdbcType=VARCHAR},
+      </if>
+      <if test="financialResources != null" >
+        #{financialResources,jdbcType=VARCHAR},
+      </if>
+      <if test="dzbxs != null" >
+        #{dzbxs,jdbcType=VARCHAR},
+      </if>
+      <if test="slzcze != null" >
+        #{slzcze,jdbcType=DOUBLE},
+      </if>
+      <if test="officeArea != null" >
+        #{officeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="isanalysis != null" >
+        #{isanalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=INTEGER},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeBusiness != null" >
+        #{scopeBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="schpdjrq != null" >
+        #{schpdjrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeInformation != null" >
+        #{changeInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="memberNumber != null" >
+        #{memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="assistantNumber != null" >
+        #{assistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="judicialNumber != null" >
+        #{judicialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="identifyNumber != null" >
+        #{identifyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeAssistantNumber != null" >
+        #{parttimeAssistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber1 != null" >
+        #{parttimeNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber2 != null" >
+        #{parttimeNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber3 != null" >
+        #{parttimeNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="continuity != null" >
+        #{continuity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManName != null" >
+        #{legalManName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManPost != null" >
+        #{legalManPost,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManSex != null" >
+        #{legalManSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManPhone != null" >
+        #{legalManPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeName != null" >
+        #{chargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePost != null" >
+        #{chargePost,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeSex != null" >
+        #{chargeSex,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePhone != null" >
+        #{chargePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCharge != null" >
+        #{branchCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="branchLicenseKey != null" >
+        #{branchLicenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="branchPeriodValidityBegin != null" >
+        #{branchPeriodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="branchPeriodValidityEnd != null" >
+        #{branchPeriodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructureExample" resultType="java.lang.Integer" >
+    select count(*) from sys_organization_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_organization_structure
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.superior != null" >
+        superior = #{record.superior,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgUsedName != null" >
+        org_used_name = #{record.orgUsedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseKey != null" >
+        license_key = #{record.licenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managementStatus != null" >
+        management_status = #{record.managementStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.assayOffice != null" >
+        assay_office = #{record.assayOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.zzjgdmzh != null" >
+        ZZJGDMZH = #{record.zzjgdmzh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvalNumber != null" >
+        approval_number = #{record.approvalNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zgsfj != null" >
+        ZGSFJ = #{record.zgsfj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvalDate != null" >
+        approval_date = #{record.approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.periodValidityBegin != null" >
+        period_validity_begin = #{record.periodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.periodValidityEnd != null" >
+        period_validity_end = #{record.periodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.property != null" >
+        property = #{record.property,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fqdwxz != null" >
+        FQDWXZ = #{record.fqdwxz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.financialResources != null" >
+        financial_resources = #{record.financialResources,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dzbxs != null" >
+        DZBXS = #{record.dzbxs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slzcze != null" >
+        SLZCZE = #{record.slzcze,jdbcType=DOUBLE},
+      </if>
+      <if test="record.officeArea != null" >
+        office_area = #{record.officeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isanalysis != null" >
+        isAnalysis = #{record.isanalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abbreviation != null" >
+        abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null" >
+        contacts = #{record.contacts,jdbcType=INTEGER},
+      </if>
+      <if test="record.head != null" >
+        head = #{record.head,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        postcode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null" >
+        website = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scopeBusiness != null" >
+        scope_business = #{record.scopeBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schpdjrq != null" >
+        SCHPDJRQ = #{record.schpdjrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeInformation != null" >
+        change_information = #{record.changeInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberNumber != null" >
+        member_number = #{record.memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.assistantNumber != null" >
+        assistant_number = #{record.assistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.judicialNumber != null" >
+        judicial_number = #{record.judicialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.identifyNumber != null" >
+        identify_number = #{record.identifyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.parttimeAssistantNumber != null" >
+        parttime_assistant_number = #{record.parttimeAssistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.parttimeNumber1 != null" >
+        parttime_number1 = #{record.parttimeNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="record.parttimeNumber2 != null" >
+        parttime_number2 = #{record.parttimeNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="record.parttimeNumber3 != null" >
+        parttime_number3 = #{record.parttimeNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="record.continuity != null" >
+        continuity = #{record.continuity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalManName != null" >
+        legal_man_name = #{record.legalManName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalManPost != null" >
+        legal_man_post = #{record.legalManPost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalManSex != null" >
+        legal_man_sex = #{record.legalManSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalManPhone != null" >
+        legal_man_phone = #{record.legalManPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeName != null" >
+        charge_name = #{record.chargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargePost != null" >
+        charge_post = #{record.chargePost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargeSex != null" >
+        charge_sex = #{record.chargeSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chargePhone != null" >
+        charge_phone = #{record.chargePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchName != null" >
+        branch_name = #{record.branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchCharge != null" >
+        branch_charge = #{record.branchCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchLicenseKey != null" >
+        branch_license_key = #{record.branchLicenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchPeriodValidityBegin != null" >
+        branch_period_validity_begin = #{record.branchPeriodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.branchPeriodValidityEnd != null" >
+        branch_period_validity_end = #{record.branchPeriodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_organization_structure
+    set id = #{record.id,jdbcType=INTEGER},
+      superior = #{record.superior,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      org_used_name = #{record.orgUsedName,jdbcType=VARCHAR},
+      license_key = #{record.licenseKey,jdbcType=VARCHAR},
+      management_status = #{record.managementStatus,jdbcType=INTEGER},
+      assay_office = #{record.assayOffice,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=INTEGER},
+      ZZJGDMZH = #{record.zzjgdmzh,jdbcType=VARCHAR},
+      approval_number = #{record.approvalNumber,jdbcType=VARCHAR},
+      ZGSFJ = #{record.zgsfj,jdbcType=VARCHAR},
+      approval_date = #{record.approvalDate,jdbcType=TIMESTAMP},
+      period_validity_begin = #{record.periodValidityBegin,jdbcType=TIMESTAMP},
+      period_validity_end = #{record.periodValidityEnd,jdbcType=TIMESTAMP},
+      property = #{record.property,jdbcType=VARCHAR},
+      FQDWXZ = #{record.fqdwxz,jdbcType=VARCHAR},
+      financial_resources = #{record.financialResources,jdbcType=VARCHAR},
+      DZBXS = #{record.dzbxs,jdbcType=VARCHAR},
+      SLZCZE = #{record.slzcze,jdbcType=DOUBLE},
+      office_area = #{record.officeArea,jdbcType=DOUBLE},
+      isAnalysis = #{record.isanalysis,jdbcType=VARCHAR},
+      abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=INTEGER},
+      head = #{record.head,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      postcode = #{record.postcode,jdbcType=VARCHAR},
+      website = #{record.website,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      scope_business = #{record.scopeBusiness,jdbcType=VARCHAR},
+      SCHPDJRQ = #{record.schpdjrq,jdbcType=TIMESTAMP},
+      change_information = #{record.changeInformation,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      member_number = #{record.memberNumber,jdbcType=INTEGER},
+      assistant_number = #{record.assistantNumber,jdbcType=INTEGER},
+      judicial_number = #{record.judicialNumber,jdbcType=INTEGER},
+      identify_number = #{record.identifyNumber,jdbcType=INTEGER},
+      parttime_assistant_number = #{record.parttimeAssistantNumber,jdbcType=INTEGER},
+      parttime_number1 = #{record.parttimeNumber1,jdbcType=INTEGER},
+      parttime_number2 = #{record.parttimeNumber2,jdbcType=INTEGER},
+      parttime_number3 = #{record.parttimeNumber3,jdbcType=INTEGER},
+      continuity = #{record.continuity,jdbcType=VARCHAR},
+      legal_man_name = #{record.legalManName,jdbcType=VARCHAR},
+      legal_man_post = #{record.legalManPost,jdbcType=VARCHAR},
+      legal_man_sex = #{record.legalManSex,jdbcType=VARCHAR},
+      legal_man_phone = #{record.legalManPhone,jdbcType=VARCHAR},
+      charge_name = #{record.chargeName,jdbcType=VARCHAR},
+      charge_post = #{record.chargePost,jdbcType=VARCHAR},
+      charge_sex = #{record.chargeSex,jdbcType=VARCHAR},
+      charge_phone = #{record.chargePhone,jdbcType=VARCHAR},
+      branch_name = #{record.branchName,jdbcType=VARCHAR},
+      branch_charge = #{record.branchCharge,jdbcType=VARCHAR},
+      branch_license_key = #{record.branchLicenseKey,jdbcType=VARCHAR},
+      branch_period_validity_begin = #{record.branchPeriodValidityBegin,jdbcType=TIMESTAMP},
+      branch_period_validity_end = #{record.branchPeriodValidityEnd,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    update sys_organization_structure
+    <set >
+      <if test="superior != null" >
+        superior = #{superior,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="orgUsedName != null" >
+        org_used_name = #{orgUsedName,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseKey != null" >
+        license_key = #{licenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="managementStatus != null" >
+        management_status = #{managementStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assayOffice != null" >
+        assay_office = #{assayOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="zzjgdmzh != null" >
+        ZZJGDMZH = #{zzjgdmzh,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalNumber != null" >
+        approval_number = #{approvalNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="zgsfj != null" >
+        ZGSFJ = #{zgsfj,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalDate != null" >
+        approval_date = #{approvalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodValidityBegin != null" >
+        period_validity_begin = #{periodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodValidityEnd != null" >
+        period_validity_end = #{periodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="property != null" >
+        property = #{property,jdbcType=VARCHAR},
+      </if>
+      <if test="fqdwxz != null" >
+        FQDWXZ = #{fqdwxz,jdbcType=VARCHAR},
+      </if>
+      <if test="financialResources != null" >
+        financial_resources = #{financialResources,jdbcType=VARCHAR},
+      </if>
+      <if test="dzbxs != null" >
+        DZBXS = #{dzbxs,jdbcType=VARCHAR},
+      </if>
+      <if test="slzcze != null" >
+        SLZCZE = #{slzcze,jdbcType=DOUBLE},
+      </if>
+      <if test="officeArea != null" >
+        office_area = #{officeArea,jdbcType=DOUBLE},
+      </if>
+      <if test="isanalysis != null" >
+        isAnalysis = #{isanalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=INTEGER},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeBusiness != null" >
+        scope_business = #{scopeBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="schpdjrq != null" >
+        SCHPDJRQ = #{schpdjrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeInformation != null" >
+        change_information = #{changeInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="memberNumber != null" >
+        member_number = #{memberNumber,jdbcType=INTEGER},
+      </if>
+      <if test="assistantNumber != null" >
+        assistant_number = #{assistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="judicialNumber != null" >
+        judicial_number = #{judicialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="identifyNumber != null" >
+        identify_number = #{identifyNumber,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeAssistantNumber != null" >
+        parttime_assistant_number = #{parttimeAssistantNumber,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber1 != null" >
+        parttime_number1 = #{parttimeNumber1,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber2 != null" >
+        parttime_number2 = #{parttimeNumber2,jdbcType=INTEGER},
+      </if>
+      <if test="parttimeNumber3 != null" >
+        parttime_number3 = #{parttimeNumber3,jdbcType=INTEGER},
+      </if>
+      <if test="continuity != null" >
+        continuity = #{continuity,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManName != null" >
+        legal_man_name = #{legalManName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManPost != null" >
+        legal_man_post = #{legalManPost,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManSex != null" >
+        legal_man_sex = #{legalManSex,jdbcType=VARCHAR},
+      </if>
+      <if test="legalManPhone != null" >
+        legal_man_phone = #{legalManPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeName != null" >
+        charge_name = #{chargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePost != null" >
+        charge_post = #{chargePost,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeSex != null" >
+        charge_sex = #{chargeSex,jdbcType=VARCHAR},
+      </if>
+      <if test="chargePhone != null" >
+        charge_phone = #{chargePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCharge != null" >
+        branch_charge = #{branchCharge,jdbcType=VARCHAR},
+      </if>
+      <if test="branchLicenseKey != null" >
+        branch_license_key = #{branchLicenseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="branchPeriodValidityBegin != null" >
+        branch_period_validity_begin = #{branchPeriodValidityBegin,jdbcType=TIMESTAMP},
+      </if>
+      <if test="branchPeriodValidityEnd != null" >
+        branch_period_validity_end = #{branchPeriodValidityEnd,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    update sys_organization_structure
+    set superior = #{superior,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      org_used_name = #{orgUsedName,jdbcType=VARCHAR},
+      license_key = #{licenseKey,jdbcType=VARCHAR},
+      management_status = #{managementStatus,jdbcType=INTEGER},
+      assay_office = #{assayOffice,jdbcType=VARCHAR},
+      category = #{category,jdbcType=INTEGER},
+      ZZJGDMZH = #{zzjgdmzh,jdbcType=VARCHAR},
+      approval_number = #{approvalNumber,jdbcType=VARCHAR},
+      ZGSFJ = #{zgsfj,jdbcType=VARCHAR},
+      approval_date = #{approvalDate,jdbcType=TIMESTAMP},
+      period_validity_begin = #{periodValidityBegin,jdbcType=TIMESTAMP},
+      period_validity_end = #{periodValidityEnd,jdbcType=TIMESTAMP},
+      property = #{property,jdbcType=VARCHAR},
+      FQDWXZ = #{fqdwxz,jdbcType=VARCHAR},
+      financial_resources = #{financialResources,jdbcType=VARCHAR},
+      DZBXS = #{dzbxs,jdbcType=VARCHAR},
+      SLZCZE = #{slzcze,jdbcType=DOUBLE},
+      office_area = #{officeArea,jdbcType=DOUBLE},
+      isAnalysis = #{isanalysis,jdbcType=VARCHAR},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=INTEGER},
+      head = #{head,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      website = #{website,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      scope_business = #{scopeBusiness,jdbcType=VARCHAR},
+      SCHPDJRQ = #{schpdjrq,jdbcType=TIMESTAMP},
+      change_information = #{changeInformation,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      member_number = #{memberNumber,jdbcType=INTEGER},
+      assistant_number = #{assistantNumber,jdbcType=INTEGER},
+      judicial_number = #{judicialNumber,jdbcType=INTEGER},
+      identify_number = #{identifyNumber,jdbcType=INTEGER},
+      parttime_assistant_number = #{parttimeAssistantNumber,jdbcType=INTEGER},
+      parttime_number1 = #{parttimeNumber1,jdbcType=INTEGER},
+      parttime_number2 = #{parttimeNumber2,jdbcType=INTEGER},
+      parttime_number3 = #{parttimeNumber3,jdbcType=INTEGER},
+      continuity = #{continuity,jdbcType=VARCHAR},
+      legal_man_name = #{legalManName,jdbcType=VARCHAR},
+      legal_man_post = #{legalManPost,jdbcType=VARCHAR},
+      legal_man_sex = #{legalManSex,jdbcType=VARCHAR},
+      legal_man_phone = #{legalManPhone,jdbcType=VARCHAR},
+      charge_name = #{chargeName,jdbcType=VARCHAR},
+      charge_post = #{chargePost,jdbcType=VARCHAR},
+      charge_sex = #{chargeSex,jdbcType=VARCHAR},
+      charge_phone = #{chargePhone,jdbcType=VARCHAR},
+      branch_name = #{branchName,jdbcType=VARCHAR},
+      branch_charge = #{branchCharge,jdbcType=VARCHAR},
+      branch_license_key = #{branchLicenseKey,jdbcType=VARCHAR},
+      branch_period_validity_begin = #{branchPeriodValidityBegin,jdbcType=TIMESTAMP},
+      branch_period_validity_end = #{branchPeriodValidityEnd,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructure" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.SysOrganizationStructureExample" >
+    select a.* from sys_organization_structure a where a.id in 
+ (select top ${pageSize} id from sys_organization_structure 
+<include refid="select_by_page_outter_where_sql"/> 
+id not in (select top ${skipRecordCount} id from sys_organization_structure  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+ ) 
+  </select>
+</mapper>

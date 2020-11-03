@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/security
+			http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- <http pattern="/**/*.*" security="none"></http> -->
+
+	<!--for /cnscecms-portalsystem/ -->
+	<http pattern="/portal/**.*" security="none"></http>
+	<http pattern="/news/list*.do" security="none"></http>
+	<http pattern="/news/get*.do" security="none"></http>
+	<http pattern="/documents/list.do" security="none"></http>
+	<http pattern="/systemsetting/getSystemSetting.do" security="none"></http>
+
+
+	<!--密码重置，判断客户是否存在的方法 -->
+	<http pattern="/**/is*.do" security="none"></http>
+	<http pattern="/**/resetPassword.do" security="none"></http>
+
+	<http pattern="/log*.html" security="none"></http>
+	<http pattern="/js/**/*" security="none"></http>
+	<http pattern="/css/**/*" security="none"></http>
+	<http pattern="/pluginjs/**/*" security="none"></http>
+	<http pattern="/images/**/*" security="none"></http>
+	<http pattern="/upload/**/*.*" security="none"></http>
+
+	<!--for sysadmin -->
+	<http pattern="/sysadmin/pagejs/**/*" security="none"></http>
+	<http pattern="/sysadmin/error*.jsp" security="none"></http>
+
+
+	<http use-expressions='true' entry-point-ref="myAuthenticationEntryPoint">
+		<custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		<logout logout-url="/j_spring_security_logout"
+			invalidate-session="true" logout-success-url="/checkin.do" />
+		<custom-filter ref="myAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+		<access-denied-handler ref="accessDeniedHandler" />
+	</http>
+
+	<beans:bean id="myAuthenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/login.html"></beans:property>
+	</beans:bean>
+	<!-- 自定义权限不足处理程序 -->
+	<beans:bean id="accessDeniedHandler"
+		class="com.slianOAsys.sysadmin.security.MyAccessDeniedHandler">
+		<beans:property name="errorPage" value="/sysadmin/error.jsp?errorCode=1"></beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="myAuthenticationFilter"
+		class="com.slianOAsys.sysadmin.security.MyAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean
+				class="com.slianOAsys.sysadmin.security.MySimpleUrlAuthenticationSuccessHandler">
+			</beans:bean>
+		</beans:property>
+		<beans:property name="authenticationFailureHandler">
+			<beans:bean
+				class="com.slianOAsys.sysadmin.security.MySimpleUrlAuthenticationFailureHandler">
+				<beans:property name="defaultFailureUrl" value="/login.html" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="myAuthorizationFilter"
+		class="com.slianOAsys.sysadmin.security.MyAuthorizationFilter">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="accessDecisionManager">
+			<beans:bean
+				class="com.slianOAsys.sysadmin.security.MyAccessDecisionManager" />
+		</beans:property>
+		<beans:property name="securityMetadataSource">
+			<beans:bean
+				class="com.slianOAsys.sysadmin.security.MySecurityMetadataSource">
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
+	<authentication-manager alias="myAuthenticationManager">
+		<authentication-provider user-service-ref="myUserDetailService">
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<beans:bean id="myUserDetailService"
+		class="com.slianOAsys.sysadmin.security.MyUserDetailService">
+	</beans:bean>
+
+
+</beans:beans>

@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>会议/培训详情</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<style>
+			div.weui-cell__bd label.weui-label{
+				width:200px;
+			}
+			/*通知内容中加入的图片的样式*/
+		div.ZWNR img{
+				width:300px;
+				margin:auto;
+				display:block;
+				height:200px;
+			}
+			.ZW a,.FJ a{
+				margin-right:25px;
+			}
+		</style>
+	</head>
+
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div>
+			<div id="dispatchPreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cells">
+						<div class="weui-cell weui-cell_access" href="">
+							<div class="weui-cell__hd">
+								<label class="weui-label">标题：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.title"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">类别：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.type"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label" >时间：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.mtTime"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">地点：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.mtSite"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">部门：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="basic.department"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">申请人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.userName"></label>
+							</div>
+						</div>
+						<div class="weui-cell ">
+							<div class="weui-cell__hd">
+								<label class="weui-label">状态：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.status"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">参与人员：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.mtJoinPersons"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">参与人数：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.mtNumbers"></label>
+							</div>
+						</div>
+						<div class="weui-cell ">
+							<div class="weui-cell__hd">
+								<label class="weui-label">内容：</label>
+							</div>
+						</div>
+						
+						<div class="ZWNR">
+							<div class="LL"></div>
+						</div>
+						<div class="weui-cell FJ">
+							<div class="weui-cell__hd">
+								<label class="weui-label">附件：</label>
+							</div>
+							<div class="weui-cell__bd FJList" ng-bind-html="data.attachmentZW"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<script>
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				$scope.user = localStorage.getItem("user"); // 用户微信号;
+				 //获取用户部门信息
+				 console.log(localStorage.getItem('name'));
+				 if(localStorage.getItem('name')){
+					 console.log(localStorage.getItem('basic'));
+					 $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+				 }else{
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+							params:{"wechatAccount":$scope.user}
+						}).success(function(data){
+							console.log(data);
+							localStorage.setItem('name',data.name);
+							localStorage.setItem('department',data.department);
+							$scope.basic=data;
+						}).error(function(data){
+							console.log(data);
+						})
+				 }
+				
+				console.log($location.absUrl());
+				var id=$location.absUrl().split('=')[1];
+				console.log(id);
+				//获取数据信息
+				$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaMeetingTrain/getContent.do',
+						params:{"wechatAccount":$scope.user,'meetingTrainId':id}
+					}).success(function(data){
+						console.log(data)
+						$scope.data=data;
+						$('div.ZWNR>div.LL').html($scope.data.content);
+					}).error(function(){
+						$.alert('数据请求失败')
+					});
+				
+				//点击查看详情
+				$scope.detail=function () {
+					console.log('查看详情');
+					
+				}
+			})
+		</script>
+	</body>
+</html>

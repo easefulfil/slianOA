@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机构基本信息</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/lib/weui.css">
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css">
+</head>
+<body ng-controller="getUserInfo" ng-app="bodyApp">
+    <div class="weui-cells" ng-controller="myCtrl">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>机构名称</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.name"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p >曾用名</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.orgUsedName"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>许可证号</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.licenseKey"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                执业状态
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.managementStatus">正常</div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>所属鉴定所(中心)</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.assayOffice"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>机构类别</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.category">
+                总所
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>组织机构代码证号</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.zzjgdmzh"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>批准文号</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.approvalNumber"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>主管司法局</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.zgsfj"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>批准日期</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.approvalDate"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>有效期</p>
+            </div>
+            <div class="weui-cell__ft">
+               <span ng-bind="data.periodValidityBegin"></span>至<span ng-bind="data.periodValidityEnd"></span>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>机构性质</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.property"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>发起单位性质</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.fqdwxz"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>经济来源</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.financialResources"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>党支部形式</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.dzbxs"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>设立资产总额</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.slzcze"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>办公面积</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.officeArea"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>电话</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.phone"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>传真</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.fax"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>邮编</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.postcode"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>邮箱</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.email"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>机构网站</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.website"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>机构地址</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.address"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>业务范围</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.scopeBusiness"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>首次获准登记日期</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.schpdjrq" style="font-size:10px;"></div>
+        </div>
+
+    </div>
+    <script src="../framework/jquery-weui-build/dist/lib/jquery-2.1.4.js"></script>
+    <script src="../framework/jquery-weui-build/dist/lib/zepto.js"></script>
+    <script src="../framework/jquery-weui-build/dist/lib/fastclick.js"></script>
+    <script src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+    <script src="../framework/angular.js"></script>
+   	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+    <script>
+       myApp.controller('myCtrl',function ($scope,$http) {
+           $scope.user = localStorage.getItem("user"); // 用户微信号
+           
+           $scope.initOrg = function(){console.log("initOrg");
+	    	   $http({
+	               method:'POST',
+	               url:'/slianOA-pc-web/mobile-ajax/auth/employee/getOSbyKey.do',
+	               params:{"wechatAccount":$scope.user,"osId":2}
+	             //  params:{"wechatAccount":$scope.user,"name":encodeURIComponent(localStorage.getItem('department'))}
+	           }).success(function(data){console.log("org");
+	               console.log(data);
+	              // $scope.data=data['rows'][0];
+	       			$scope.data=data;
+	           }).error(function(data){
+	               console.log(data);
+	           })
+	       }
+           
+           $scope.init = function(){
+        	   if(localStorage.getItem("user")){console.log("init"+$scope.user);
+	        	   $http({
+	                   method:'POST',
+	                   url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+	                   params:{"wechatAccount":$scope.user}
+	               }).success(function(data){console.log("basucin");
+	                   console.log(data);
+	                   localStorage.setItem('name',data.name);
+	                   localStorage.setItem('department',data.department);
+	                   localStorage.setItem('id',data.id);
+	                   console.log(data.name+data.id);
+	                   $scope.basic=data;
+	                   $scope.initOrg();
+	               }).error(function(data){
+	                   console.log(data);
+	                   $.toptip('系统出错', 'error');
+	               })
+	             
+        	   }
+           }
+           
+           $scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+           //获取用户部门信息
+           console.log(localStorage.getItem('name'));
+           if(localStorage.getItem('name') && localStorage.getItem('user')){
+               console.log(localStorage.getItem('basic'));
+               $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+               $scope.initOrg();
+           }else{console.log("yuyuyu");
+              $scope.init();
+           }
+           
+
+       }) 
+    </script>
+</body>
+</html>

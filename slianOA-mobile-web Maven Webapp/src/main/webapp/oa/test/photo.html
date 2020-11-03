@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>啦啦啦啦</title>
+	<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+	<link rel="stylesheet" href="../css/extra.css" />
+	<link rel="stylesheet" href="../css/example.css" />
+	<link rel="stylesheet" href="../css/weui.css" />
+	<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../js/angular.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<!-- <script src="document-util.js"></script> -->
+</head>
+
+  <body ng-app="sign" ng-controller='myCtrl'>
+				
+					<form id="uploadForm1" name="uploadForm1" method="POST" action="" enctype="multipart/form-data" target="hidden_frame" >
+					   <table border="1" cellpadding="1" cellspacing="0" class="list_process" width="100%">
+						  <tr>
+							<td >上传附件 </td>
+							<td>
+								<input id="selectedFile1" type="file" name="file"  value="">
+								<input id="businessTable" name="businessTable" value="oa_news" hidden="true">
+								<input  type="button" id="hello" onclick="uploadFileForDocument('uploadForm1','selectedFile1','oa_news','-1','附件','uploadedFile')" value="点击上传"><label id="uploadedFile"></label>
+							</td>
+						  </tr>
+						</table>
+						<iframe name='hidden_frame' id="hidden_frame" ></iframe>
+					</form>
+	<script>
+	//上传附件
+	function uploadFileForDocument(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId){
+		alert(1);
+		alert(formId+'***'+selectedFile+'***'+businessTable+'****'+businessId+'******'+fileType+'****'+showUploadedFileLabelId+'***');
+		businessId =3;//获得上传的文件ID
+		
+		uploadFile(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId);
+	}
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.SysCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    <id column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="customer_type" property="customerType" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="office_addr" property="officeAddr" jdbcType="VARCHAR" />
+    <result column="CID" property="cid" jdbcType="CHAR" />
+    <result column="type_desc" property="typeDesc" jdbcType="VARCHAR" />
+    <result column="object" property="object" jdbcType="CHAR" />
+    <result column="scale" property="scale" jdbcType="CHAR" />
+    <result column="scale_desc" property="scaleDesc" jdbcType="VARCHAR" />
+    <result column="property" property="property" jdbcType="CHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="employee_num" property="employeeNum" jdbcType="VARCHAR" />
+    <result column="special_demand" property="specialDemand" jdbcType="VARCHAR" />
+    <result column="run_method" property="runMethod" jdbcType="CHAR" />
+    <result column="business_situ" property="businessSitu" jdbcType="CHAR" />
+    <result column="level" property="level" jdbcType="CHAR" />
+    <result column="attitude" property="attitude" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="CHAR" />
+    <result column="duty_man" property="dutyMan" jdbcType="INTEGER" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="flush_time" property="flushTime" jdbcType="TIMESTAMP" />
+    <result column="flush_count" property="flushCount" jdbcType="INTEGER" />
+    <result column="flush_eve_mon" property="flushEveMon" jdbcType="VARCHAR" />
+    <result column="customer_company" property="customerCompany" jdbcType="VARCHAR" />
+    <result column="customer_cell_phone" property="customerCellPhone" jdbcType="VARCHAR" />
+    <result column="customer_office_phone" property="customerOfficePhone" jdbcType="VARCHAR" />
+    <result column="customer_QQ" property="customerQq" jdbcType="VARCHAR" />
+    <result column="customer_counterman" property="customerCounterman" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="customer_status" property="customerStatus" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="winxin_openid" property="winxinOpenid" jdbcType="VARCHAR" />
+    <result column="weixin_name" property="weixinName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="customer_photo" property="customerPhoto" jdbcType="VARCHAR" />
+    <result column="amender" property="amender" jdbcType="VARCHAR" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    customer_id, customer_type, type, company_code, customer_name, short_name, province, 
+    city, office_addr, CID, type_desc, object, scale, scale_desc, property, area, introduce, 
+    employee_num, special_demand, run_method, business_situ, level, attitude, pay_type, 
+    duty_man, register_time, flush_time, flush_count, flush_eve_mon, customer_company, 
+    customer_cell_phone, customer_office_phone, customer_QQ, customer_counterman, creator, 
+    access_group, create_time, customer_status, email, winxin_openid, weixin_name, remark, 
+    customer_photo, amender, amend_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomerExample" >
+    delete from sys_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    insert into sys_customer (customer_id, customer_type, type, 
+      company_code, customer_name, short_name, 
+      province, city, office_addr, 
+      CID, type_desc, object, scale, 
+      scale_desc, property, area, 
+      introduce, employee_num, special_demand, 
+      run_method, business_situ, level, 
+      attitude, pay_type, duty_man, 
+      register_time, flush_time, flush_count, 
+      flush_eve_mon, customer_company, customer_cell_phone, 
+      customer_office_phone, customer_QQ, customer_counterman, 
+      creator, access_group, create_time, 
+      customer_status, email, winxin_openid, 
+      weixin_name, remark, customer_photo, 
+      amender, amend_time)
+    values (#{customerId,jdbcType=INTEGER}, #{customerType,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{shortName,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{officeAddr,jdbcType=VARCHAR}, 
+      #{cid,jdbcType=CHAR}, #{typeDesc,jdbcType=VARCHAR}, #{object,jdbcType=CHAR}, #{scale,jdbcType=CHAR}, 
+      #{scaleDesc,jdbcType=VARCHAR}, #{property,jdbcType=CHAR}, #{area,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR}, #{employeeNum,jdbcType=VARCHAR}, #{specialDemand,jdbcType=VARCHAR}, 
+      #{runMethod,jdbcType=CHAR}, #{businessSitu,jdbcType=CHAR}, #{level,jdbcType=CHAR}, 
+      #{attitude,jdbcType=VARCHAR}, #{payType,jdbcType=CHAR}, #{dutyMan,jdbcType=INTEGER}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{flushTime,jdbcType=TIMESTAMP}, #{flushCount,jdbcType=INTEGER}, 
+      #{flushEveMon,jdbcType=VARCHAR}, #{customerCompany,jdbcType=VARCHAR}, #{customerCellPhone,jdbcType=VARCHAR}, 
+      #{customerOfficePhone,jdbcType=VARCHAR}, #{customerQq,jdbcType=VARCHAR}, #{customerCounterman,jdbcType=INTEGER}, 
+      #{creator,jdbcType=INTEGER}, #{accessGroup,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{customerStatus,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{winxinOpenid,jdbcType=VARCHAR}, 
+      #{weixinName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{customerPhoto,jdbcType=VARCHAR}, 
+      #{amender,jdbcType=VARCHAR}, #{amendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    insert into sys_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="officeAddr != null" >
+        office_addr,
+      </if>
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="typeDesc != null" >
+        type_desc,
+      </if>
+      <if test="object != null" >
+        object,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+      <if test="scaleDesc != null" >
+        scale_desc,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="employeeNum != null" >
+        employee_num,
+      </if>
+      <if test="specialDemand != null" >
+        special_demand,
+      </if>
+      <if test="runMethod != null" >
+        run_method,
+      </if>
+      <if test="businessSitu != null" >
+        business_situ,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="attitude != null" >
+        attitude,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="dutyMan != null" >
+        duty_man,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="flushTime != null" >
+        flush_time,
+      </if>
+      <if test="flushCount != null" >
+        flush_count,
+      </if>
+      <if test="flushEveMon != null" >
+        flush_eve_mon,
+      </if>
+      <if test="customerCompany != null" >
+        customer_company,
+      </if>
+      <if test="customerCellPhone != null" >
+        customer_cell_phone,
+      </if>
+      <if test="customerOfficePhone != null" >
+        customer_office_phone,
+      </if>
+      <if test="customerQq != null" >
+        customer_QQ,
+      </if>
+      <if test="customerCounterman != null" >
+        customer_counterman,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="customerStatus != null" >
+        customer_status,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="winxinOpenid != null" >
+        winxin_openid,
+      </if>
+      <if test="weixinName != null" >
+        weixin_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="customerPhoto != null" >
+        customer_photo,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=CHAR},
+      </if>
+      <if test="typeDesc != null" >
+        #{typeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=CHAR},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=CHAR},
+      </if>
+      <if test="scaleDesc != null" >
+        #{scaleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=CHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNum != null" >
+        #{employeeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="specialDemand != null" >
+        #{specialDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="runMethod != null" >
+        #{runMethod,jdbcType=CHAR},
+      </if>
+      <if test="businessSitu != null" >
+        #{businessSitu,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=CHAR},
+      </if>
+      <if test="attitude != null" >
+        #{attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=CHAR},
+      </if>
+      <if test="dutyMan != null" >
+        #{dutyMan,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushTime != null" >
+        #{flushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushCount != null" >
+        #{flushCount,jdbcType=INTEGER},
+      </if>
+      <if test="flushEveMon != null" >
+        #{flushEveMon,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCellPhone != null" >
+        #{customerCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOfficePhone != null" >
+        #{customerOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerQq != null" >
+        #{customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCounterman != null" >
+        #{customerCounterman,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerStatus != null" >
+        #{customerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="winxinOpenid != null" >
+        #{winxinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhoto != null" >
+        #{customerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=VARCHAR},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from sys_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_customer
+    <set >
+      <if test="record.customerId != null" >
+        customer_id = #{record.customerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerType != null" >
+        customer_type = #{record.customerType,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyCode != null" >
+        company_code = #{record.companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortName != null" >
+        short_name = #{record.shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeAddr != null" >
+        office_addr = #{record.officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null" >
+        CID = #{record.cid,jdbcType=CHAR},
+      </if>
+      <if test="record.typeDesc != null" >
+        type_desc = #{record.typeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.object != null" >
+        object = #{record.object,jdbcType=CHAR},
+      </if>
+      <if test="record.scale != null" >
+        scale = #{record.scale,jdbcType=CHAR},
+      </if>
+      <if test="record.scaleDesc != null" >
+        scale_desc = #{record.scaleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.property != null" >
+        property = #{record.property,jdbcType=CHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduce != null" >
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeNum != null" >
+        employee_num = #{record.employeeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specialDemand != null" >
+        special_demand = #{record.specialDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.runMethod != null" >
+        run_method = #{record.runMethod,jdbcType=CHAR},
+      </if>
+      <if test="record.businessSitu != null" >
+        business_situ = #{record.businessSitu,jdbcType=CHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=CHAR},
+      </if>
+      <if test="record.attitude != null" >
+        attitude = #{record.attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=CHAR},
+      </if>
+      <if test="record.dutyMan != null" >
+        duty_man = #{record.dutyMan,jdbcType=INTEGER},
+      </if>
+      <if test="record.registerTime != null" >
+        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flushTime != null" >
+        flush_time = #{record.flushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flushCount != null" >
+        flush_count = #{record.flushCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.flushEveMon != null" >
+        flush_eve_mon = #{record.flushEveMon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerCompany != null" >
+        customer_company = #{record.customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerCellPhone != null" >
+        customer_cell_phone = #{record.customerCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerOfficePhone != null" >
+        customer_office_phone = #{record.customerOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerQq != null" >
+        customer_QQ = #{record.customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerCounterman != null" >
+        customer_counterman = #{record.customerCounterman,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerStatus != null" >
+        customer_status = #{record.customerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.winxinOpenid != null" >
+        winxin_openid = #{record.winxinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinName != null" >
+        weixin_name = #{record.weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPhoto != null" >
+        customer_photo = #{record.customerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_customer
+    set customer_id = #{record.customerId,jdbcType=INTEGER},
+      customer_type = #{record.customerType,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      company_code = #{record.companyCode,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      short_name = #{record.shortName,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      office_addr = #{record.officeAddr,jdbcType=VARCHAR},
+      CID = #{record.cid,jdbcType=CHAR},
+      type_desc = #{record.typeDesc,jdbcType=VARCHAR},
+      object = #{record.object,jdbcType=CHAR},
+      scale = #{record.scale,jdbcType=CHAR},
+      scale_desc = #{record.scaleDesc,jdbcType=VARCHAR},
+      property = #{record.property,jdbcType=CHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      introduce = #{record.introduce,jdbcType=VARCHAR},
+      employee_num = #{record.employeeNum,jdbcType=VARCHAR},
+      special_demand = #{record.specialDemand,jdbcType=VARCHAR},
+      run_method = #{record.runMethod,jdbcType=CHAR},
+      business_situ = #{record.businessSitu,jdbcType=CHAR},
+      level = #{record.level,jdbcType=CHAR},
+      attitude = #{record.attitude,jdbcType=VARCHAR},
+      pay_type = #{record.payType,jdbcType=CHAR},
+      duty_man = #{record.dutyMan,jdbcType=INTEGER},
+      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      flush_time = #{record.flushTime,jdbcType=TIMESTAMP},
+      flush_count = #{record.flushCount,jdbcType=INTEGER},
+      flush_eve_mon = #{record.flushEveMon,jdbcType=VARCHAR},
+      customer_company = #{record.customerCompany,jdbcType=VARCHAR},
+      customer_cell_phone = #{record.customerCellPhone,jdbcType=VARCHAR},
+      customer_office_phone = #{record.customerOfficePhone,jdbcType=VARCHAR},
+      customer_QQ = #{record.customerQq,jdbcType=VARCHAR},
+      customer_counterman = #{record.customerCounterman,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=INTEGER},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      customer_status = #{record.customerStatus,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      winxin_openid = #{record.winxinOpenid,jdbcType=VARCHAR},
+      weixin_name = #{record.weixinName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      customer_photo = #{record.customerPhoto,jdbcType=VARCHAR},
+      amender = #{record.amender,jdbcType=VARCHAR},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    update sys_customer
+    <set >
+      <if test="customerType != null" >
+        customer_type = #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        short_name = #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        office_addr = #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        CID = #{cid,jdbcType=CHAR},
+      </if>
+      <if test="typeDesc != null" >
+        type_desc = #{typeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        object = #{object,jdbcType=CHAR},
+      </if>
+      <if test="scale != null" >
+        scale = #{scale,jdbcType=CHAR},
+      </if>
+      <if test="scaleDesc != null" >
+        scale_desc = #{scaleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        property = #{property,jdbcType=CHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNum != null" >
+        employee_num = #{employeeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="specialDemand != null" >
+        special_demand = #{specialDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="runMethod != null" >
+        run_method = #{runMethod,jdbcType=CHAR},
+      </if>
+      <if test="businessSitu != null" >
+        business_situ = #{businessSitu,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=CHAR},
+      </if>
+      <if test="attitude != null" >
+        attitude = #{attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=CHAR},
+      </if>
+      <if test="dutyMan != null" >
+        duty_man = #{dutyMan,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushTime != null" >
+        flush_time = #{flushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushCount != null" >
+        flush_count = #{flushCount,jdbcType=INTEGER},
+      </if>
+      <if test="flushEveMon != null" >
+        flush_eve_mon = #{flushEveMon,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        customer_company = #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCellPhone != null" >
+        customer_cell_phone = #{customerCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOfficePhone != null" >
+        customer_office_phone = #{customerOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerQq != null" >
+        customer_QQ = #{customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCounterman != null" >
+        customer_counterman = #{customerCounterman,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerStatus != null" >
+        customer_status = #{customerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="winxinOpenid != null" >
+        winxin_openid = #{winxinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        weixin_name = #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhoto != null" >
+        customer_photo = #{customerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=VARCHAR},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    update sys_customer
+    set customer_type = #{customerType,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      short_name = #{shortName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      office_addr = #{officeAddr,jdbcType=VARCHAR},
+      CID = #{cid,jdbcType=CHAR},
+      type_desc = #{typeDesc,jdbcType=VARCHAR},
+      object = #{object,jdbcType=CHAR},
+      scale = #{scale,jdbcType=CHAR},
+      scale_desc = #{scaleDesc,jdbcType=VARCHAR},
+      property = #{property,jdbcType=CHAR},
+      area = #{area,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      employee_num = #{employeeNum,jdbcType=VARCHAR},
+      special_demand = #{specialDemand,jdbcType=VARCHAR},
+      run_method = #{runMethod,jdbcType=CHAR},
+      business_situ = #{businessSitu,jdbcType=CHAR},
+      level = #{level,jdbcType=CHAR},
+      attitude = #{attitude,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=CHAR},
+      duty_man = #{dutyMan,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      flush_time = #{flushTime,jdbcType=TIMESTAMP},
+      flush_count = #{flushCount,jdbcType=INTEGER},
+      flush_eve_mon = #{flushEveMon,jdbcType=VARCHAR},
+      customer_company = #{customerCompany,jdbcType=VARCHAR},
+      customer_cell_phone = #{customerCellPhone,jdbcType=VARCHAR},
+      customer_office_phone = #{customerOfficePhone,jdbcType=VARCHAR},
+      customer_QQ = #{customerQq,jdbcType=VARCHAR},
+      customer_counterman = #{customerCounterman,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      customer_status = #{customerStatus,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      winxin_openid = #{winxinOpenid,jdbcType=VARCHAR},
+      weixin_name = #{weixinName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      customer_photo = #{customerPhoto,jdbcType=VARCHAR},
+      amender = #{amender,jdbcType=VARCHAR},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP}
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomerExample" >
+    select a.* from sys_customer a where a.customer_id in 
+ (select top ${pageSize} customer_id from sys_customer 
+<include refid="select_by_page_outter_where_sql"/> 
+customer_id not in (select top ${skipRecordCount} customer_id from sys_customer  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+ ) 
+  </select>
+
+    <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="customerId"  parameterType="com.sliansoft.slianOA.dataaccess.model.SysCustomer" >
+    insert into sys_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerType != null" >
+        customer_type,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="officeAddr != null" >
+        office_addr,
+      </if>
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="typeDesc != null" >
+        type_desc,
+      </if>
+      <if test="object != null" >
+        object,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+      <if test="scaleDesc != null" >
+        scale_desc,
+      </if>
+      <if test="property != null" >
+        property,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="employeeNum != null" >
+        employee_num,
+      </if>
+      <if test="specialDemand != null" >
+        special_demand,
+      </if>
+      <if test="runMethod != null" >
+        run_method,
+      </if>
+      <if test="businessSitu != null" >
+        business_situ,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="attitude != null" >
+        attitude,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="dutyMan != null" >
+        duty_man,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="flushTime != null" >
+        flush_time,
+      </if>
+      <if test="flushCount != null" >
+        flush_count,
+      </if>
+      <if test="flushEveMon != null" >
+        flush_eve_mon,
+      </if>
+      <if test="customerCompany != null" >
+        customer_company,
+      </if>
+      <if test="customerCellPhone != null" >
+        customer_cell_phone,
+      </if>
+      <if test="customerOfficePhone != null" >
+        customer_office_phone,
+      </if>
+      <if test="customerQq != null" >
+        customer_QQ,
+      </if>
+      <if test="customerCounterman != null" >
+        customer_counterman,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="customerStatus != null" >
+        customer_status,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="winxinOpenid != null" >
+        winxin_openid,
+      </if>
+      <if test="weixinName != null" >
+        weixin_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="customerPhoto != null" >
+        customer_photo,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="shortName != null" >
+        #{shortName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=CHAR},
+      </if>
+      <if test="typeDesc != null" >
+        #{typeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=CHAR},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=CHAR},
+      </if>
+      <if test="scaleDesc != null" >
+        #{scaleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="property != null" >
+        #{property,jdbcType=CHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeNum != null" >
+        #{employeeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="specialDemand != null" >
+        #{specialDemand,jdbcType=VARCHAR},
+      </if>
+      <if test="runMethod != null" >
+        #{runMethod,jdbcType=CHAR},
+      </if>
+      <if test="businessSitu != null" >
+        #{businessSitu,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=CHAR},
+      </if>
+      <if test="attitude != null" >
+        #{attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=CHAR},
+      </if>
+      <if test="dutyMan != null" >
+        #{dutyMan,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushTime != null" >
+        #{flushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flushCount != null" >
+        #{flushCount,jdbcType=INTEGER},
+      </if>
+      <if test="flushEveMon != null" >
+        #{flushEveMon,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCellPhone != null" >
+        #{customerCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOfficePhone != null" >
+        #{customerOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerQq != null" >
+        #{customerQq,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCounterman != null" >
+        #{customerCounterman,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerStatus != null" >
+        #{customerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="winxinOpenid != null" >
+        #{winxinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhoto != null" >
+        #{customerPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=VARCHAR},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

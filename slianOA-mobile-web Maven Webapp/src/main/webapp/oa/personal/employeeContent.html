@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>员工详情</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<style>
+			.weui-label{
+				width:100%;
+				padding-left:5%;
+			}
+			.SH,.YY{
+				display:none;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart="" ng-app="bodyApp" ng-controller="getUserInfo">
+		<div>
+			<div id="dispatchPreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cells">
+						<div class="weui-cell" >
+							<div class="weui-cell__hd">
+								<label class="weui-label">姓名：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.employeeName"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">性别：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.employeeSex"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">手机号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.employeeCellPhone"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">QQ：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.employeeQQ"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">邮箱：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.email"></label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				console.log($location.absUrl());
+				var id=$location.absUrl().split('=')[1];
+				console.log(id);
+				$scope.user = localStorage.getItem('user');
+				
+				$scope.init = function(){
+					//获取数据信息
+					$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/employee/employee.do',
+							params:{"wechatAccount":$scope.user,'employeeId':id}
+						}).success(function(data){
+							console.log(data)
+							$scope.data=data;
+						}).error(function(){
+							$.alert('数据请求失败')
+						});
+				}
+				
+				if(localStorage.getItem("user")){
+					$scope.user = localStorage.getItem("user");
+					$scope.init();
+				}
+				
+				$scope.$on('setUser',function(d,res){
+					console.log("child"+res);
+					$scope.user = res;
+					$scope.init();
+				})
+				
+				//点击查看详情
+				$scope.detail=function () {
+					console.log('查看详情');
+					
+				}
+			})
+		</script>
+	</body>
+</html>

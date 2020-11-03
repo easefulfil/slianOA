@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+ 	xmlns:beans="http://www.springframework.org/schema/beans"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/security
+			http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+   <!--放行所有来自手机移动端的请求，移动请求通过moblie.ajax.AuthorizationFilter来实现  -->
+     <http pattern="/mobile-ajax/**/*" security="none"></http>
+     <http pattern="/oa/pagejs/**/*" security="none"></http>
+    <http pattern="/js/**/*" security="none"></http>
+    <http pattern="/css/**/*" security="none"></http> 
+    <http pattern="/demo/pagejs/**/*" security="none"></http>
+    <http pattern="/demo/login/**/*" security="none"></http>
+    <http pattern="/demo/manage/**/*" security="none"></http>
+    <http pattern="/easyui/**/*" security="none"></http> 
+    <http pattern="/images/**/*" security="none"></http> 
+    <http pattern="/jquery*/**/*" security="none"></http> 
+    <http pattern="/Exteasyui/**/*" security="none"></http>
+    <http pattern="/login.html" security="none"></http>
+    <http pattern="/registry.html" security="none"></http>
+    <http pattern="/upload/**/*.*" security="none"></http>
+    <http pattern="/error*.html" security="none"></http>
+    <http pattern="/error*.jsp" security="none"></http>
+    <http pattern="/login/**/*" security="none"></http>
+    <http pattern="/port/**/**/**" security="none"></http>
+    <http pattern="/oaNews/list.do" security="none"></http>
+    <http pattern="/oaNews/getContent.do" security="none"></http>
+    <http pattern="/employee/saveInfo.do" security="none"></http>
+<!--     <http pattern="/**/*.do" security="none"></http> -->
+<!--     <http pattern="/**/*.html" security="none"></http> -->
+	<http use-expressions='true'  entry-point-ref="myAuthenticationEntryPoint">	
+		<custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+        <logout logout-url="/j_spring_security_logout" invalidate-session="true" 
+                logout-success-url="/checkin.do"/>
+        <custom-filter ref="myAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+        <access-denied-handler ref="accessDeniedHandler"/>  
+	</http> 
+		
+	<beans:bean id="myAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/login.html"></beans:property>
+	</beans:bean>
+	<!-- 自定义权限不足处理程序 -->  
+	<beans:bean id="accessDeniedHandler" class="com.sliansoft.slianOA.security.MyAccessDeniedHandler">
+    	<beans:property name="errorPage" value="/error.jsp?errorCode=1"></beans:property>  
+	</beans:bean> 
+
+
+	<beans:bean id="myAuthenticationFilter" class="com.sliansoft.slianOA.security.MyAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler">
+			<beans:bean class="com.sliansoft.slianOA.security.MySimpleUrlAuthenticationSuccessHandler">
+			</beans:bean>
+		</beans:property>	
+		<beans:property name="authenticationFailureHandler">
+				<beans:bean class="com.sliansoft.slianOA.security.MySimpleUrlAuthenticationFailureHandler">
+				  <beans:property name="defaultFailureUrl" value="/login.html" />
+				</beans:bean>		
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="myAuthorizationFilter" class="com.sliansoft.slianOA.security.MyAuthorizationFilter">
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<beans:property name="accessDecisionManager">
+			<beans:bean class="com.sliansoft.slianOA.security.MyAccessDecisionManager" />
+		</beans:property>
+		<beans:property name="securityMetadataSource">
+			<beans:bean class="com.sliansoft.slianOA.security.MySecurityMetadataSource">
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
+	<authentication-manager alias="myAuthenticationManager">
+		<authentication-provider user-service-ref="myUserDetailService">
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<beans:bean id="myUserDetailService" class="com.sliansoft.slianOA.security.MyUserDetailService">
+	</beans:bean>
+	
+
+</beans:beans>

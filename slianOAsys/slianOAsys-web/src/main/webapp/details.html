@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+	<title>Document</title>
+	<link href="css/details.css" rel="stylesheet" type="text/css" />
+	<script src="pagejs/jquery.js"></script>
+    <script src="js/jquery-1.12.1.min.js"></script>
+</head>
+<body>
+	 <div class="wrap">
+	 	 <div class=".wrap_inner">
+	 	 	 <div class="article_detail">
+	 	 	       <div class="avator_title">
+	 	 	       	   <div class="flexbox">
+	 	 	       	   	   <div class="avator">
+	 	 	       	   	   	   <img src="images/fdj.png">
+	 	 	       	   	   </div>
+	 	 	       	   	   <div class="flexItem">
+	 	 	       	   	   	   <h3><span id="employeeName"></span></h3>
+	 	 	       	   	   	   <p><span id="attendanceSigntime1"></span></p>
+	 	 	       	   	   </div>
+	 	 	       	   </div>
+	 	 	       </div>
+	 	 	       <div class="f-item">
+	 	 	       	   <div class="inner-f-item item-text flexbox">
+	 	 	       	   	    <span class="f-item-title">考勤规则</span>
+	 	 	       	   	    <p class="flexItem item-text-right divUrl"><span id="classname"></span>></p>
+	 	 	       	   </div>
+	 	 	       	   <div class="todayDate">
+	 	 	       	   	    <span id="attendanceTime"></span>
+	 	 	       	   	    <div>
+	 	 	       	   	    	工作<span class="green" id="workHour">0</span>小时
+	 	 	       	   	    </div>
+	 	 	       	   </div>
+	 	 	       </div>
+	 	 	       <div class="qiandaoCon">
+	 	 	       	   <div class="f-item borderNone">
+	 	 	       	   	  <div class="f-item">
+	 	 	       	   	  	 <div class="qiandao-item flexbox">
+	 	 	       	   	  	 	 <div class="pieceLeft flexCenter">
+	 	 	       	   	  	 	 	 <div>
+	 	 	       	   	  	 	 	 	<p class="kaoqinTime">签到</p>
+	 	 	       	   	  	 	 	 	<p class="time"><span id="startTime"></span></p>
+	 	 	       	   	  	 	 	 </div>
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 	 <div class="flexItem c999 flexCenter">
+	 	 	       	   	  	 	 	 <div class="kaoqinCon">
+	 	 	       	   	  	 	 	 	<span id="attendanceSignaddress"></span>
+	 	 	       	   	  	 	 	 </div>
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 	 <div class="pieceRight flexCenter">
+	 	 	       	   	  	 	 	 <div>
+	 	 	       	   	  	 	 	 	<p class="qiandao"><span id="attendanceSigntime"></span></p>
+	 	 	       	   	  	 	 	 	<p class="time">17-03-30</p>
+	 	 	       	   	  	 	 	 </div>
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 </div>
+	 	 	       	   	  </div>
+	 	 	       	   	  <div class="f-item">
+	 	 	       	   	  	 <div class="qiandao-item flexbox">
+	 	 	       	   	  	 	 <div class="pieceLeft flexCenter">
+	 	 	       	   	  	 	 	 <div>
+	 	 	       	   	  	 	 	 	<p class="kaoqinTime">签退</p>
+	 	 	       	   	  	 	 	 	<p class="time"><span id="endTime"></span></p>
+	 	 	       	   	  	 	 	 </div>
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 	 <div class="flexItem c999 flexCenter">
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 	 <div class="pieceRight flexCenter">
+	 	 	       	   	  	 	 	 <div>
+	 	 	       	   	  	 	 	 	<p class="qiandao"><span id="attendanceOfftime"></span></p>
+	 	 	       	   	  	 	 	 	<p class="time">17-03-30</p>
+	 	 	       	   	  	 	 	 </div>
+	 	 	       	   	  	 	 </div>
+	 	 	       	   	  	 </div>
+	 	 	       	   	  </div>
+	 	 	       	   </div>
+	 	 	       </div>
+	 	 	       <div class="letter_bar">
+	 	 	       	   已通知以下人员查看
+	 	 	       </div>
+	 	 	       <div class="comments-box">
+	 	 	       	   <div class="letter_bar">
+	 	 	       	       回复(0)
+	 	 	           </div>
+	 	 	       </div>
+	 	 	 </div>
+	 	 </div>
+	 </div>
+</body>
+<script type="text/javascript">
+/*
+ * var url="details.html?name="+one.employeeName
+	+"&classname="+one.className
+	+"&attendanceTime="+one.attendanceTime
+	+"&startTime="+one.startTime
+	+"&endTime="+one.endTime
+	+"&attendanceSigntime="+one.attendanceSigntime
+	+"&attendanceOfftime="+one.attendanceOfftime
+	+"&attendanceSignaddress="+one.attendanceSignaddress
+	+"&attendanceOffaddress="+one.attendanceOffaddress
+	;
+ */
+function GetRequest() {  
+	  var url = location.search; //获取url中"?"符后的字串
+	  LocString = decodeURI(decodeURI(url));
+	   var theRequest = new Object();
+	   if (LocString.indexOf("?") != -1) {
+	      var str = LocString.substr(1);
+	      strs = str.split("&");
+	      for(var i = 0; i < strs.length; i ++) {
+	         theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+	      }
+	   }
+	   return theRequest;
+	}
+var Request = new Object();
+Request = GetRequest();
+$("#employeeName").text(Request["employeeName"]);
+$("#classname").text(Request["classname"]);
+$("#attendanceTime").text(Request["attendanceTime"]);
+$("#startTime").text(Request["startTime"]);
+$("#endTime").text(Request["endTime"]);
+$("#attendanceSigntime").text(Request["attendanceSigntime"]);
+$("#attendanceSigntime1").text(Request["attendanceSigntime"]);
+$("#attendanceOfftime").text(Request["attendanceOfftime"]);
+$("#attendanceSignaddress").text(Request["attendanceSignaddress"]);
+$("#attendanceOffaddress").text(Request["attendanceOffaddress"]);
+$("#workHour").text(Request["workHour"]);
+
+</script>
+</html>

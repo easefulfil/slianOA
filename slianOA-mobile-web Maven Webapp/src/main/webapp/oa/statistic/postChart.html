@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发文统计</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="../framework/jquery-weui-build/dist/lib/jquery-2.1.4.js"></script>
+    <script src="echarts.js"></script>
+    <script src="../framework/angular.js"></script>
+    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<script type="text/javascript" src="dateUtil.js"></script>
+	<style type="text/css">
+		.title{
+					display: inline-block;
+                    float:left;
+                    width:100px;
+		}
+	</style>
+</head>
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+	<div id="date" style="height: 80px" ng-controller="myCtrl">
+		<div class="time">
+		<span class="title">请选择时间：</span><input type="date" id="startDate" name="startDate"/>
+		<input type="button" id="btn" value="统计"/>
+		</div>
+		 <div class="time">
+		<span class="title">至：</span><input type="date" id="endDate" name="endDate"/> 
+		</div>
+		
+	</div>
+    <div id="main" style="width:400px;height: 400px;">
+	   
+	</div>
+    <script>
+    myApp.controller('myCtrl',function ($scope,$http) {
+    	$scope.user = localStorage.getItem('user');
+    	
+    	$scope.check = function(){
+    		var lastDate = lastMonthDate();
+      		 if($scope.start == null || $scope.end == null){
+      	        	var date = new Date();
+      	        	var y = date.getFullYear();
+      	        	var d = date.getMonth()+1;
+      	        	var dd = date.getDate();
+      	        	if((d+1)<10){
+      	        		if(dd<10){
+      	        			$scope.end = y+"-0"+d+"-0"+dd;
+      	        		}else{
+      	        			$scope.end = y+"-0"+d+"-"+dd;
+      	        		}
+      	        		$scope.start = lastDate;
+      	        	}else{
+      	        		if(dd<10){
+      	        			$scope.end = y+"-0"+d+"-0"+dd;
+      	        		}else{
+      	        			$scope.end = y+"-0"+d+"-"+dd;
+      	        		}
+      	        		$scope.end = y+"-"+d+"-"+dd;
+      	        		$scope.start = lastDate;
+      	        	}
+      	        }
+      		 $("#startDate").val($scope.start);
+      		 $("#endDate").val($scope.end);
+    	}
+		$scope.init = function(){console.log("here");
+        // 基于准备好的dom，初始化echarts实例
+        var myChart;
+        // 指定图表的配置项和数据
+     
+					$.ajax({
+						url : "/slianOA-pc-web/mobile-ajax/auth/analysisController/document.do",
+						type : "GET",
+						async : true,
+						data : {
+							'type' : '发文',
+							'startDate' : $scope.start,
+							'endDate' : $scope.end,
+							'wechatAccount' : $scope.user
+						},
+						dataType : "json",
+						success : function(res) {
+							if(res.category.length >0){
+								var t = res.category.length; console.log(t);
+								var size = t*15+260+'px'; console.log(size);
+								window.onresize = document.getElementById("main").style.height=size;
+								myChart = echarts.init(document.getElementById('main'));
+							}else{
+								window.onresize = document.getElementById("main").style.height='400px';
+								myChart = echarts.init(document.getElementById('main'));
+							}
+							var option = {
+									title : {
+										text : '发文统计'
+									},
+									tooltip : {
+										trigger : 'axis',
+										axisPointer : {
+											type : 'shadow'
+										}
+									},
+									legend : {
+										data : res.legend,
+										left : 'right',
+										width: '50%'
+									},
+									grid : {
+										left : '3%',
+										right : '4%',
+										bottom : '3%',
+										containLabel : true
+									},
+									xAxis : {
+										type : 'value',
+										boundaryGap : [0,0.01],
+										name : '数量',
+										nameLocation : 'middle',
+										nameGap:10
+									},
+									yAxis : {
+										type : 'category',
+										data : res.category,
+										name : '主送单位'
+									},
+									minInterval: 1,
+									series : res.series
+									
+								};
+							// 使用刚指定的配置项和数据显示图表。
+							myChart.setOption(option);
+							window.onresize = myChart.resize;
+						},
+						error : function(res) {
+							//$.alert("系统错误，请刷新！");
+							//wx.closeWindow();
+							console.log(res);
+						},
+					});
+    	}
+		
+		$scope.$on('setUser',function(d,res){
+			$scope.user = res;
+			$scope.check();
+			$scope.init();
+		})
+		if(localStorage.getItem('user')){
+			$scope.check();
+			$scope.init();
+		}
+		
+		$("#btn").click(function(){
+			if($('#startDate').val() == '' && $('#endDate').val() == ''){
+				//$scope.check();
+				$scope.init();
+			}else{
+				//console.log($("#user_date").val());
+				$scope.start = $("#startDate").val();
+				$scope.end=$("#endDate").val();
+				if(compareTo($scope.start,$scope.end)){
+					alert("结束日期需大于开始日期！");
+				}else{
+					$scope.init();
+				}
+			}
+		})
+    	
+    });
+					
+
+					
+				</script>
+</body>
+</html>

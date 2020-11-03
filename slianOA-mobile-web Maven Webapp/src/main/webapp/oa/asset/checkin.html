@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>入库申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	</head>
+	<body  ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">入库申请</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+						<div class="weui-cell__bd"><label class="weui-label"  ng-bind="basic.name">wechat</label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请时间</label></div>
+						<div class="weui-cell__bd"><label id="date"class="weui-label" ng-bind="strDate">wechat</label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请部门</label></div>
+						<div class="weui-cell__bd">
+							<label class="weui-label"  ng-bind="basic.department"></label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text"  placeholder="标题" ng-model="title"/>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">备注</label></div>
+						<div class="weui-cell__bd">
+							<textarea class="weui-textarea" placeholder="请输入备注" rows="2" ng-model="remark"></textarea>
+						</div>
+					</div>
+					<div id="add">
+						<div class="weui-cell_change weui-cell_bgc">填加入库商品
+							<img src="../images/plus.png" class="icon_plus" id="plusButton">
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">物品类别</label></div>
+							<div class="weui-cell__bd"><input class="weui-input" type="text" id="goodType" placeholder="物品类别"/></div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">物品名称</label></div>
+							<div class="weui-cell__bd"><input class="weui-input" id="goodName" type="text"  placeholder="物品名称" set-name=""/></div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">品牌</label></div>
+							<div class="weui-cell__bd"><input class="weui-input" type="text" id="PP" placeholder="品牌" /></div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">数量</label></div>
+							<div class="weui-cell__bd"><input class="weui-input" type="number"  placeholder="数量"/></div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd"><label class="weui-label">单价(元)</label></div>
+							<div class="weui-cell__bd"><input class="weui-input" type="number"  placeholder="单价"/></div>
+						</div>
+					</div>
+
+					<div class="weui-cell_change weui-cell_bgc">入库明细</div>
+					<div id="purchaseList">
+						<table class="asset_table" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<td scope="col">类型</td>
+									<td scope="col">名称</td>
+									<td scope="col" style="max-width:100px;">品牌</td>
+									<td scope="col">数量</td>
+									<td scope="col">单价</td>
+									<td scope="col" width="61px">操作</td>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">总计(元)：</label></div>
+						<div class="weui-cell__bd">
+							<input ng-model="total" readonly="readonly" type="number" style="border:none;"/>
+						</div>
+					</div>
+				</div>
+				<div class="weui-btn-area">
+            		<button class="weui-btn weui-btn_primary" id="showTooltips">提交申请</button>
+       			</div>
+       			
+		</div>
+	</body>
+	<script type="text/javascript">
+		myApp.controller('myCtrl',function ($scope,$http) {
+			$scope.user = localStorage.getItem("user"); // 用户微信号
+			$scope.title='';
+			$scope.remark='';
+			$scope.total=0;
+			$('#goodName').on('click',function(){
+				if($scope.typeVal){
+
+				}else{
+					$.alert('请选择类别');
+				}
+			})
+
+			$('input#goodType').change(function(){
+				console.log($(this).data('values'));
+				$scope.typeVal=$(this).data('values');
+				if(!$scope.$$phase) {
+					$scope.$apply();
+				}
+			})
+			//监听类别变化
+			$scope.$watch('typeVal',function(){
+				console.log('类别变化了');
+				if($scope.typeVal){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaAsset/getOaAsset.do',
+						params:{"wechatAccount":$scope.user,"parentId":$scope.typeVal}
+					}).success(function(data){
+						console.log(data);
+						$scope.goodsName=[];
+						for(var i=0;i<data.length;i++){
+							$scope.goodsName.push({'title':data[i]['name'],'value':data[i]['id']});
+						}
+						console.log($scope.goodsName);
+						if(!$scope.$$phase) {
+							$scope.$apply();
+						}
+						if($scope.typeVal){
+							$('#goodName').trigger('click');
+						}
+
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			});
+			//当前时间
+			var date=new Date();
+			$scope.strDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+			//获取用户部门信息
+			console.log(localStorage.getItem('name'));
+
+			$scope.initAsset = function(){
+				if(localStorage.getItem("user")){
+					//获取资产类别信息
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaAsset/type/list.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						//data    id+name
+						//type  title items
+						console.log(data);
+						$scope.type=[];
+						for(var i=0;i<data.length;i++){
+							$scope.type.push({'title':data[i]['name'],'value':data[i]['id']});
+						}
+						console.log($scope.type);
+						$('#goodType').select({
+							title:'选择物品类别',
+							items:$scope.type
+						})
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			}
+			
+			$scope.init = function(){
+				if(localStorage.getItem("user")){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						console.log(data);
+						localStorage.setItem('name',data.name);
+						localStorage.setItem('department',data.department);
+						$scope.basic=data;
+						$scope.initAsset();
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			}
+			
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+			if(localStorage.getItem('name')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+				$scope.initAsset();
+			}else{
+				$scope.init();
+			}
+			
+			$(function(){
+				//点击删除所在行的信息……
+				$('table.asset_table>tbody').on('click','tr>td>button.del',function () {
+					var tr=$(this).parents('tr');
+					//删除前改变总价值
+					console.log($(tr).find('td'));
+					console.log($(tr).find('td')[3].innerHTML);
+					console.log($(tr).find('td')[4].innerHTML);
+					$scope.total=$scope.total-($(tr).find('td')[3].innerHTML)*($(tr).find('td')[4].innerHTML);
+
+					if(!$scope.$$phase) {
+						$scope.$apply();
+					}
+					$('table.asset_table>tbody').find(tr).remove();
+
+				})
+				//添加物品信息
+				$('img#plusButton').on('click',function () {
+					console.log($('div#add').find('input'));
+					var arrVal=$('div#add').find('input');
+					var appendTr=$('<tr></tr>');
+					var notNull=function (arrVal) {
+						var regu="^[ ]+$";
+						var re=new RegExp(regu);
+						for(var i=0;i<arrVal.length;i++){
+							var flag=(i!=2)&&($(arrVal[i]).val()=='');
+							if(flag){
+								$.alert('请检查你的输入信息');
+								return false;
+							}else if(re.test($(arrVal[i]).val())){
+								$.alert('请检查你的输入信息');
+								return false;
+							}
+							else{
+								if(i==1){
+									console.log($(arrVal[i]).data('values'))
+									appendTr.append('<td id='+$(arrVal[i]).data("values")+'>'+$(arrVal[i]).val()+'</td>');
+								}else{
+									appendTr.append('<td>'+$(arrVal[i]).val()+'</td>');
+								}
+
+							}
+							console.log($(arrVal[i]).val());//input中输入的值
+						}
+
+						if($(arrVal[4]).val()!=''){
+							$scope.total=Number($scope.total)+($(arrVal[3]).val()*$(arrVal[4]).val());
+						}else{
+							
+						}
+						if(!$scope.$$phase) {
+							$scope.$apply();
+						}
+						console.log($scope.total);
+						appendTr.append('<td><button class="del weui-btn_primary weui-btn weui-btn_mini" ng-click="del()">删除</button></td>')
+						return true;
+					}
+
+
+					if(notNull(arrVal)){
+						appendTr.appendTo($('div#purchaseList table tbody'));
+						$('div#add').find('input').val('');
+					}else {
+
+					}
+
+
+				});
+				//提交入库表
+				$('#showTooltips').on('click',function () {
+					var flag=($scope.title=='');
+					if(flag){
+						$.alert('请检查你的输入');
+					}else{
+						console.log($('div#purchaseList tbody').find('tr'));
+						var arrTr=$('div#purchaseList tbody').find('tr');
+						var arr=[]
+						for(var i=0;i<arrTr.length;i++){
+							console.log($(arrTr[i]).find('td'));
+							var arrTd=$(arrTr[i]).find('td');
+							var obj={};
+							for(var j=0;j<arrTd.length;j++){
+								//	console.log(j+'***'+$(arrTd[j]).text());
+								switch(j){
+									case 0:// obj['type']=encodeURIComponent($(arrTd[j]).text());
+										break;
+									case 1: //obj['name']=encodeURIComponent($(arrTd[j]).text());
+										obj['assetId']=$(arrTd[j]).attr('id');
+										break;
+									case 2:
+										obj['detailName']=encodeURIComponent($(arrTd[j]).text());
+										break;
+									case 3:obj['amount']=$(arrTd[j]).text();
+										break;
+									case 4:obj['unitPrice']=$(arrTd[j]).text();
+										break;
+								}
+							}
+							console.log(obj);
+							arr.push(obj);
+						}
+						if(arr.length==0){
+							$.alert('请填写信息');
+						}else{
+							console.log(JSON.stringify(arr));
+							console.log($scope.title);
+							console.log($scope.remark);
+
+							$http({
+								url:'/slianOA-pc-web/mobile-ajax/auth/oaAssetChange/insert.do',
+								params:{"wechatAccount":$scope.user,"change":[{"changeType":encodeURIComponent('入库'),"title":encodeURIComponent($scope.title),"remark":encodeURIComponent($scope.remark),"eventTime":$scope.strDate}],"detail":JSON.stringify(arr)}
+							}).success(function(data){
+								$.toptip('操作成功', 'success');
+								$("#showTooltips").attr('disabled',true);
+								$("#showTooltips").css('backgroundColor','#B2B2B2');
+							}).error(function(data){
+								$.toptip('操作失败', 'error');
+							})
+						}
+
+					}
+
+				})
+			});
+		})
+		//物品信息数据绑定
+		myApp.directive('setName',function () {
+			return {
+				restrict:'AECM',
+				scope:true,
+				link:function (scope,elements,attrs) {
+					elements.bind('click',function () {
+						console.log($(this));
+						$(this).select("update",{
+							title:'请选择物品名称',
+							items:scope['goodsName']
+						})
+					})
+				}
+			}
+		})
+	</script>
+</html>
+
+

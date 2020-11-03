@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的申诉</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    	<link href="../css/Attendance-Attorney.css" rel="stylesheet" type="text/css" />
+    	
+    	<style>
+		.one{
+			border-bottom:1px solid #cccccc;	
+			width:100%;	
+		}
+        #left{
+	   	    float:left; 
+	        width:90%;     
+	        background-color:#ffffff;
+	        height:70px;
+	        padding: 0 15px 0 15px;}
+        #right{
+		    height:70px; 
+		    float:left; 
+		    width:10%;                        
+			background-color:#ffffff;
+			text-align: center;
+	        line-height:70px;}
+        #left h1{
+        	font-size:17px;}
+        #left p{
+        	margin-top: -6px;
+        	font-size:13px;
+        	color: #999999;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	text-overflow: ellipsis;}      
+        #right span{
+        	color: #999999;
+        	font-size:12px;}
+        .content-block{
+        	margin:0;
+        	padding:0;}
+        /*.content-block:nth-of-type(1)
+        {
+        	margin-top: -21px;}
+        .appeal-detail p span{
+        	font-size:13px;
+        	color: #999999;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	text-overflow: ellipsis;}*/
+	</style>
+	
+  </head>
+  <body ng-app="sign" ng-controller='SignController'>
+    <div class="page-group">
+        <div class="page page-current">
+        <!-- 你的html代码 -->
+			<div class="content">
+			  <div class="buttons-tab">
+			    <a href="#tab1" ng-click="test1()"  class="tab-link active button">审批中</a>
+			    <a href="#tab2" ng-click="test2()" class="tab-link button">已审批</a>
+			  </div>
+			 <div class="content-block">
+			    <div class="tabs">
+			    	
+			      <div id="tab1" class="tab active">
+			        <div class="content-block">
+			          <p>
+			          	  <div class="one" onclick="window.open('Attendance-Attorney.html');">
+			          	     <!-- <div class="appealAvator flexCenter">
+		                        <div class="avator">
+		                            <img src="http://shp.qpic.cn/bizmp/GgXprrmqWwTic1VWDqqsjCRgjpFw0daGw0UbUza7dUTZiao1QdKsxZYw/132" id="repPersonPic"> 
+		                        </div>
+		                        <div class="appeal-detail flexItem">
+		                            <p id="repPersonName">李二狗</p>
+		                            <span id="repCreateTime">2017-03-29 08:23:55</span>
+		                        </div>
+		                        
+		                        <div class="appeal-status" id="repAuditPast" style="">通过
+		                        <br/>
+		                        	<span id="time"style="font-size: 5px;color:#CCCCCC">2017-07-01</span></div>
+		                    </div> -->
+					      </div>
+			         </p>
+			        </div>
+			      </div>
+			      
+			      <div id="tab2" class="tab">
+			        <div class="content-block">
+			          <p>
+			          	  <!--<div class="one two" onclick="window.open('Log-detail.html');">
+					      	<div id="left">
+						      	<h1>周报_李XX_20170406</h1>
+						      	<p>本周工作内容： 1.写了移动客户关系管理系统的软件著作权申请文档 2.协助杨坤把签到页面前后端连起来了下周工作计划： 1.实现考勤日历页面的前后端交互 2.修改完善考勤模块，比如备注功能等</p>  
+						    </div>
+						    <div id="right">
+						      <span id="date">04-06</span>
+						    </div>
+						    <div style="clear:both"></div>
+					      </div>-->
+					       <div class="two" onclick="window.open('Attendance-Attorney.html');">
+					      	<!-- <div class="appealAvator flexCenter">
+		                        <div class="avator">
+		                            <img src="http://shp.qpic.cn/bizmp/GgXprrmqWwTic1VWDqqsjCRgjpFw0daGw0UbUza7dUTZiao1QdKsxZYw/132" id="repPersonPic"> 
+		                        </div>
+		                        <div class="appeal-detail flexItem">
+		                            <p id="repPersonName">李二狗</p>
+		                            <span id="repCreateTime">2017-03-29 08:23:55</span>
+		                        </div>
+		                        <div class="appeal-status" id="repIsAudit" style="display: none;">申诉中</div>
+		                        <div class="appeal-status" id="repAuditPast" style="">通过</div>
+		                        <div class="appeal-status cred" id="repAuditReturn" style="display: none;">
+		                            不通过
+		                        </div>
+		                    </div> -->
+					      </div>
+			          </p>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+			</div>
+        </div>
+    </div>
+	
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="appealRelated.js"></script>
+  </body>
+</html>

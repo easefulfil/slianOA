@@ -1,0 +1,186 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat;
+}
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat 2px 2px;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat 2px 2px;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat 3px 2px;
+}
+
+.icon-formedit{
+	background:url('icons/formedit.png') no-repeat center center;
+}
+.icon-house{
+	background:url('icons/house.png') no-repeat;
+}
+.icon-monitor{
+	background:url('icons/monitor.png') no-repeat;
+}
+.icon-monitorlightning{
+	background:url('icons/monitor_lightning.png') no-repeat;
+}
+.icon-serveredit{
+	background:url('icons/server_edit.png') no-repeat;
+}
+.icon-group{
+	background:url('icons/group.png') no-repeat;
+}
+.icon-userred{
+	background:url('icons/user_red.png') no-repeat;
+}
+.icon-groupkey{
+	background:url('icons/group_key.png') no-repeat;
+}
+.icon-car{
+	background:url('icons/car.png') no-repeat;
+}
+.icon-money{
+	background:url('icons/money_yen.png') no-repeat;
+}
+.icon-hourglass{
+	background:url('icons/hourglass.png') no-repeat;
+}
+.icon-hourglassgo{
+	background:url('icons/hourglass_go.png') no-repeat;
+}
+.icon-hourglasslink{
+	background:url('icons/hourglass_link.png') no-repeat;
+}
+.icon-usercomment{
+	background:url('icons/user_comment.png') no-repeat;
+}
+.icon-useredit{
+	background:url('icons/user_edit.png') no-repeat;
+}
+.icon-foldertable{
+	background:url('icons/folder_table.png') no-repeat;
+}
+.icon-box{
+	background:url('icons/box.png') no-repeat;
+}
+.icon-driveedit{
+	background:url('icons/drive_edit.png') no-repeat;
+}
+.icon-drivego{
+	background:url('icons/drive_go.png') no-repeat;
+}
+.icon-wrench{
+    background:url('icons/wrench.png') no-repeat;
+}
+.icon-map{
+    background:url('icons/map.png') no-repeat;
+}
+.icon-mapgo{
+    background:url('icons/map_go.png') no-repeat;
+}
+.icon-export{
+    background:url('icons/bullet_go.png') no-repeat;
+}
+.icon-table{
+    background:url('icons/table.png') no-repeat;
+}
+.icon-tablemultiple{
+    background:url('icons/table_multiple.png') no-repeat;
+}
+.icon-tabdelete{
+    background:url('icons/tab-delete.png') no-repeat;
+}
+.icon-tabrefresh{
+    background:url('icons/table-refresh.png') no-repeat;
+}
+.icon-tabcloseleft{
+    background:url('icons/tab-close-left.png') no-repeat;
+}
+.icon-tabcloseright{
+    background:url('icons/tab-close-right.png') no-repeat;
+}
+.icon-cancelsmall{
+    background:url('icons/cancel_small.png') no-repeat;
+}
+.icon-chart{
+    background:url('icons/chart_bar.png') no-repeat;
+}
+.icon-about{
+    background:url('icons/information.png') no-repeat;
+}
+.icon-book{
+    background:url('icons/book.png') no-repeat;
+}
+
+.icon-lorry{
+    background:url('icons/lorry.png') no-repeat;
+}
+.icon-lorryadd{
+    background:url('icons/lorry_add.png') no-repeat;
+}
+.icon-lorrydelete{
+    background:url('icons/lorry_delete.png') no-repeat;
+}
+.icon-lorryerror{
+    background:url('icons/lorry_error.png') no-repeat;
+}
+.icon-lorryflatbed{
+    background:url('icons/lorry_flatbed.png') no-repeat;
+}
+.icon-lorrygo{
+    background:url('icons/lorry_go.png') no-repeat;
+}
+.icon-lorrylink{
+    background:url('icons/lorry_link.png') no-repeat;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>宁波北仑第二人民医院综合信息管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="loginjs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="loginjs/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="loginjs/jquery.cookie.js" charset="utf-8"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="loginjs/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="loginjs/utils.js" charset="utf-8"></script>
+<script type="text/javascript" src="loginjs/login.js" charset="utf-8"></script>
+
+</head>
+<body>
+	<div class="header" style="">
+		<p>宁波北仑第二人民医院综合信息管理系统——员工入口</p>
+	</div>
+	<div class="content">
+		<div id="loginbox" class="card card-container">
+			<div class="titlebar">
+				<h2>欢迎登录<span id="errorMsg" style="color:red;display:none;font-size=0.5em">用户名或密码不正确！</span></h2>
+			</div>
+			<!--注意，action中的j_spring_security_check是spring security系统定制的地址， -->
+			<!--只有写上它，才能调用起authentication这个过滤器！否则无法实现登录验证功能！  action="j_spring_security_check"-->
+			  <form role="form" class="form-horizontal" id="loginForm">
+				
+				<div class="form-group">
+					<!-- <label for="userName">帐&nbsp;号：</label> -->
+					<input type="text" class="form-control" id="loginCellPhone" name="loginCellPhone"
+                                               placeholder="手机号/帐号">
+					<!--<a href="javascript:void(0);">注册</a>-->
+				</div>
+				<div class="form-group">
+					<!-- <label for="password">密&nbsp;码：</label> -->
+					 <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="密码">
+                      <input type="hidden" id="type" value="员工">
+						<br/><br/>
+					<!-- <p>我忘记密码了，需要<a href="#" id = "resetPassword">重置密码</a>。</p> -->
+					 <p id = "resetPassword"></p> 
+				</div>
+			<!-- 	<div class="formitem">
+						<label for="merchantId">登陆身份：</label>
+						<input id="loginType" name="loginType" type="radio" style="width:3em;width:1.5em" checked value="QUERY"/>客户 &nbsp;&nbsp;<input name="loginType" type="radio"  style="width:3em;width:1.5em" value="ANALYSIS"/>员工
+						<span class="warn"></span>
+				</div>  -->
+				<!--<div class="formitem">
+						<label for="merchantId">记住登录：</label>
+						<input id="loginType" name="loginType" type="radio" style="width:3em;width:1.5em" checked value="QUERY"/>七天内不需登陆录 &nbsp;&nbsp;<input name="loginType" type="radio"  style="width:3em;width:1.5em" value="ANALYSIS"/>一个月内不需登录
+						<span class="warn"></span>
+				</div> -->
+				<!-- <div class="formitem">
+					<label for="randomCode">验&nbsp;&nbsp;证&nbsp;&nbsp;码：</label> <input
+						id="randomCode" name="randomCode" type="text" placeholder="验证码"
+						style="width:125px;vertical-align:middle;" /> <img title="点击更换验证码"
+						alt="验证码,看不清楚?请点击刷新验证码" src="login/getCode.do"
+						onClick="this.src=this.src+'?'+Math.random();"
+						style="vertical-align:middle;border:1px solid #ADADAD"><br/>
+					<span class="warn"></span>
+				</div>
+ -->
+				<div id="warn" style="color: red"></div>
+				
+<!-- 				<input id="remember_me" name="_spring_security_remember_me" type="checkbox" />
+				<label for="remember_me" class="inline">Remember me</label>
+					<div class="btn">
+					
+				</div> -->
+				<div  align="center">
+				<input class="btn btn-default" type="reset" value="清空" />
+				<input id="login" class="btn btn-default" type="button" value="登录" />
+				</div>
+			
+				<div class="clear"></div>
+			</form>
+		</div>
+	</div>
+
+	<div class="footer" style="color: #FFFFFF; ">
+		<p>
+			Copyright@宁波北仑第二人民医院; &nbsp;&nbsp;技术支持：宁波数联软件有限公司&浙江大学软件学院		</p>
+	</div>
+</body>
+</html>
+

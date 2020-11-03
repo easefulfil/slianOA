@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaWorkflowMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" >
+    <id column="workflow_id" property="workflowId" jdbcType="INTEGER" />
+    <result column="workflow_custom_id" property="workflowCustomId" jdbcType="INTEGER" />
+    <result column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="business_table" property="businessTable" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="workflow_time" property="workflowTime" jdbcType="TIMESTAMP" />
+    <result column="workflow_result" property="workflowResult" jdbcType="VARCHAR" />
+    <result column="workflow_opinion" property="workflowOpinion" jdbcType="VARCHAR" />
+    <result column="next_step" property="nextStep" jdbcType="INTEGER" />
+    <result column="workflow_type" property="workflowType" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    workflow_id, workflow_custom_id, employee_id, business_table, business_id, title, 
+    workflow_time, workflow_result, workflow_opinion, next_step, workflow_type, remark, 
+    access_group, creator, create_time, amender, amend_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_workflow
+    where workflow_id = #{workflowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_workflow
+    where workflow_id = #{workflowId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflowExample" >
+    delete from oa_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" >
+    insert into oa_workflow (workflow_id, workflow_custom_id, employee_id, 
+      business_table, business_id, title, 
+      workflow_time, workflow_result, workflow_opinion, 
+      next_step, workflow_type, remark, 
+      access_group, creator, create_time, 
+      amender, amend_time)
+    values (#{workflowId,jdbcType=INTEGER}, #{workflowCustomId,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, 
+      #{businessTable,jdbcType=VARCHAR}, #{businessId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{workflowTime,jdbcType=TIMESTAMP}, #{workflowResult,jdbcType=VARCHAR}, #{workflowOpinion,jdbcType=VARCHAR}, 
+      #{nextStep,jdbcType=INTEGER}, #{workflowType,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{amender,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" useGeneratedKeys="true" keyProperty="workflowId"  >
+    insert into oa_workflow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workflowId != null" >
+        workflow_id,
+      </if>
+      <if test="workflowCustomId != null" >
+        workflow_custom_id,
+      </if>
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="businessTable != null" >
+        business_table,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="workflowTime != null" >
+        workflow_time,
+      </if>
+      <if test="workflowResult != null" >
+        workflow_result,
+      </if>
+      <if test="workflowOpinion != null" >
+        workflow_opinion,
+      </if>
+      <if test="nextStep != null" >
+        next_step,
+      </if>
+      <if test="workflowType != null" >
+        workflow_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workflowId != null" >
+        #{workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="workflowCustomId != null" >
+        #{workflowCustomId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="businessTable != null" >
+        #{businessTable,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowTime != null" >
+        #{workflowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workflowResult != null" >
+        #{workflowResult,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowOpinion != null" >
+        #{workflowOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStep != null" >
+        #{nextStep,jdbcType=INTEGER},
+      </if>
+      <if test="workflowType != null" >
+        #{workflowType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflowExample" resultType="java.lang.Integer" >
+    select count(*) from oa_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_workflow
+    <set >
+      <if test="record.workflowId != null" >
+        workflow_id = #{record.workflowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workflowCustomId != null" >
+        workflow_custom_id = #{record.workflowCustomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessTable != null" >
+        business_table = #{record.businessTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workflowTime != null" >
+        workflow_time = #{record.workflowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.workflowResult != null" >
+        workflow_result = #{record.workflowResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workflowOpinion != null" >
+        workflow_opinion = #{record.workflowOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextStep != null" >
+        next_step = #{record.nextStep,jdbcType=INTEGER},
+      </if>
+      <if test="record.workflowType != null" >
+        workflow_type = #{record.workflowType,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_workflow
+    set workflow_id = #{record.workflowId,jdbcType=INTEGER},
+      workflow_custom_id = #{record.workflowCustomId,jdbcType=INTEGER},
+      employee_id = #{record.employeeId,jdbcType=INTEGER},
+      business_table = #{record.businessTable,jdbcType=VARCHAR},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      workflow_time = #{record.workflowTime,jdbcType=TIMESTAMP},
+      workflow_result = #{record.workflowResult,jdbcType=VARCHAR},
+      workflow_opinion = #{record.workflowOpinion,jdbcType=VARCHAR},
+      next_step = #{record.nextStep,jdbcType=INTEGER},
+      workflow_type = #{record.workflowType,jdbcType=CHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      creator = #{record.creator,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" >
+    update oa_workflow
+    <set >
+      <if test="workflowCustomId != null" >
+        workflow_custom_id = #{workflowCustomId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        employee_id = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="businessTable != null" >
+        business_table = #{businessTable,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowTime != null" >
+        workflow_time = #{workflowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workflowResult != null" >
+        workflow_result = #{workflowResult,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowOpinion != null" >
+        workflow_opinion = #{workflowOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStep != null" >
+        next_step = #{nextStep,jdbcType=INTEGER},
+      </if>
+      <if test="workflowType != null" >
+        workflow_type = #{workflowType,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where workflow_id = #{workflowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" >
+    update oa_workflow
+    set workflow_custom_id = #{workflowCustomId,jdbcType=INTEGER},
+      employee_id = #{employeeId,jdbcType=INTEGER},
+      business_table = #{businessTable,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      workflow_time = #{workflowTime,jdbcType=TIMESTAMP},
+      workflow_result = #{workflowResult,jdbcType=VARCHAR},
+      workflow_opinion = #{workflowOpinion,jdbcType=VARCHAR},
+      next_step = #{nextStep,jdbcType=INTEGER},
+      workflow_type = #{workflowType,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP}
+    where workflow_id = #{workflowId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaWorkflow" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>   and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaWorkflowExample" >
+    select a.* from oa_workflow a where a.workflow_id in 
+ (select top ${pageSize} workflow_id from oa_workflow 
+<include refid="select_by_page_outter_where_sql"/> 
+workflow_id not in (select top ${skipRecordCount} workflow_id from oa_workflow  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+<include refid="select_by_page_outter_orderby_sql"/> 
+  </select>
+</mapper>

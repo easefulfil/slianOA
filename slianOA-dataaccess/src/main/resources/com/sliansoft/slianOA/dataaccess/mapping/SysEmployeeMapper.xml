@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.SysEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    <id column="employee_id" property="employeeId" jdbcType="INTEGER" />
+    <result column="employee_department" property="employeeDepartment" jdbcType="INTEGER" />
+    <result column="employee_code" property="employeeCode" jdbcType="VARCHAR" />
+    <result column="employee_idcard" property="employeeIdcard" jdbcType="VARCHAR" />
+    <result column="employee_name" property="employeeName" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="employee_sex" property="employeeSex" jdbcType="CHAR" />
+    <result column="employee_from" property="employeeFrom" jdbcType="VARCHAR" />
+    <result column="employee_graduate" property="employeeGraduate" jdbcType="VARCHAR" />
+    <result column="employee_birthday" property="employeeBirthday" jdbcType="VARCHAR" />
+    <result column="is_marry" property="isMarry" jdbcType="CHAR" />
+    <result column="has_child" property="hasChild" jdbcType="CHAR" />
+    <result column="character" property="character" jdbcType="VARCHAR" />
+    <result column="interist" property="interist" jdbcType="VARCHAR" />
+    <result column="employee_status" property="employeeStatus" jdbcType="VARCHAR" />
+    <result column="home_tel" property="homeTel" jdbcType="VARCHAR" />
+    <result column="employee_cell_phone" property="employeeCellPhone" jdbcType="VARCHAR" />
+    <result column="employee_office_phone" property="employeeOfficePhone" jdbcType="VARCHAR" />
+    <result column="MSN" property="msn" jdbcType="VARCHAR" />
+    <result column="employee_QQ" property="employeeQq" jdbcType="VARCHAR" />
+    <result column="employee_duties" property="employeeDuties" jdbcType="VARCHAR" />
+    <result column="weixin_name" property="weixinName" jdbcType="VARCHAR" />
+    <result column="weixin_openid" property="weixinOpenid" jdbcType="VARCHAR" />
+    <result column="wechat_account" property="wechatAccount" jdbcType="VARCHAR" />
+    <result column="used_name" property="usedName" jdbcType="VARCHAR" />
+    <result column="name_spelling" property="nameSpelling" jdbcType="VARCHAR" />
+    <result column="account_number" property="accountNumber" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="marital_status" property="maritalStatus" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="nation_place" property="nationPlace" jdbcType="VARCHAR" />
+    <result column="birth_place" property="birthPlace" jdbcType="VARCHAR" />
+    <result column="home_address" property="homeAddress" jdbcType="VARCHAR" />
+    <result column="body_status" property="bodyStatus" jdbcType="VARCHAR" />
+    <result column="politic_Status" property="politicStatus" jdbcType="VARCHAR" />
+    <result column="join_party_time" property="joinPartyTime" jdbcType="TIMESTAMP" />
+    <result column="join_working_time" property="joinWorkingTime" jdbcType="TIMESTAMP" />
+    <result column="join_unit_time" property="joinUnitTime" jdbcType="TIMESTAMP" />
+    <result column="top_education" property="topEducation" jdbcType="VARCHAR" />
+    <result column="top_diploma" property="topDiploma" jdbcType="VARCHAR" />
+    <result column="now_post_name" property="nowPostName" jdbcType="CHAR" />
+    <result column="begin_post_time" property="beginPostTime" jdbcType="TIMESTAMP" />
+    <result column="now_post_level" property="nowPostLevel" jdbcType="VARCHAR" />
+    <result column="begin_post_level_time" property="beginPostLevelTime" jdbcType="VARCHAR" />
+    <result column="now_post_category" property="nowPostCategory" jdbcType="VARCHAR" />
+    <result column="employee_category" property="employeeCategory" jdbcType="VARCHAR" />
+    <result column="aurhorized_property" property="aurhorizedProperty" jdbcType="VARCHAR" />
+    <result column="work_status" property="workStatus" jdbcType="VARCHAR" />
+    <result column="join_civil_servant_time" property="joinCivilServantTime" jdbcType="TIMESTAMP" />
+    <result column="civil_servant_register_time" property="civilServantRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="join_unit_type" property="joinUnitType" jdbcType="VARCHAR" />
+    <result column="base_work_time" property="baseWorkTime" jdbcType="VARCHAR" />
+    <result column="working_years" property="workingYears" jdbcType="VARCHAR" />
+    <result column="speciality" property="speciality" jdbcType="VARCHAR" />
+    <result column="other_demands" property="otherDemands" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
+    <result column="wechat_department" property="wechatDepartment" jdbcType="VARCHAR" />
+    <result column="wechat_picture_url" property="wechatPictureUrl" jdbcType="VARCHAR" />
+    <result column="leave_unit_time" property="leaveUnitTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    employee_id, employee_department, employee_code, employee_idcard, employee_name, 
+    english_name, password, employee_sex, employee_from, employee_graduate, employee_birthday, 
+    is_marry, has_child, character, interist, employee_status, home_tel, employee_cell_phone, 
+    employee_office_phone, MSN, employee_QQ, employee_duties, weixin_name, weixin_openid, 
+    wechat_account, used_name, name_spelling, account_number, email, phone, marital_status, 
+    nation, nation_place, birth_place, home_address, body_status, politic_Status, join_party_time, 
+    join_working_time, join_unit_time, top_education, top_diploma, now_post_name, begin_post_time, 
+    now_post_level, begin_post_level_time, now_post_category, employee_category, aurhorized_property, 
+    work_status, join_civil_servant_time, civil_servant_register_time, join_unit_type, 
+    base_work_time, working_years, speciality, other_demands, remark, access_group, create_time, 
+    creator, amend_time, amender, is_delete, wechat_id, wechat_department, wechat_picture_url, 
+    leave_unit_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_employee
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployeeExample" >
+    delete from sys_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    insert into sys_employee (employee_id, employee_department, employee_code, 
+      employee_idcard, employee_name, english_name, 
+      password, employee_sex, employee_from, 
+      employee_graduate, employee_birthday, is_marry, 
+      has_child, character, interist, 
+      employee_status, home_tel, employee_cell_phone, 
+      employee_office_phone, MSN, employee_QQ, 
+      employee_duties, weixin_name, weixin_openid, 
+      wechat_account, used_name, name_spelling, 
+      account_number, email, phone, 
+      marital_status, nation, nation_place, 
+      birth_place, home_address, body_status, 
+      politic_Status, join_party_time, join_working_time, 
+      join_unit_time, top_education, top_diploma, 
+      now_post_name, begin_post_time, now_post_level, 
+      begin_post_level_time, now_post_category, employee_category, 
+      aurhorized_property, work_status, join_civil_servant_time, 
+      civil_servant_register_time, join_unit_type, 
+      base_work_time, working_years, speciality, 
+      other_demands, remark, access_group, 
+      create_time, creator, amend_time, 
+      amender, is_delete, wechat_id, 
+      wechat_department, wechat_picture_url, leave_unit_time
+      )
+    values (#{employeeId,jdbcType=INTEGER}, #{employeeDepartment,jdbcType=INTEGER}, #{employeeCode,jdbcType=VARCHAR}, 
+      #{employeeIdcard,jdbcType=VARCHAR}, #{employeeName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{employeeSex,jdbcType=CHAR}, #{employeeFrom,jdbcType=VARCHAR}, 
+      #{employeeGraduate,jdbcType=VARCHAR}, #{employeeBirthday,jdbcType=VARCHAR}, #{isMarry,jdbcType=CHAR}, 
+      #{hasChild,jdbcType=CHAR}, #{character,jdbcType=VARCHAR}, #{interist,jdbcType=VARCHAR}, 
+      #{employeeStatus,jdbcType=VARCHAR}, #{homeTel,jdbcType=VARCHAR}, #{employeeCellPhone,jdbcType=VARCHAR}, 
+      #{employeeOfficePhone,jdbcType=VARCHAR}, #{msn,jdbcType=VARCHAR}, #{employeeQq,jdbcType=VARCHAR}, 
+      #{employeeDuties,jdbcType=VARCHAR}, #{weixinName,jdbcType=VARCHAR}, #{weixinOpenid,jdbcType=VARCHAR}, 
+      #{wechatAccount,jdbcType=VARCHAR}, #{usedName,jdbcType=VARCHAR}, #{nameSpelling,jdbcType=VARCHAR}, 
+      #{accountNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{maritalStatus,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, #{nationPlace,jdbcType=VARCHAR}, 
+      #{birthPlace,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, #{bodyStatus,jdbcType=VARCHAR}, 
+      #{politicStatus,jdbcType=VARCHAR}, #{joinPartyTime,jdbcType=TIMESTAMP}, #{joinWorkingTime,jdbcType=TIMESTAMP}, 
+      #{joinUnitTime,jdbcType=TIMESTAMP}, #{topEducation,jdbcType=VARCHAR}, #{topDiploma,jdbcType=VARCHAR}, 
+      #{nowPostName,jdbcType=CHAR}, #{beginPostTime,jdbcType=TIMESTAMP}, #{nowPostLevel,jdbcType=VARCHAR}, 
+      #{beginPostLevelTime,jdbcType=VARCHAR}, #{nowPostCategory,jdbcType=VARCHAR}, #{employeeCategory,jdbcType=VARCHAR}, 
+      #{aurhorizedProperty,jdbcType=VARCHAR}, #{workStatus,jdbcType=VARCHAR}, #{joinCivilServantTime,jdbcType=TIMESTAMP}, 
+      #{civilServantRegisterTime,jdbcType=TIMESTAMP}, #{joinUnitType,jdbcType=VARCHAR}, 
+      #{baseWorkTime,jdbcType=VARCHAR}, #{workingYears,jdbcType=VARCHAR}, #{speciality,jdbcType=VARCHAR}, 
+      #{otherDemands,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, 
+      #{amender,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, #{wechatId,jdbcType=VARCHAR}, 
+      #{wechatDepartment,jdbcType=VARCHAR}, #{wechatPictureUrl,jdbcType=VARCHAR}, #{leaveUnitTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    insert into sys_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeDepartment != null" >
+        employee_department,
+      </if>
+      <if test="employeeCode != null" >
+        employee_code,
+      </if>
+      <if test="employeeIdcard != null" >
+        employee_idcard,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="englishName != null" >
+        english_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="employeeSex != null" >
+        employee_sex,
+      </if>
+      <if test="employeeFrom != null" >
+        employee_from,
+      </if>
+      <if test="employeeGraduate != null" >
+        employee_graduate,
+      </if>
+      <if test="employeeBirthday != null" >
+        employee_birthday,
+      </if>
+      <if test="isMarry != null" >
+        is_marry,
+      </if>
+      <if test="hasChild != null" >
+        has_child,
+      </if>
+      <if test="character != null" >
+        character,
+      </if>
+      <if test="interist != null" >
+        interist,
+      </if>
+      <if test="employeeStatus != null" >
+        employee_status,
+      </if>
+      <if test="homeTel != null" >
+        home_tel,
+      </if>
+      <if test="employeeCellPhone != null" >
+        employee_cell_phone,
+      </if>
+      <if test="employeeOfficePhone != null" >
+        employee_office_phone,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="employeeQq != null" >
+        employee_QQ,
+      </if>
+      <if test="employeeDuties != null" >
+        employee_duties,
+      </if>
+      <if test="weixinName != null" >
+        weixin_name,
+      </if>
+      <if test="weixinOpenid != null" >
+        weixin_openid,
+      </if>
+      <if test="wechatAccount != null" >
+        wechat_account,
+      </if>
+      <if test="usedName != null" >
+        used_name,
+      </if>
+      <if test="nameSpelling != null" >
+        name_spelling,
+      </if>
+      <if test="accountNumber != null" >
+        account_number,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="nationPlace != null" >
+        nation_place,
+      </if>
+      <if test="birthPlace != null" >
+        birth_place,
+      </if>
+      <if test="homeAddress != null" >
+        home_address,
+      </if>
+      <if test="bodyStatus != null" >
+        body_status,
+      </if>
+      <if test="politicStatus != null" >
+        politic_Status,
+      </if>
+      <if test="joinPartyTime != null" >
+        join_party_time,
+      </if>
+      <if test="joinWorkingTime != null" >
+        join_working_time,
+      </if>
+      <if test="joinUnitTime != null" >
+        join_unit_time,
+      </if>
+      <if test="topEducation != null" >
+        top_education,
+      </if>
+      <if test="topDiploma != null" >
+        top_diploma,
+      </if>
+      <if test="nowPostName != null" >
+        now_post_name,
+      </if>
+      <if test="beginPostTime != null" >
+        begin_post_time,
+      </if>
+      <if test="nowPostLevel != null" >
+        now_post_level,
+      </if>
+      <if test="beginPostLevelTime != null" >
+        begin_post_level_time,
+      </if>
+      <if test="nowPostCategory != null" >
+        now_post_category,
+      </if>
+      <if test="employeeCategory != null" >
+        employee_category,
+      </if>
+      <if test="aurhorizedProperty != null" >
+        aurhorized_property,
+      </if>
+      <if test="workStatus != null" >
+        work_status,
+      </if>
+      <if test="joinCivilServantTime != null" >
+        join_civil_servant_time,
+      </if>
+      <if test="civilServantRegisterTime != null" >
+        civil_servant_register_time,
+      </if>
+      <if test="joinUnitType != null" >
+        join_unit_type,
+      </if>
+      <if test="baseWorkTime != null" >
+        base_work_time,
+      </if>
+      <if test="workingYears != null" >
+        working_years,
+      </if>
+      <if test="speciality != null" >
+        speciality,
+      </if>
+      <if test="otherDemands != null" >
+        other_demands,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="wechatId != null" >
+        wechat_id,
+      </if>
+      <if test="wechatDepartment != null" >
+        wechat_department,
+      </if>
+      <if test="wechatPictureUrl != null" >
+        wechat_picture_url,
+      </if>
+      <if test="leaveUnitTime != null" >
+        leave_unit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeDepartment != null" >
+        #{employeeDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="employeeCode != null" >
+        #{employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeIdcard != null" >
+        #{employeeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeSex != null" >
+        #{employeeSex,jdbcType=CHAR},
+      </if>
+      <if test="employeeFrom != null" >
+        #{employeeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeGraduate != null" >
+        #{employeeGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBirthday != null" >
+        #{employeeBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarry != null" >
+        #{isMarry,jdbcType=CHAR},
+      </if>
+      <if test="hasChild != null" >
+        #{hasChild,jdbcType=CHAR},
+      </if>
+      <if test="character != null" >
+        #{character,jdbcType=VARCHAR},
+      </if>
+      <if test="interist != null" >
+        #{interist,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTel != null" >
+        #{homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCellPhone != null" >
+        #{employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeOfficePhone != null" >
+        #{employeeOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeQq != null" >
+        #{employeeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeDuties != null" >
+        #{employeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinOpenid != null" >
+        #{weixinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAccount != null" >
+        #{wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="usedName != null" >
+        #{usedName,jdbcType=VARCHAR},
+      </if>
+      <if test="nameSpelling != null" >
+        #{nameSpelling,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="nationPlace != null" >
+        #{nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null" >
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStatus != null" >
+        #{bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicStatus != null" >
+        #{politicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPartyTime != null" >
+        #{joinPartyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinWorkingTime != null" >
+        #{joinWorkingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitTime != null" >
+        #{joinUnitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topEducation != null" >
+        #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDiploma != null" >
+        #{topDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostName != null" >
+        #{nowPostName,jdbcType=CHAR},
+      </if>
+      <if test="beginPostTime != null" >
+        #{beginPostTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nowPostLevel != null" >
+        #{nowPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPostLevelTime != null" >
+        #{beginPostLevelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostCategory != null" >
+        #{nowPostCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCategory != null" >
+        #{employeeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="aurhorizedProperty != null" >
+        #{aurhorizedProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workStatus != null" >
+        #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinCivilServantTime != null" >
+        #{joinCivilServantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="civilServantRegisterTime != null" >
+        #{civilServantRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitType != null" >
+        #{joinUnitType,jdbcType=VARCHAR},
+      </if>
+      <if test="baseWorkTime != null" >
+        #{baseWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workingYears != null" >
+        #{workingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="otherDemands != null" >
+        #{otherDemands,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatDepartment != null" >
+        #{wechatDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPictureUrl != null" >
+        #{wechatPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveUnitTime != null" >
+        #{leaveUnitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployeeExample" resultType="java.lang.Integer" >
+    select count(*) from sys_employee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_employee
+    <set >
+      <if test="record.employeeId != null" >
+        employee_id = #{record.employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeDepartment != null" >
+        employee_department = #{record.employeeDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="record.employeeCode != null" >
+        employee_code = #{record.employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeIdcard != null" >
+        employee_idcard = #{record.employeeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeName != null" >
+        employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.englishName != null" >
+        english_name = #{record.englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeSex != null" >
+        employee_sex = #{record.employeeSex,jdbcType=CHAR},
+      </if>
+      <if test="record.employeeFrom != null" >
+        employee_from = #{record.employeeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeGraduate != null" >
+        employee_graduate = #{record.employeeGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeBirthday != null" >
+        employee_birthday = #{record.employeeBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMarry != null" >
+        is_marry = #{record.isMarry,jdbcType=CHAR},
+      </if>
+      <if test="record.hasChild != null" >
+        has_child = #{record.hasChild,jdbcType=CHAR},
+      </if>
+      <if test="record.character != null" >
+        character = #{record.character,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interist != null" >
+        interist = #{record.interist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeStatus != null" >
+        employee_status = #{record.employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeTel != null" >
+        home_tel = #{record.homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeCellPhone != null" >
+        employee_cell_phone = #{record.employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeOfficePhone != null" >
+        employee_office_phone = #{record.employeeOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msn != null" >
+        MSN = #{record.msn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeQq != null" >
+        employee_QQ = #{record.employeeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeDuties != null" >
+        employee_duties = #{record.employeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinName != null" >
+        weixin_name = #{record.weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixinOpenid != null" >
+        weixin_openid = #{record.weixinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatAccount != null" >
+        wechat_account = #{record.wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usedName != null" >
+        used_name = #{record.usedName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameSpelling != null" >
+        name_spelling = #{record.nameSpelling,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNumber != null" >
+        account_number = #{record.accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maritalStatus != null" >
+        marital_status = #{record.maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationPlace != null" >
+        nation_place = #{record.nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthPlace != null" >
+        birth_place = #{record.birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAddress != null" >
+        home_address = #{record.homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodyStatus != null" >
+        body_status = #{record.bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.politicStatus != null" >
+        politic_Status = #{record.politicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinPartyTime != null" >
+        join_party_time = #{record.joinPartyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.joinWorkingTime != null" >
+        join_working_time = #{record.joinWorkingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.joinUnitTime != null" >
+        join_unit_time = #{record.joinUnitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.topEducation != null" >
+        top_education = #{record.topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topDiploma != null" >
+        top_diploma = #{record.topDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowPostName != null" >
+        now_post_name = #{record.nowPostName,jdbcType=CHAR},
+      </if>
+      <if test="record.beginPostTime != null" >
+        begin_post_time = #{record.beginPostTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nowPostLevel != null" >
+        now_post_level = #{record.nowPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beginPostLevelTime != null" >
+        begin_post_level_time = #{record.beginPostLevelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowPostCategory != null" >
+        now_post_category = #{record.nowPostCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeCategory != null" >
+        employee_category = #{record.employeeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aurhorizedProperty != null" >
+        aurhorized_property = #{record.aurhorizedProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workStatus != null" >
+        work_status = #{record.workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinCivilServantTime != null" >
+        join_civil_servant_time = #{record.joinCivilServantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.civilServantRegisterTime != null" >
+        civil_servant_register_time = #{record.civilServantRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.joinUnitType != null" >
+        join_unit_type = #{record.joinUnitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseWorkTime != null" >
+        base_work_time = #{record.baseWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workingYears != null" >
+        working_years = #{record.workingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speciality != null" >
+        speciality = #{record.speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherDemands != null" >
+        other_demands = #{record.otherDemands,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.wechatId != null" >
+        wechat_id = #{record.wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatDepartment != null" >
+        wechat_department = #{record.wechatDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatPictureUrl != null" >
+        wechat_picture_url = #{record.wechatPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaveUnitTime != null" >
+        leave_unit_time = #{record.leaveUnitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_employee
+    set employee_id = #{record.employeeId,jdbcType=INTEGER},
+      employee_department = #{record.employeeDepartment,jdbcType=INTEGER},
+      employee_code = #{record.employeeCode,jdbcType=VARCHAR},
+      employee_idcard = #{record.employeeIdcard,jdbcType=VARCHAR},
+      employee_name = #{record.employeeName,jdbcType=VARCHAR},
+      english_name = #{record.englishName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      employee_sex = #{record.employeeSex,jdbcType=CHAR},
+      employee_from = #{record.employeeFrom,jdbcType=VARCHAR},
+      employee_graduate = #{record.employeeGraduate,jdbcType=VARCHAR},
+      employee_birthday = #{record.employeeBirthday,jdbcType=VARCHAR},
+      is_marry = #{record.isMarry,jdbcType=CHAR},
+      has_child = #{record.hasChild,jdbcType=CHAR},
+      character = #{record.character,jdbcType=VARCHAR},
+      interist = #{record.interist,jdbcType=VARCHAR},
+      employee_status = #{record.employeeStatus,jdbcType=VARCHAR},
+      home_tel = #{record.homeTel,jdbcType=VARCHAR},
+      employee_cell_phone = #{record.employeeCellPhone,jdbcType=VARCHAR},
+      employee_office_phone = #{record.employeeOfficePhone,jdbcType=VARCHAR},
+      MSN = #{record.msn,jdbcType=VARCHAR},
+      employee_QQ = #{record.employeeQq,jdbcType=VARCHAR},
+      employee_duties = #{record.employeeDuties,jdbcType=VARCHAR},
+      weixin_name = #{record.weixinName,jdbcType=VARCHAR},
+      weixin_openid = #{record.weixinOpenid,jdbcType=VARCHAR},
+      wechat_account = #{record.wechatAccount,jdbcType=VARCHAR},
+      used_name = #{record.usedName,jdbcType=VARCHAR},
+      name_spelling = #{record.nameSpelling,jdbcType=VARCHAR},
+      account_number = #{record.accountNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      marital_status = #{record.maritalStatus,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      nation_place = #{record.nationPlace,jdbcType=VARCHAR},
+      birth_place = #{record.birthPlace,jdbcType=VARCHAR},
+      home_address = #{record.homeAddress,jdbcType=VARCHAR},
+      body_status = #{record.bodyStatus,jdbcType=VARCHAR},
+      politic_Status = #{record.politicStatus,jdbcType=VARCHAR},
+      join_party_time = #{record.joinPartyTime,jdbcType=TIMESTAMP},
+      join_working_time = #{record.joinWorkingTime,jdbcType=TIMESTAMP},
+      join_unit_time = #{record.joinUnitTime,jdbcType=TIMESTAMP},
+      top_education = #{record.topEducation,jdbcType=VARCHAR},
+      top_diploma = #{record.topDiploma,jdbcType=VARCHAR},
+      now_post_name = #{record.nowPostName,jdbcType=CHAR},
+      begin_post_time = #{record.beginPostTime,jdbcType=TIMESTAMP},
+      now_post_level = #{record.nowPostLevel,jdbcType=VARCHAR},
+      begin_post_level_time = #{record.beginPostLevelTime,jdbcType=VARCHAR},
+      now_post_category = #{record.nowPostCategory,jdbcType=VARCHAR},
+      employee_category = #{record.employeeCategory,jdbcType=VARCHAR},
+      aurhorized_property = #{record.aurhorizedProperty,jdbcType=VARCHAR},
+      work_status = #{record.workStatus,jdbcType=VARCHAR},
+      join_civil_servant_time = #{record.joinCivilServantTime,jdbcType=TIMESTAMP},
+      civil_servant_register_time = #{record.civilServantRegisterTime,jdbcType=TIMESTAMP},
+      join_unit_type = #{record.joinUnitType,jdbcType=VARCHAR},
+      base_work_time = #{record.baseWorkTime,jdbcType=VARCHAR},
+      working_years = #{record.workingYears,jdbcType=VARCHAR},
+      speciality = #{record.speciality,jdbcType=VARCHAR},
+      other_demands = #{record.otherDemands,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      wechat_id = #{record.wechatId,jdbcType=VARCHAR},
+      wechat_department = #{record.wechatDepartment,jdbcType=VARCHAR},
+      wechat_picture_url = #{record.wechatPictureUrl,jdbcType=VARCHAR},
+      leave_unit_time = #{record.leaveUnitTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    update sys_employee
+    <set >
+      <if test="employeeDepartment != null" >
+        employee_department = #{employeeDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="employeeCode != null" >
+        employee_code = #{employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeIdcard != null" >
+        employee_idcard = #{employeeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null" >
+        employee_name = #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        english_name = #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeSex != null" >
+        employee_sex = #{employeeSex,jdbcType=CHAR},
+      </if>
+      <if test="employeeFrom != null" >
+        employee_from = #{employeeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeGraduate != null" >
+        employee_graduate = #{employeeGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBirthday != null" >
+        employee_birthday = #{employeeBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarry != null" >
+        is_marry = #{isMarry,jdbcType=CHAR},
+      </if>
+      <if test="hasChild != null" >
+        has_child = #{hasChild,jdbcType=CHAR},
+      </if>
+      <if test="character != null" >
+        character = #{character,jdbcType=VARCHAR},
+      </if>
+      <if test="interist != null" >
+        interist = #{interist,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        employee_status = #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTel != null" >
+        home_tel = #{homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCellPhone != null" >
+        employee_cell_phone = #{employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeOfficePhone != null" >
+        employee_office_phone = #{employeeOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        MSN = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeQq != null" >
+        employee_QQ = #{employeeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeDuties != null" >
+        employee_duties = #{employeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        weixin_name = #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinOpenid != null" >
+        weixin_openid = #{weixinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAccount != null" >
+        wechat_account = #{wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="usedName != null" >
+        used_name = #{usedName,jdbcType=VARCHAR},
+      </if>
+      <if test="nameSpelling != null" >
+        name_spelling = #{nameSpelling,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        account_number = #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="nationPlace != null" >
+        nation_place = #{nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null" >
+        birth_place = #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        home_address = #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStatus != null" >
+        body_status = #{bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicStatus != null" >
+        politic_Status = #{politicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPartyTime != null" >
+        join_party_time = #{joinPartyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinWorkingTime != null" >
+        join_working_time = #{joinWorkingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitTime != null" >
+        join_unit_time = #{joinUnitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topEducation != null" >
+        top_education = #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDiploma != null" >
+        top_diploma = #{topDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostName != null" >
+        now_post_name = #{nowPostName,jdbcType=CHAR},
+      </if>
+      <if test="beginPostTime != null" >
+        begin_post_time = #{beginPostTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nowPostLevel != null" >
+        now_post_level = #{nowPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPostLevelTime != null" >
+        begin_post_level_time = #{beginPostLevelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostCategory != null" >
+        now_post_category = #{nowPostCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCategory != null" >
+        employee_category = #{employeeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="aurhorizedProperty != null" >
+        aurhorized_property = #{aurhorizedProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workStatus != null" >
+        work_status = #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinCivilServantTime != null" >
+        join_civil_servant_time = #{joinCivilServantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="civilServantRegisterTime != null" >
+        civil_servant_register_time = #{civilServantRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitType != null" >
+        join_unit_type = #{joinUnitType,jdbcType=VARCHAR},
+      </if>
+      <if test="baseWorkTime != null" >
+        base_work_time = #{baseWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workingYears != null" >
+        working_years = #{workingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        speciality = #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="otherDemands != null" >
+        other_demands = #{otherDemands,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="wechatId != null" >
+        wechat_id = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatDepartment != null" >
+        wechat_department = #{wechatDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPictureUrl != null" >
+        wechat_picture_url = #{wechatPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveUnitTime != null" >
+        leave_unit_time = #{leaveUnitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    update sys_employee
+    set employee_department = #{employeeDepartment,jdbcType=INTEGER},
+      employee_code = #{employeeCode,jdbcType=VARCHAR},
+      employee_idcard = #{employeeIdcard,jdbcType=VARCHAR},
+      employee_name = #{employeeName,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      employee_sex = #{employeeSex,jdbcType=CHAR},
+      employee_from = #{employeeFrom,jdbcType=VARCHAR},
+      employee_graduate = #{employeeGraduate,jdbcType=VARCHAR},
+      employee_birthday = #{employeeBirthday,jdbcType=VARCHAR},
+      is_marry = #{isMarry,jdbcType=CHAR},
+      has_child = #{hasChild,jdbcType=CHAR},
+      character = #{character,jdbcType=VARCHAR},
+      interist = #{interist,jdbcType=VARCHAR},
+      employee_status = #{employeeStatus,jdbcType=VARCHAR},
+      home_tel = #{homeTel,jdbcType=VARCHAR},
+      employee_cell_phone = #{employeeCellPhone,jdbcType=VARCHAR},
+      employee_office_phone = #{employeeOfficePhone,jdbcType=VARCHAR},
+      MSN = #{msn,jdbcType=VARCHAR},
+      employee_QQ = #{employeeQq,jdbcType=VARCHAR},
+      employee_duties = #{employeeDuties,jdbcType=VARCHAR},
+      weixin_name = #{weixinName,jdbcType=VARCHAR},
+      weixin_openid = #{weixinOpenid,jdbcType=VARCHAR},
+      wechat_account = #{wechatAccount,jdbcType=VARCHAR},
+      used_name = #{usedName,jdbcType=VARCHAR},
+      name_spelling = #{nameSpelling,jdbcType=VARCHAR},
+      account_number = #{accountNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      marital_status = #{maritalStatus,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      nation_place = #{nationPlace,jdbcType=VARCHAR},
+      birth_place = #{birthPlace,jdbcType=VARCHAR},
+      home_address = #{homeAddress,jdbcType=VARCHAR},
+      body_status = #{bodyStatus,jdbcType=VARCHAR},
+      politic_Status = #{politicStatus,jdbcType=VARCHAR},
+      join_party_time = #{joinPartyTime,jdbcType=TIMESTAMP},
+      join_working_time = #{joinWorkingTime,jdbcType=TIMESTAMP},
+      join_unit_time = #{joinUnitTime,jdbcType=TIMESTAMP},
+      top_education = #{topEducation,jdbcType=VARCHAR},
+      top_diploma = #{topDiploma,jdbcType=VARCHAR},
+      now_post_name = #{nowPostName,jdbcType=CHAR},
+      begin_post_time = #{beginPostTime,jdbcType=TIMESTAMP},
+      now_post_level = #{nowPostLevel,jdbcType=VARCHAR},
+      begin_post_level_time = #{beginPostLevelTime,jdbcType=VARCHAR},
+      now_post_category = #{nowPostCategory,jdbcType=VARCHAR},
+      employee_category = #{employeeCategory,jdbcType=VARCHAR},
+      aurhorized_property = #{aurhorizedProperty,jdbcType=VARCHAR},
+      work_status = #{workStatus,jdbcType=VARCHAR},
+      join_civil_servant_time = #{joinCivilServantTime,jdbcType=TIMESTAMP},
+      civil_servant_register_time = #{civilServantRegisterTime,jdbcType=TIMESTAMP},
+      join_unit_type = #{joinUnitType,jdbcType=VARCHAR},
+      base_work_time = #{baseWorkTime,jdbcType=VARCHAR},
+      working_years = #{workingYears,jdbcType=VARCHAR},
+      speciality = #{speciality,jdbcType=VARCHAR},
+      other_demands = #{otherDemands,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      wechat_id = #{wechatId,jdbcType=VARCHAR},
+      wechat_department = #{wechatDepartment,jdbcType=VARCHAR},
+      wechat_picture_url = #{wechatPictureUrl,jdbcType=VARCHAR},
+      leave_unit_time = #{leaveUnitTime,jdbcType=TIMESTAMP}
+    where employee_id = #{employeeId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployeeExample" >
+    select a.* from sys_employee a where a.employee_id in 
+ (select top ${pageSize} employee_id from sys_employee 
+<include refid="select_by_page_outter_where_sql"/> 
+employee_id not in (select top ${skipRecordCount} employee_id from sys_employee  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+  </select>
+  
+   <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="employeeId" parameterType="com.sliansoft.slianOA.dataaccess.model.SysEmployee" >
+    insert into sys_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="employeeDepartment != null" >
+        employee_department,
+      </if>
+      <if test="employeeCode != null" >
+        employee_code,
+      </if>
+      <if test="employeeIdcard != null" >
+        employee_idcard,
+      </if>
+      <if test="employeeName != null" >
+        employee_name,
+      </if>
+      <if test="englishName != null" >
+        english_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="employeeSex != null" >
+        employee_sex,
+      </if>
+      <if test="employeeFrom != null" >
+        employee_from,
+      </if>
+      <if test="employeeGraduate != null" >
+        employee_graduate,
+      </if>
+      <if test="employeeBirthday != null" >
+        employee_birthday,
+      </if>
+      <if test="isMarry != null" >
+        is_marry,
+      </if>
+      <if test="hasChild != null" >
+        has_child,
+      </if>
+      <if test="character != null" >
+        character,
+      </if>
+      <if test="interist != null" >
+        interist,
+      </if>
+      <if test="employeeStatus != null" >
+        employee_status,
+      </if>
+      <if test="homeTel != null" >
+        home_tel,
+      </if>
+      <if test="employeeCellPhone != null" >
+        employee_cell_phone,
+      </if>
+      <if test="employeeOfficePhone != null" >
+        employee_office_phone,
+      </if>
+      <if test="msn != null" >
+        MSN,
+      </if>
+      <if test="employeeQq != null" >
+        employee_QQ,
+      </if>
+      <if test="employeeDuties != null" >
+        employee_duties,
+      </if>
+      <if test="weixinName != null" >
+        weixin_name,
+      </if>
+      <if test="weixinOpenid != null" >
+        weixin_openid,
+      </if>
+      <if test="wechatAccount != null" >
+        wechat_account,
+      </if>
+      <if test="usedName != null" >
+        used_name,
+      </if>
+      <if test="nameSpelling != null" >
+        name_spelling,
+      </if>
+      <if test="accountNumber != null" >
+        account_number,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="nationPlace != null" >
+        nation_place,
+      </if>
+      <if test="birthPlace != null" >
+        birth_place,
+      </if>
+      <if test="homeAddress != null" >
+        home_address,
+      </if>
+      <if test="bodyStatus != null" >
+        body_status,
+      </if>
+      <if test="politicStatus != null" >
+        politic_Status,
+      </if>
+      <if test="joinPartyTime != null" >
+        join_party_time,
+      </if>
+      <if test="joinWorkingTime != null" >
+        join_working_time,
+      </if>
+      <if test="joinUnitTime != null" >
+        join_unit_time,
+      </if>
+      <if test="topEducation != null" >
+        top_education,
+      </if>
+      <if test="topDiploma != null" >
+        top_diploma,
+      </if>
+      <if test="nowPostName != null" >
+        now_post_name,
+      </if>
+      <if test="beginPostTime != null" >
+        begin_post_time,
+      </if>
+      <if test="nowPostLevel != null" >
+        now_post_level,
+      </if>
+      <if test="beginPostLevelTime != null" >
+        begin_post_level_time,
+      </if>
+      <if test="nowPostCategory != null" >
+        now_post_category,
+      </if>
+      <if test="employeeCategory != null" >
+        employee_category,
+      </if>
+      <if test="aurhorizedProperty != null" >
+        aurhorized_property,
+      </if>
+      <if test="workStatus != null" >
+        work_status,
+      </if>
+      <if test="joinCivilServantTime != null" >
+        join_civil_servant_time,
+      </if>
+      <if test="civilServantRegisterTime != null" >
+        civil_servant_register_time,
+      </if>
+      <if test="joinUnitType != null" >
+        join_unit_type,
+      </if>
+      <if test="baseWorkTime != null" >
+        base_work_time,
+      </if>
+      <if test="workingYears != null" >
+        working_years,
+      </if>
+      <if test="speciality != null" >
+        speciality,
+      </if>
+      <if test="otherDemands != null" >
+        other_demands,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="wechatId != null" >
+        wechat_id,
+      </if>
+      <if test="wechatDepartment != null" >
+        wechat_department,
+      </if>
+      <if test="wechatPictureUrl != null" >
+        wechat_picture_url,
+      </if>
+      <if test="leaveUnitTime != null" >
+        leave_unit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="employeeDepartment != null" >
+        #{employeeDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="employeeCode != null" >
+        #{employeeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeIdcard != null" >
+        #{employeeIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeName != null" >
+        #{employeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="englishName != null" >
+        #{englishName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeSex != null" >
+        #{employeeSex,jdbcType=CHAR},
+      </if>
+      <if test="employeeFrom != null" >
+        #{employeeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeGraduate != null" >
+        #{employeeGraduate,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeBirthday != null" >
+        #{employeeBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="isMarry != null" >
+        #{isMarry,jdbcType=CHAR},
+      </if>
+      <if test="hasChild != null" >
+        #{hasChild,jdbcType=CHAR},
+      </if>
+      <if test="character != null" >
+        #{character,jdbcType=VARCHAR},
+      </if>
+      <if test="interist != null" >
+        #{interist,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="homeTel != null" >
+        #{homeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCellPhone != null" >
+        #{employeeCellPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeOfficePhone != null" >
+        #{employeeOfficePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeQq != null" >
+        #{employeeQq,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeDuties != null" >
+        #{employeeDuties,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinName != null" >
+        #{weixinName,jdbcType=VARCHAR},
+      </if>
+      <if test="weixinOpenid != null" >
+        #{weixinOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAccount != null" >
+        #{wechatAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="usedName != null" >
+        #{usedName,jdbcType=VARCHAR},
+      </if>
+      <if test="nameSpelling != null" >
+        #{nameSpelling,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null" >
+        #{accountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="nationPlace != null" >
+        #{nationPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="birthPlace != null" >
+        #{birthPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAddress != null" >
+        #{homeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStatus != null" >
+        #{bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="politicStatus != null" >
+        #{politicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinPartyTime != null" >
+        #{joinPartyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinWorkingTime != null" >
+        #{joinWorkingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitTime != null" >
+        #{joinUnitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topEducation != null" >
+        #{topEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="topDiploma != null" >
+        #{topDiploma,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostName != null" >
+        #{nowPostName,jdbcType=CHAR},
+      </if>
+      <if test="beginPostTime != null" >
+        #{beginPostTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nowPostLevel != null" >
+        #{nowPostLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="beginPostLevelTime != null" >
+        #{beginPostLevelTime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowPostCategory != null" >
+        #{nowPostCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeCategory != null" >
+        #{employeeCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="aurhorizedProperty != null" >
+        #{aurhorizedProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="workStatus != null" >
+        #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="joinCivilServantTime != null" >
+        #{joinCivilServantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="civilServantRegisterTime != null" >
+        #{civilServantRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="joinUnitType != null" >
+        #{joinUnitType,jdbcType=VARCHAR},
+      </if>
+      <if test="baseWorkTime != null" >
+        #{baseWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="workingYears != null" >
+        #{workingYears,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="otherDemands != null" >
+        #{otherDemands,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatDepartment != null" >
+        #{wechatDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPictureUrl != null" >
+        #{wechatPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="leaveUnitTime != null" >
+        #{leaveUnitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

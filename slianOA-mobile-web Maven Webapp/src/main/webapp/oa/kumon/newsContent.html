@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>通知详情</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<style>
+			div.ZWNR img{
+				width:300px;
+				margin:auto;
+				display:block;
+				height:200px;
+			}
+			.ZW a,.FJ a{
+				margin-right:25px;
+			}
+			.ZWNR p{
+				width:100%;
+				display:block;
+			}
+		</style>
+	</head>
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="noticePreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc" ng-bind="data.title"></div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">显示时间：</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd" style="width:45%;text-align:center;"><label class="weui-label" ng-bind="data.beginTime" style="text-align:center;"></label></div>
+						<div class="weui-cell__bd">至<label class="weui-label" ng-bind="data.endTime" style="display:inline;margin-left:50px;"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">正文：</label>
+						</div>
+					</div>
+					<div class="ZWNR">
+						<div class="LL"></div>
+					</div>
+					<div class="weui-cell FJ">
+						<div class="weui-cell__hd">
+							<label class="weui-label">附件：</label>
+						</div>
+						<div class="weui-cell__bd FJList" ng-bind-html="data.attachmentZW"></div>
+					</div> 
+					
+				</div>
+		</div>
+		<script src="../js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<script>
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				console.log($location.absUrl().split('newsId=')[1]);
+				
+				$scope.user = localStorage.getItem("user"); // 用户微信号
+				
+				$scope.$on('setUser',function(d,res){
+					$scope.user = res;
+				})
+				
+				var id=$location.absUrl().split('newsId=')[1];
+				//获取数据信息
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaNews/getContent.do',
+						params:{"wechatAccount":$scope.user ,'newsId':id}
+					}).success(function(data){
+						console.log(data)
+						$scope.data=data;
+						$('div.ZWNR>div.LL').html($scope.data.content);
+					}).error(function(){
+						$.alert('数据请求失败')
+					});		
+				console.log($scope);
+			})
+		</script>
+	</body>
+</html>
+
+

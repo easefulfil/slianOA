@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>投诉详情</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script src="../js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<style>
+			label.weui-label{
+				width:100%;
+				padding-left:5%;
+			}
+			.ZW a,.FJ a{
+				margin-right:25px;
+			}
+		</style>
+	</head>
+
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div>
+			<div id="dispatchPreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cells">
+						<div class="weui-cell weui-cell_access" href="">
+							<div class="weui-cell__hd">
+								<label class="weui-label">标题：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.title"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">登记人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.userName"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label" >登记日期：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.createTime"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">投诉类别：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.type"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">被投诉人：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.complaintPerson"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">投诉日期：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.complaintTime"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">投诉内容：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.complaintContent"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">处理意见：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.complaintResult"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">驳回理由：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.rejectedReason"></label>
+							</div>
+						</div>
+						<div class="weui-cell FJ">
+							<div class="weui-cell__hd">
+								&emsp;&emsp;附件：
+							</div>
+							<!-- <div class="weui-cell__bd" ng-bind-html="bindHtml"></div> -->
+							<div class="weui-cell__bd" style="width:200px;overflow:hidden;" ng-bind-html="FJ" ></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>			
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				console.log($location.absUrl());
+				var id=$location.absUrl().split('=')[1];
+				console.log(id);
+				$scope.user = localStorage.getItem('user');
+				
+				$scope.init = function(){
+					//获取数据信息
+					$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaComplaint/getContent.do',
+							params:{"wechatAccount":$scope.user,'complaintId':id}
+						}).success(function(data){
+							console.log(data);
+							$scope.data=data;
+							console.log(data.attachmentZW.split('<a'));
+							$scope.FJ='';
+							var arrA=data.attachmentZW.split('<a');
+							for(var i=0;i<arrA.length;i++){
+								if(arrA[i].split('</a>').length>1){
+									console.log(arrA[i].split('</a>')[0]);
+									$scope.FJ=$scope.FJ+'<a'+arrA[i].split('</a>')[0]+'</a>';
+								}
+							}
+							console.log($scope.FJ);
+						}).error(function(){
+							$.alert('数据请求失败')
+						});
+				};
+				
+				if(localStorage.getItem("user")){
+					$scope.user = localStorage.getItem("user");
+					$scope.init();
+				}
+				
+				$scope.$on('setUser',function(d,res){
+					console.log("child"+res);
+					$scope.user = res;
+					$scope.init();
+				});
+				
+				
+				//点击查看详情
+				$scope.detail=function () {
+					console.log('查看详情');					
+				}
+			})
+		</script>
+	</body>
+</html>

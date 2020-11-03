@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_time" property="logTime" jdbcType="TIMESTAMP" />
+    <result column="log_type" property="logType" jdbcType="VARCHAR" />
+    <result column="log_user_id" property="logUserId" jdbcType="INTEGER" />
+    <result column="log_user_ip" property="logUserIp" jdbcType="VARCHAR" />
+    <result column="log_class" property="logClass" jdbcType="VARCHAR" />
+    <result column="log_function" property="logFunction" jdbcType="VARCHAR" />
+    <result column="log_parameters" property="logParameters" jdbcType="VARCHAR" />
+    <result column="log_return" property="logReturn" jdbcType="VARCHAR" />
+    <result column="log_message" property="logMessage" jdbcType="VARCHAR" />
+    <result column="log_status" property="logStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_id, log_time, log_type, log_user_id, log_user_ip, log_class, log_function, log_parameters, 
+    log_return, log_message, log_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLogExample" >
+    delete from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    insert into sys_log (log_id, log_time, log_type, 
+      log_user_id, log_user_ip, log_class, 
+      log_function, log_parameters, log_return, 
+      log_message, log_status)
+    values (#{logId,jdbcType=INTEGER}, #{logTime,jdbcType=TIMESTAMP}, #{logType,jdbcType=VARCHAR}, 
+      #{logUserId,jdbcType=INTEGER}, #{logUserIp,jdbcType=VARCHAR}, #{logClass,jdbcType=VARCHAR}, 
+      #{logFunction,jdbcType=VARCHAR}, #{logParameters,jdbcType=VARCHAR}, #{logReturn,jdbcType=VARCHAR}, 
+      #{logMessage,jdbcType=VARCHAR}, #{logStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logTime != null" >
+        log_time,
+      </if>
+      <if test="logType != null" >
+        log_type,
+      </if>
+      <if test="logUserId != null" >
+        log_user_id,
+      </if>
+      <if test="logUserIp != null" >
+        log_user_ip,
+      </if>
+      <if test="logClass != null" >
+        log_class,
+      </if>
+      <if test="logFunction != null" >
+        log_function,
+      </if>
+      <if test="logParameters != null" >
+        log_parameters,
+      </if>
+      <if test="logReturn != null" >
+        log_return,
+      </if>
+      <if test="logMessage != null" >
+        log_message,
+      </if>
+      <if test="logStatus != null" >
+        log_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logUserId != null" >
+        #{logUserId,jdbcType=INTEGER},
+      </if>
+      <if test="logUserIp != null" >
+        #{logUserIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logClass != null" >
+        #{logClass,jdbcType=VARCHAR},
+      </if>
+      <if test="logFunction != null" >
+        #{logFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="logParameters != null" >
+        #{logParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="logReturn != null" >
+        #{logReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="logMessage != null" >
+        #{logMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="logStatus != null" >
+        #{logStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLogExample" resultType="java.lang.Integer" >
+    select count(*) from sys_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_log
+    <set >
+      <if test="record.logId != null" >
+        log_id = #{record.logId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logTime != null" >
+        log_time = #{record.logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logType != null" >
+        log_type = #{record.logType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logUserId != null" >
+        log_user_id = #{record.logUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logUserIp != null" >
+        log_user_ip = #{record.logUserIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logClass != null" >
+        log_class = #{record.logClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logFunction != null" >
+        log_function = #{record.logFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logParameters != null" >
+        log_parameters = #{record.logParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logReturn != null" >
+        log_return = #{record.logReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logMessage != null" >
+        log_message = #{record.logMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logStatus != null" >
+        log_status = #{record.logStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_log
+    set log_id = #{record.logId,jdbcType=INTEGER},
+      log_time = #{record.logTime,jdbcType=TIMESTAMP},
+      log_type = #{record.logType,jdbcType=VARCHAR},
+      log_user_id = #{record.logUserId,jdbcType=INTEGER},
+      log_user_ip = #{record.logUserIp,jdbcType=VARCHAR},
+      log_class = #{record.logClass,jdbcType=VARCHAR},
+      log_function = #{record.logFunction,jdbcType=VARCHAR},
+      log_parameters = #{record.logParameters,jdbcType=VARCHAR},
+      log_return = #{record.logReturn,jdbcType=VARCHAR},
+      log_message = #{record.logMessage,jdbcType=VARCHAR},
+      log_status = #{record.logStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    update sys_log
+    <set >
+      <if test="logTime != null" >
+        log_time = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logType != null" >
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logUserId != null" >
+        log_user_id = #{logUserId,jdbcType=INTEGER},
+      </if>
+      <if test="logUserIp != null" >
+        log_user_ip = #{logUserIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logClass != null" >
+        log_class = #{logClass,jdbcType=VARCHAR},
+      </if>
+      <if test="logFunction != null" >
+        log_function = #{logFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="logParameters != null" >
+        log_parameters = #{logParameters,jdbcType=VARCHAR},
+      </if>
+      <if test="logReturn != null" >
+        log_return = #{logReturn,jdbcType=VARCHAR},
+      </if>
+      <if test="logMessage != null" >
+        log_message = #{logMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="logStatus != null" >
+        log_status = #{logStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    update sys_log
+    set log_time = #{logTime,jdbcType=TIMESTAMP},
+      log_type = #{logType,jdbcType=VARCHAR},
+      log_user_id = #{logUserId,jdbcType=INTEGER},
+      log_user_ip = #{logUserIp,jdbcType=VARCHAR},
+      log_class = #{logClass,jdbcType=VARCHAR},
+      log_function = #{logFunction,jdbcType=VARCHAR},
+      log_parameters = #{logParameters,jdbcType=VARCHAR},
+      log_return = #{logReturn,jdbcType=VARCHAR},
+      log_message = #{logMessage,jdbcType=VARCHAR},
+      log_status = #{logStatus,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.SysLog" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if> and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.SysLogExample" >
+    select a.* from sys_log a where a.log_id in 
+ (select top ${pageSize} log_id from sys_log 
+<include refid="select_by_page_outter_where_sql"/> 
+log_id not in (select top ${skipRecordCount} log_id from sys_log  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+  ) 
+  </select>
+</mapper>

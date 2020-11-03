@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>周报填写</title>
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+    <link rel="stylesheet" href="../css/extra.css" />
+    <link rel="stylesheet" href="../css/example.css" />
+    <link rel="stylesheet" href="../css/weui.css" />
+    <script src="../framework/jquery-2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+    <script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script> 
+</head>
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+    <div class="page__bd" ng-controller="myCtrl">
+        <div class="weui-form-preview">
+            <div class="weui-cell_change weui-cell_bgc">周报填写</div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="basic.name"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">部门</label></div>
+                <div class="weui-cell__bd"><label  class="weui-label" ng-bind="basic.department" style="width:200px;"></label></div>
+            </div>
+            <!-- <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">类型</label></div>
+                <div class="weui-cell__bd"><input id="type" ng-model="leave.aflType" class="weui-input" placeholder="点击选择请假类型"/></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">状态</label></div>
+                <div class="weui-cell__bd"><input id="style" ng-model="leave.aflStyle" class="weui-input" placeholder="点击选择请假状态"/></div>
+            </div> -->
+             <div class="weui-cell">
+            	<div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+                <div class="weui-cell__bd"><input class="weui-input" ng-model="leave.title" placeholder="请输入标题" type="text" required="required" /></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">内容</label></div>
+                <div class="weui-cell__bd"><textarea rows="8" ng-model="leave.aflReason" class="weui-textarea" placeholder="本周完成：&#x0A;1.&#x0A;2.&#x0A;3.&#x0A;下周计划：&#x0A;1.&#x0A;2.&#x0A;3.&#x0A;"></textarea> </div>
+            </div>
+            <!-- <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">开始时间</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input"  data-toggle='date' type="text" id="startDate" ng-model="leave.beginTime" placeholder=""/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">截止时间</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" data-toggle='date' type="text" id="endDate" ng-model="leave.endTime" placeholder=""/>
+                </div>
+            </div> -->
+        </div>
+        <div class="weui-btn-area">
+            <button ng-click="submit()" class="weui-btn weui-btn_primary" id="showTooltips">提交</button>
+        </div>
+    </div>
+    <script>
+        $("#startDate").datetimePicker({
+            title:"",
+            yearSplit:'-',
+            monthSplit:'-',
+            dateSplit:''
+        });
+        $("#endDate").datetimePicker({
+            title:"",
+            yearSplit:'-',
+            monthSplit:'-',
+            dateSplit:''
+        });
+       
+        $('#style').select({
+        	title:"请选择方式",
+        	items:["事前","事后"]
+        })
+    //    var myApp=angular.module('bodyApp',[]);
+        myApp.controller('myCtrl',function ($scope,$http) {
+        	//获取用户部门信息
+			console.log(localStorage.getItem('name'));
+        	$scope.user = localStorage.getItem('user');
+        	//测试用
+        	//$scope.user = "SongCongyi";
+ 
+				$scope.init = function(){
+						if($scope.user != null){
+							$http({
+								method:'POST',
+								url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+								params:{"wechatAccount":$scope.user}
+							}).success(function(data){
+								console.log(data);
+								localStorage.setItem('name',data.name);
+								localStorage.setItem('department',data.department);
+								localStorage.setItem('id',data.id);
+								$scope.basic=data;
+								console.log($scope.basic);
+							}).error(function(data){
+								$.toptip('系统出错', 'error');
+							})
+						}
+					}
+				
+		
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+			if(localStorage.getItem('name') && localStorage.getItem('user') && localStorage.getItem('department') && localStorage.getItem('id')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+				console.log($scope.basic);
+			}else{
+				$scope.init();
+			}
+        	
+        	//获取请假类型
+			 /*$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaAttendance/getBasicData.do',
+					params:{"wechatAccount":$scope.user}
+				}).success(function(data){
+					console.log(data);
+					var items=[];
+					for(var i=0;i<data.length;i++){
+						items.push(data[i]['name'])
+					//	items.push({"title":data[i]['name'],"value":data[i]['id']});
+					}
+					console.log(items);
+					 $('#type').select({
+				            title:"选择类型",
+				            items:items
+				        });
+					
+				}).error(function(data){
+					$.toptip('获取类型出错','error');
+					}) */
+				
+			
+			
+            $scope.leave={'aflReason':''};
+            $scope.submit=function () {
+            	
+                //校验
+                var flag=($scope.leave.title==undefined)||($scope.leave.aflReason=='');
+                if(flag){
+                	$.alert('请检查你的输入');
+                }else {
+                	  console.log($scope.leave);
+                      var obj={};
+                      obj.aflReason=encodeURIComponent($scope.leave.aflReason);
+                   //   obj.aflType=encodeURIComponent($scope.leave.aflType);
+                   //	obj.aflType=encodeURIComponent($('input#type').data('values'));
+                   //   obj.aflStyle=encodeURIComponent($scope.leave.aflStyle);
+                   //   obj.beginTime=$scope.leave.beginTime;
+                   //   obj.endTime=$scope.leave.endTime;
+                      obj.title=encodeURIComponent($scope.leave.title);
+                      obj.creator=encodeURIComponent($scope.basic.name);
+                      obj.id=encodeURIComponent($scope.basic.id);
+                      console.log(obj);
+                	
+                 //    var begTime=new Date(($scope.leave.beginTime.replace('-',','))).getTime();
+              	//	var endTime=new Date(($scope.leave.endTime.replace('-',','))).getTime();
+              		var nowTime=(new Date()).getTime()-300000;
+                	//console.log($scope.leave.aflStyle);
+                	/* if($scope.leave.aflStyle=='事前'){
+                		if(begTime<nowTime){
+                			$.alert('请重新选择请假时间');
+                		}else if(endTime<=begTime){
+                			$.alert('请重新选择请假时间');
+                		}else{	     
+                            if($scope.user){
+                            	obj['wechatAccount']=$scope.user,	
+            					$http({
+            						method:'POST',
+            						url:'/slianOA-pc-web/mobile-ajax/auth/oaWeekly/insert.do',
+            						params:obj
+            					}).success(function(data){
+            						$.toptip('请假成功', 'success');
+            						$("#showTooltips").attr('disabled',true);
+            						$("#showTooltips").css('backgroundColor','#B2B2B2');
+            					}).error(function(data){
+            						$.toptip('系统出错', 'error');
+            					})
+                            }else{
+                            	$.toptip('系统出错', 'error');
+                            }
+                		}
+                	}else{ */
+                			 if($scope.user){
+                             	obj['wechatAccount']=$scope.user,	
+             					$http({
+             						method:'POST',
+             						url:'/slianOA-pc-web/mobile-ajax/auth/oaWeekly/insert.do',
+             						params:obj
+             					}).success(function(data){
+             						$.toptip('插入周报成功', 'success');
+             						$("#showTooltips").attr('disabled',true);
+             						$("#showTooltips").css('backgroundColor','#B2B2B2');
+             					}).error(function(data){
+             						$.toptip('系统出错', 'error');
+             					})
+                             }else{
+                             	$.toptip('系统出错', 'error');
+                             }
+                	
+             
+                    
+                }
+            }
+        })
+    </script>
+</body>
+</html>

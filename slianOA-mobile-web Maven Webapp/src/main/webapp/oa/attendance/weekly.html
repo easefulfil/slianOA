@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>填写周报</title>
+<link rel="stylesheet"
+	href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+<link rel="stylesheet" href="../css/extra.css" />
+<link rel="stylesheet" href="../css/example.css" />
+<link rel="stylesheet" href="../css/weui.css" />
+<script src="../framework/jquery-2.1.4/jquery.js"></script>
+<script type="text/javascript"
+	src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+<script src="../framework/angular.js"></script>
+<script src="../framework/angular-sanitize.js"></script>
+<script type="text/javascript" src="../js/getUserInfo.js"></script>
+</head>
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+	<div class="page__bd" ng-controller="myCtrl">
+		<div class="weui-form-preview">
+			<div class="weui-cell_change weui-cell_bgc">填写周报</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">填写人</label>
+				</div>
+				<div class="weui-cell__bd">
+					<label class="weui-label" ng-bind="basic.name"></label>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">部门</label>
+				</div>
+				<div class="weui-cell__bd">
+					<label class="weui-label" ng-bind="basic.department"
+						style="width: 200px;"></label>
+				</div>
+			</div>
+			<!-- <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">类型</label></div>
+                <div class="weui-cell__bd"><input id="type" ng-model="leave.aflType" class="weui-input" placeholder="点击选择请假类型"/></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">状态</label></div>
+                <div class="weui-cell__bd"><input id="style" ng-model="leave.aflStyle" class="weui-input" placeholder="点击选择请假状态"/></div>
+            </div> -->
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">标题</label>
+				</div>
+				<div class="weui-cell__bd">
+					<input class="weui-input" ng-model="weekly.title"
+						placeholder="请输入标题" type="text" required="required" />
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__hd">
+					<label class="weui-label">周报内容</label>
+				</div>
+				<div class="weui-cell__bd">
+					<textarea rows="5" ng-model="weekly.wkContent"
+						class="weui-textarea" placeholder="每周内容至少三条，对下周的计划至少三条，分点1.2.3.填写"></textarea>
+				</div>
+			</div>
+			<!-- <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">开始时间</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input"  data-toggle='date' type="text" id="startDate" ng-model="leave.beginTime" placeholder=""/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">截止时间</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" data-toggle='date' type="text" id="endDate" ng-model="leave.endTime" placeholder=""/>
+                </div>
+            </div> -->
+		</div>
+		<div class="weui-btn-area">
+			<button ng-click="submit()" class="weui-btn weui-btn_primary"
+				id="showTooltips">提交</button>
+		</div>
+	</div>
+	<script>
+        var myApp=angular.module('bodyApp',[]);
+        myApp.controller('myCtrl',function ($scope,$http) {
+        	//获取用户部门信息
+			console.log(localStorage.getItem('name'));
+        	    $scope.user = localStorage.getItem('user');
+ 
+				$scope.init = function(){
+						if($scope.user != null){
+							$http({
+								method:'POST',
+								url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+								params:{"wechatAccount":$scope.user}
+							}).success(function(data){
+								console.log(data);
+								localStorage.setItem('name',data.name);
+								localStorage.setItem('department',data.department);
+								$scope.basic=data;
+							}).error(function(data){
+								$.toptip('系统出错', 'error');
+							})
+						}
+					}
+				
+		
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+			if(localStorage.getItem('name') && localStorage.getItem('user') && localStorage.getItem('department')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+			}else{
+				$scope.init();
+			}
+			
+            $scope.weekly={'wkContent':''};
+            $scope.submit=function () {
+            	
+                //校验
+                var flag=($scope.weekly.title==undefined)||($scope.weekly.wkContent=='');
+                if(flag){
+                	$.alert('请检查你的输入');
+                }else {
+                	  console.log($scope.weekly);
+                      var obj={};
+                      obj.wkReason=encodeURIComponent($scope.weekly.wkContent);
+                      obj.title=encodeURIComponent($scope.weekly.title);
+                      
+                      console.log(obj);
+                      if($scope.user){
+                    	      obj['wechatAccount']=$scope.user,
+                    	      
+                    	      $http({
+                    	    	      method:'POST',
+                    	    	      url:'/slianOA-pc-web/mobile-ajax/auth/oaWeekly/insert.do',
+                    	    	      params:obj
+                    	      }).success(function(data){
+                    	    	      $.toptip('已发送','success');
+                    	    	      $("#showTooltips").attr('disabled',true);
+              				  $("#showTooltips").css('backgroundColor','#B2B2B2');
+                    	      }).error(function(data){
+                    	    	      //$.toptip('系统出错'，'error');
+                    	    	      alert("系统出错");
+                    	      })
+                      }else{
+                    	      //$.toptip('系统出错'，'error');
+                    	      alert("xitong出错");
+                      }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

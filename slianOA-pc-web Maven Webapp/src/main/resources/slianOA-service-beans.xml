@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<!-- 所有用到的service 层的beans配置在这里 -->
+	 <beans:bean id="rolesResourcesService"
+		class="com.sliansoft.slianOA.service.imp.RolesResourcesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="resourcesService"
+		class="com.sliansoft.slianOA.service.imp.ResourcesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="usersRolesService"
+		class="com.sliansoft.slianOA.service.imp.UsersRolesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="basicDataSetService"
+		class="com.sliansoft.slianOA.service.imp.BasicDataSetServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="employeeService"
+		class="com.sliansoft.slianOA.service.imp.EmployeeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="initServiceExcludedFromAop"
+		class="com.sliansoft.slianOA.service.imp.InitServiceExcludedFromAopImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="organizationStructureService"
+		class="com.sliansoft.slianOA.service.imp.OrganizationStructureServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="rolesService"
+		class="com.sliansoft.slianOA.service.imp.RolesServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="systemSettingService"
+		class="com.sliansoft.slianOA.service.imp.SystemSettingServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="authenticationInfoService"
+		class="com.sliansoft.slianOA.service.imp.AuthenticationInfoServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="usersService"
+		class="com.sliansoft.slianOA.service.imp.UsersServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean> 
+	<beans:bean id="authorizationFilter"
+		class="com.sliansoft.slianOA.mobile.filter.AuthorizationFilter"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+
+	
+	<beans:bean id="oaWorkflowCustomService"
+		class="com.sliansoft.slianOA.service.imp.OaWorkflowCustomServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaWorkflowService"
+		class="com.sliansoft.slianOA.service.imp.OaWorkflowServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaNewsService"
+		class="com.sliansoft.slianOA.service.imp.OaNewsServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaDocumentService"
+		class="com.sliansoft.slianOA.service.imp.OaDocumentServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAssetService"
+		class="com.sliansoft.slianOA.service.imp.OaAssetServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAssetChangeService"
+		class="com.sliansoft.slianOA.service.imp.OaAssetChangeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAssetChangeDetailService"
+		class="com.sliansoft.slianOA.service.imp.OaAssetChangeDetailServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaMeetingTrainService"
+		class="com.sliansoft.slianOA.service.imp.OaMeetingTrainServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAttachmentService"
+		class="com.sliansoft.slianOA.service.imp.OaAttachmentServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+ 	<beans:bean id="oaSignLocationService"
+		class="com.sliansoft.slianOA.service.imp.OaSignLocationServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAskForLeaveService"
+		class="com.sliansoft.slianOA.service.imp.OaAskForLeaveServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAttendanceService"
+		class="com.sliansoft.slianOA.service.imp.OaAttendanceServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAttendanceRuleService"
+		class="com.sliansoft.slianOA.service.imp.OaAttendanceRuleServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaUnAttendDaysService"
+		class="com.sliansoft.slianOA.service.imp.OaUnattendDaysServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="logService"
+		class="com.sliansoft.slianOA.service.imp.LogServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaComplaintService"
+		class="com.sliansoft.slianOA.service.imp.OaComplaintServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaStashService"
+	    class="com.sliansoft.slianOA.service.imp.OaStashServiceImpl"
+	    abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="customerService"
+		class="com.sliansoft.slianOA.service.imp.CustomerServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaVehicleService"
+		class="com.sliansoft.slianOA.service.imp.OaVehicleServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaSuitService"
+		class="com.sliansoft.slianOA.service.imp.OaSuitServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaSuitChargingService"
+		class="com.sliansoft.slianOA.service.imp.OaSuitChargingServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="analysisService"
+		class="com.sliansoft.slianOA.service.imp.AnalysisServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaInstrumentService"
+		class="com.sliansoft.slianOA.service.imp.OaInstrumentServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaErrorCorrectionService"
+		class="com.sliansoft.slianOA.service.imp.OaErrorCorrectionServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaWeeklyService"
+		class="com.sliansoft.slianOA.service.imp.OaWeeklyServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaMonthlyService"
+		class="com.sliansoft.slianOA.service.imp.OaMonthlyServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaBudgetService"
+	    class="com.sliansoft.slianOA.service.imp.OaBudgetServiceImpl"
+	    abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaAttendanceAppealService"
+		class="com.sliansoft.slianOA.service.imp.OaAttendanceAppealServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaCustomerAddressListService"
+		class="com.sliansoft.slianOA.service.imp.OaCustomerAddressListServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaProjectInfoService"
+		class="com.sliansoft.slianOA.service.imp.OaProjectInfoServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaPettyMoneyService"
+		class="com.sliansoft.slianOA.service.imp.OaPettyMoneyServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaSalaryService"
+		class="com.sliansoft.slianOA.service.imp.OaSalaryServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaSalaryDistributeService"
+		class="com.sliansoft.slianOA.service.imp.OaSalaryDistributeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	
+	<beans:bean id="oaProjectEmployeeService"
+		class="com.sliansoft.slianOA.service.imp.OaProjectEmployeeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaProjectEncourageService"
+		class="com.sliansoft.slianOA.service.imp.OaProjectEncourageServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaMatterService"
+		class="com.sliansoft.slianOA.service.imp.OaMatterServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+	<beans:bean id="oaProjectChargeService"
+		class="com.sliansoft.slianOA.service.imp.OaProjectChargeServiceImpl"
+		abstract="false" lazy-init="default" autowire="default">
+	</beans:bean>
+</beans:beans>
+
+
+
+

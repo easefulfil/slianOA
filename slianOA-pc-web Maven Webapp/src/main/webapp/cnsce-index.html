@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="shortcut icon" href="images/logo2.ico" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>宁波一洲货运报价分析系统</title>
+<link href="css/default.css" rel="stylesheet" type="text/css" />
+<link href="css/index.css" rel="stylesheet" />
+<link href="js/themes/icon.css" rel="stylesheet" type="text/css"  />
+<link href="css/jquery-easyui-theme/default/easyui.css" rel="stylesheet" type="text/css" />
+<!-- <link href="css/jquery-easyui-theme/ui-sunny/easyui.css" rel="stylesheet" type="text/css" /> -->
+<script src="jquery-easyui-1.3.6/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery-easyui-1.3.6/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+<script src='js/indextab.js' type="text/javascript" charset="utf-8"> </script>
+<script src="js/ChineseCalendar.js" type="text/javascript" charset="utf-8"></script>
+<script src="Exteasyui/onCollapse.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.jdirk.js" type="text/javascript" charset="utf-8"></script>
+<script src="Exteasyui/jeasyui.extensions.js" type="text/javascript" charset="utf-8"></script>
+<script src="Exteasyui/jeasyui.extensions.tree.js" type="text/javascript" charset="utf-8"></script>
+<script src="Exteasyui/jeasyui.extensions.theme.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript"></script>
+
+
+<!-- 这两个用于更换主题 -->
+<script type="text/javascript" src="demo/pagejs/changeThemes.js"></script>
+<script type="text/javascript" src="demo/pagejs/cookie.js"></script>
+
+
+
+<script type="text/javascript" charset="utf-8">
+	var _menus = {
+	"menus": [{
+		"menuid": "1",
+		"icon": "icon-groupkey",
+		"menuname": "论坛管理",
+		"menus": [{
+			    "menuid": "11",
+				"menuname": "海运报价管理",
+				"icon": "icon-sum",
+				"url": "demo/quotation.html"
+		},{
+			"menuid": "12",
+			"menuname": "人民币费用管理",
+			"icon": "icon-bm",
+			"url": "demo/rmbfee.html",
+		},{
+			"menuid": "12",
+			"menuname": "内托运价表",
+			"icon": "icon-bm",
+			"url": "demo/netofee.html",
+		}]
+	},{
+		"menuid": "2",
+		"icon": "icon-userred",
+		"menuname": "签约管理",
+		"menus": [{
+			"menuid": "21",
+			"menuname": "新闻发布",
+			"icon": "icon-business",
+			"url": "demo/news.html",
+		}]
+	},{
+		"menuid": "2",
+		"icon": "icon-userred",
+		"menuname": "其他活动管理",
+		"menus": [{
+			"menuid": "21",
+			"menuname": "新闻发布",
+			"icon": "icon-business",
+			"url": "demo/news.html",
+		}]
+	},{
+		"menuid": "2",
+		"icon": "icon-userred",
+		"menuname": "新闻管理",
+		"menus": [{
+			"menuid": "21",
+			"menuname": "新闻发布",
+			"icon": "icon-business",
+			"url": "demo/news.html",
+		}]
+	},
+	{
+		"menuid": "3",
+		"icon": "icon-userred",
+		"menuname": "智博会信息设置",
+		"menus": [{
+			"menuid": "32",
+			"menuname": "基本信息设置 todo",
+			"icon": "icon-business",
+			"url": "demo/custom.html"
+		},{
+			"menuid": "33",
+			"menuname": "论坛设置",
+			"icon": "icon-business",
+			"url": "demo/custom.html"
+		},{
+			"menuid": "33",
+			"menuname": "签约设置",
+			"icon": "icon-business",
+			"url": "demo/custom.html"
+		},{
+			"menuid": "33",
+			"menuname": "其他活动设置",
+			"icon": "icon-business",
+			"url": "demo/custom.html"
+		}]
+	},
+	{
+		"menuid": "4",
+		"icon": "icon-box",
+		"menuname": "基础资料设置",
+		"menus": [{
+				"menuid": "51",
+				"menuname": "基本信息设置",
+				"icon": "icon-serveredit",
+				"url": "demo/information.html",
+			},{
+			"menuid": "41",
+			"menuname": "单位管理",
+			"icon": "icon-serveredit",
+			"url": "demo/information.html",
+		},{
+			"menuid": "42",
+			"menuname": "部门管理",
+			"icon": "icon-wrench",
+			"url": "demo/systemset.html"
+		},{
+			"menuid": "42",
+			"menuname": "人员管理",
+			"icon": "icon-wrench",
+			"url": "demo/systemset.html"
+		},{
+			"menuid": "43",
+			"menuname": "文档资料",
+			"icon": "icon-foldertable",
+			"url": "demo/resources.html",
+		},{
+			"menuid": "43",
+			"menuname": "组委会通讯录",
+			"icon": "icon-foldertable",
+			"url": "demo/resources.html",
+		}]
+		},
+		{
+			"menuid": "5",
+			"icon": "icon-box",
+			"menuname": "系统管理",
+			"menus": [{
+				"menuid": "52",
+				"menuname": "系统设置",
+				"icon": "icon-wrench",
+				"url": "demo/systemset.html"
+			},
+			{
+				"menuid": "53",
+				"menuname": "资源定义",
+				"icon": "icon-foldertable",
+				"url": "demo/resources.html",
+			},{
+				"menuid": "54",
+				"menuname": "角色管理",
+				"icon": "icon-conrole",
+				"url": "demo/roles.html",
+				//"url": "demo/role.html", 
+			},{
+				"menuid": "55",
+				"menuname": "用户管理 todo",
+				"icon": "icon-conrole",
+				"url": "demo/roles.html",
+				//"url": "demo/role.html", 
+			},{
+				"menuid": "56",
+				"menuname": "操作日志",
+				"icon": "icon-log",
+				"url": "demo/operateLog.html", 
+			}]
+	}] 
+};
+
+	function changeThemes(id){
+        	//var objs=document.getElementById("themes");
+        	//var themeName=objs.options(objs.selectedIndex).grade;
+        	/* changeThemeFun(themeName); */
+        	/* var grade=objs.options[objs.selectedIndex].value;
+        	alert(grade); */
+        	/* for(var i=0;i<objs.length;i++){
+        		if
+        	} */
+        	var aa=document.getElementById(id);
+        	alert(aa.value);
+        	
+        }
+		
+    </script>
+</head>
+<body>
+<noscript>
+<div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;"> <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' /> </div>
+</noscript>
+<div id="loading-mask" style="position:absolute;top:0px; left:0px; width:100%; height:100%; background:#D2E0F2; z-index:20000">
+  <div id="pageloading" style="position:absolute; top:50%; left:50%; margin:-120px 0px 0px -120px; text-align:center;  border:2px solid #8DB2E3; width:200px; height:40px;  font-size:14px;padding:10px; font-weight:bold; background:#fff; color:#15428B;"> <img src="images/loading.gif" align="absmiddle" /> 正在加载中,请稍候...</div>
+</div>
+<div id="mainLayout" class="easyui-layout hidden" data-options="fit: true">
+<div id="northPanel" region="north" split="true" border="false" style="overflow: hidden; height: 30px;
+        background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">        
+		<span style="float:right; padding-right:20px;" class="head">  <a  id="username" style=" text-decoration:none"></a> 
+		<a href="#" id="editpass" class="easyui-linkbutton">修改密码</a> 
+		<a href="#" id="loginOut" class="easyui-linkbutton">安全退出</a>
+		
+		
+		
+		<!-- 下面这段更换主题的下拉列表的，T T，改，一点反应都没有！ -->
+		<!-- <select id="themes" name="themes" onchange="changeThemes(this.id);" class="easyui-combobox" style="width:90px;"  panelHeight="100">
+			<option value="default">简约</option>
+			<option value="gray">灰色</option>
+			<option value="ui-cupertino">cupertino</option>
+			<option value="ui-dark-hive">dark</option>
+			<option value="ui-pepper-grinder">pepper</option>
+			<option value="ui-sunny">sunny</option>
+		</select> -->
+		
+		
+		
+		</span> 
+		<span style="padding-left:10px; font-size: 16px; ">
+		<img src="images/blocks.gif" width="20" height="20" align="absmiddle" />宁波一洲货运销售分析系统
+		</span> 
+</div>
+
+<div region="south" split="true" style="height: 32px; background: #D2E0F2; ">
+  <div class="footer">Copyright：系统开发：浙江大学软件学院，运营支持：宁波高新区敏智科技有限公司</div>
+</div>
+
+<div region="west" split="true" title="导航菜单" data-options="iconCls:'icon-monitor'"  style="width:180px;" id="west">
+  <div id="nav">
+    <!--  导航内容 -->
+  </div>
+</div>
+<div id="opt_info" border="true" region="center" title=""  style="background: #eee; overflow-y:hidden">  
+  <div id="tabs" class="easyui-tabs"  fit="true" border="false" style="overflow:hidden" scroll="no">
+    <div id="welcom" title="欢迎使用" data-options="iconCls:'icon-house',fit:true" style="padding:20px;overflow:hidden; color:black; " > 
+      <h1 style="font-size:35px;font-family:'Georgia',serif;" align="center"><img src="images/logo.png" width="60" height="60" align="absmiddle" /> 欢迎使用宁波一洲货运报价分析系统</h1>
+    </div>
+  </div>
+</div>
+<!--修改密码窗口-->
+<div id="w" class="easyui-window" title="修改密码" collapsible="false" minimizable="false"
+        maximizable="false" style="width: 300px; height: 220px; padding:10px 10px 10px 30px;
+        background: #fafafa;" closed="true">
+  <form>
+    
+      <table>
+      	<tr>
+          <td>旧&nbsp; 密&nbsp;码：</td>
+          <td><input id="txtOldPass" type="Password" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>新&nbsp; 密&nbsp;码：</td>
+          <td><input id="txtNewPass" type="Password" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+        <tr>
+          <td>确认密码：</td>
+          <td><input id="txtRePass" type="Password" class="txt01" />
+          		<span style="color:red;">*</span>	
+          </td>
+        </tr>
+      </table>
+   
+    <div style="padding:5px;text-align:center;"> 
+    <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >确定</a> 
+    <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a> 
+    </div>
+  </form>
+</div>
+<!--menu右键菜单-->
+  <div id="mm" class="easyui-menu" style="width:150px;">
+  <div id="refresh">刷新</div>
+  <div class="menu-sep"></div>
+  <div id="close">关闭</div>
+  <div id="closeall">全部关闭</div>
+  <div id="closeother">除此之外全部关闭</div>
+  <div class="menu-sep"></div>
+  <div id="closeright">当前页右侧全部关闭</div>
+  <div id="closeleft">当前页左侧全部关闭</div>
+</div>
+</div>
+</body>
+</html>

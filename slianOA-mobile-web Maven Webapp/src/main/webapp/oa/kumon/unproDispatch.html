@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>待办发文</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<style>
+			.weui-label{
+				width:100%;
+				padding-left:5%;
+			}
+			.SH,.YY{
+				display:none;
+			}
+			.ZW a,.FJ a{
+				margin-right:25px;
+			}
+		</style>
+	</head>
+
+	<body  ng-controller="getUserInfo" ng-app="bodyApp">
+		<div>
+			<div id="dispatchPreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cells">
+						<div class="weui-cell weui-cell_access" href="">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发文标题：</label>
+							</div>
+							<div class="weui-cell__bd" style="height:20px;overflow:hidden;width:90px;">
+								<label class="weui-label" ng-bind="data.title"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发文单位：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.docFromInstitution"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label" >主送单位：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.docMainToUnit"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">抄送单位：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.docCopyToUnits"></label>
+							</div>
+						</div>
+						<div class="weui-cell">
+							<div class="weui-cell__hd">
+								<label class="weui-label">登记日期：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.createTime"></label>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发文编号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.docNumber"></label>
+							</div>
+						</div>
+					<!-- 	<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">发文文号：</label>
+							</div>
+							<div class="weui-cell__bd">
+								<label class="weui-label" ng-bind="data.docFromNum"></label>
+							</div>
+						</div>
+ -->						<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">
+								正文：
+								</label>
+							</div>
+							<div class="weui-cell__bd">
+								<div class="weui-label ZW"  ng-bind-html="data.attachmentZW"></div>
+							</div>
+						</div>
+							<div class="weui-cell weui-cell_bgc">
+							<div class="weui-cell__hd">
+								<label class="weui-label">
+								附件：
+								</label>
+							</div>
+							<div class="weui-cell__bd">
+								<div class="weui-label FJ"  ng-bind-html="data.attachmentFJ"></div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="weui-cell SH">
+							<div class="weui-cell__hd">
+								<label class="weui-label">审核意见：</label>
+							</div>
+						</div>
+						<div class="weui-cell SH">
+							<div class="weui-cell__bd">
+								<textarea ng-model="advice" class="weui-textarea" placeholder="请输入审核建议" rows="3"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div  class="buttons SH">
+					<div class="weui-flex__item">
+						<button ng-click="agree()"  id="agree"class="weui-btn weui-btn_mini weui-btn_primary buttonSize">同意</button>
+					</div>
+					<div class="weui-flex__item">
+						<button ng-click="disagree()" id="disagree"class="weui-btn weui-btn_mini weui-btn_warn buttonSize">不同意</button>
+					</div>						
+				</div>
+				<div class="page__bd page__bd_spacing YY">
+					<div class="buttons " style="width:90%;margin:auto;">
+						<div class="weui-flex__item">
+							<button class="weui-btn weui-btn_plain-primary"id="read" ng-click="readed()">已阅</button>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				$scope.user = localStorage.getItem("user"); // 用户微信号
+				var srcArr=$location.absUrl().split('&');
+				var id=srcArr[0].split('id=')[1];
+				var workflowId=decodeURIComponent(srcArr[1].split('workflowId=')[1]);
+				var workflowType=decodeURIComponent(srcArr[2].split('workflowType=')[1]);
+				console.log(workflowId+'****'+workflowType);
+				
+				$scope.init = function(){
+					//获取数据信息
+					 	$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaDocument/getContent.do',
+							params:{"wechatAccount":$scope.user,'documentId':id}
+						}).success(function(data){
+							console.log(data)
+							$scope.data=data;
+						}).error(function(){
+							$.alert('数据请求失败')
+						});
+					
+					 
+					//获取用户ID
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						console.log(data);
+						localStorage.setItem('name',data.name);
+						localStorage.setItem('department',data.department);
+						$scope.basic=data;
+						
+						//判断用户对应文件的状态
+						$http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/list.do',
+							params:{"wechatAccount":$scope.user,"keys":{"employeeid":$scope.basic['id'],"workflowId":workflowId},"pageNow":1}
+						}).success(function(data){
+							var workflowResult=(data.rows)[0]['workflowResult'];
+							console.log(workflowResult);
+							if(workflowResult=='未处理'){
+								console.log('未办理');	
+							}else{
+								console.log('已办理');
+								$('div.buttons.SH button').css('background','#D3D3D3')
+								$('div.buttons.SH button').unbind('click');		
+							}
+						}).error(function(){
+							console.log(data);
+						})
+						
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})		
+					
+				}
+				
+				$scope.$on('setUser',function(d,res){
+		    		$scope.user = res;
+		    		$scope.init();
+		    	})
+				
+		    	if(localStorage.getItem('user')){
+		    		$scope.user = localStorage.getItem('user')
+		    		$scope.init();
+		    	}
+				
+				//判断是审核还是阅读
+				if(decodeURIComponent(workflowType)=='审批'){
+					$('div.SH').css('display','flex');
+				}else if(decodeURIComponent(workflowType)=='审核'){
+					$('div.SH').css('display','flex');
+				}
+				else{
+					$('div.YY').css('display','flex');
+				}
+				
+				$scope.advice='';
+				//点击同意
+				$scope.agree=function () {
+					console.log($scope.advice);
+					console.log(id);
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/updateWorkflow.do',
+						params:{"wechatAccount":$scope.user,'workflowId':workflowId,'workflowResult':encodeURIComponent('通过'),'workflowOpinion':encodeURIComponent($scope.advice)}
+					}).success(function(data){
+						$.toptip('操作成功', 'success');
+						$("#agree").attr('disabled',true);
+						$("#disagree").attr('disabled',true);
+						$("#agree").css('backgroundColor','#B2B2B2');
+						$("#disagree").css('backgroundColor','#B2B2B2');
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					});
+				};
+				$scope.disagree=function () {
+					console.log($scope.advice);
+					console.log(id);
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/updateWorkflow.do',
+						params:{"wechatAccount":$scope.user,'workflowId':workflowId,'workflowResult':encodeURIComponent('不通过'),'workflowOpinion':encodeURIComponent($scope.advice)}
+					}).success(function(data){
+						$.toptip('操作成功', 'success');
+						$("#agree").attr('disabled',true);
+						$("#disagree").attr('disabled',true);
+						$("#agree").css('backgroundColor','#B2B2B2');
+						$("#disagree").css('backgroundColor','#B2B2B2');
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					});
+				}
+				//已阅
+				$scope.readed=function () {
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaWorkflow/updateWorkflow.do',
+						params:{"wechatAccount":$scope.user,'workflowId':workflowId,'workflowResult':encodeURIComponent('通过'),'workflowOpinion':''}
+					}).success(function(data){
+						$.toptip('操作成功', 'success');
+						$("#read").attr('disabled',true);
+						$("#read").css('backgroundColor','#B2B2B2');
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					});
+				}
+				//点击查看详情
+				$scope.detail=function () {
+					console.log('查看详情');
+					
+				}
+			})
+		</script>
+	</body>
+</html>

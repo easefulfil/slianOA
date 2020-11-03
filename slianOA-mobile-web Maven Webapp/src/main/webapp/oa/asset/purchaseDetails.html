@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>请购明细</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<style>
+			table td{
+					min-width:24px;
+				}
+		</style>
+	</head>
+	<body  ng-app="bodyApp">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">请购明细</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">请购人</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.creatorName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">请购时间</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.eventTime"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.title"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">请购部门</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.departmentName"></label></div>
+					</div>
+						<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">备注：</label>
+						</div>
+					</div>
+					<div class="weui-cell ZWNR">
+						<div class="" ng-bind="data.remark"></div>
+					</div>
+					<div class="weui-cell_change weui-cell_bgc">请购物品明细</div>
+					<table class="general_table" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<td scope="col">品牌</td>
+								<td scope="col">名称</td>
+								<td scope="col">类型</td>
+								<td scope="col">数量</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="obj in data.httpOaAssetChangeDetails">
+								<td>{{obj.detailName}}</td>
+								<td>{{obj.assetName}}</td>
+								<td>{{obj.assetType}}</td>
+								<td>{{obj.amount}}</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+		</div>
+		<script>
+		var myApp = angular.module('bodyApp',[]);
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				//$scope.user = localStorage.getItem("user"); // 用户微信号
+				console.log($location.absUrl());
+				var id=$location.absUrl().split('id=')[1];
+				console.log(JSON.parse(decodeURIComponent(id)));
+				$scope.data=JSON.parse(decodeURIComponent(id));
+			})
+		</script>
+	</body>
+
+</html>
+
+
+

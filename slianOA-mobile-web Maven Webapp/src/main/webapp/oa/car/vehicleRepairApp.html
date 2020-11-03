@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>车辆维修申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">车辆维修申请</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="basic.name"/>刘光毅</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请时间</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="dateStr" style="width:100%;"></label></div>
+						<!-- <input class="weui-input" type="text" id="applyTime" placeholder="申请时间"/></div> -->
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">车牌号</label></div>
+						<div class="weui-cell__bd"><input class="weui-input" type="text" id="carNumber" placeholder="车牌号"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">预计费用(元)</label></div>
+						<div class="weui-cell__bd"><input class="weui-input" type="number" id="maintainPlanCost" placeholder="预计费用"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">维修项目</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" placeholder="请输入维修项目" id="maintainProject" ></textarea>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">备注</label></div>
+					
+					</div>
+					<div style="text-align:center;">
+						<textarea placeholder="请输入备注信息" rows="5" cols="35" id="remark"></textarea>
+					</div>
+				</div>
+				<div class="weui-btn-area">
+            		<a class="weui-btn weui-btn_primary" href="javascript:" id="showTooltips" ng-click="submit()">提交申请</a>
+       			</div>
+       			
+		</div>
+	</body>
+	<script type="text/javascript">
+		myApp.controller('myCtrl',function ($scope,$http) {
+			var date=new Date();
+			console.log(date.getFullYear()>9);
+			if(date.getMonth()>8){
+				mon=date.getMonth()+1;
+			}else{
+				mon='0'+(date.getMonth()+1);
+			}
+			if(date.getDate()>9){
+				dat=date.getDate();
+			}else{
+				dat='0'+date.getDate()
+			}
+			if(date.getHours()>9){
+				hou=date.getHours();
+			}else{
+				hou='0'+date.getHours()
+			}
+			if(date.getMinutes()>9){
+				min=date.getMinutes();
+			}else{
+				min='0'+date.getMinutes()
+			}
+			if(date.getSeconds()>9){
+				sec=date.getSeconds();
+			}else{
+				sec='0'+date.getSeconds()
+			}
+			
+			$scope.dateStr=date.getFullYear()+'-'+mon+'-'+dat+' '+hou+':'+min+':'+sec;
+			console.log($scope.dateStr);
+			$scope.user = localStorage.getItem("user"); // 用户微信号
+			$('input#applyTime').datetimePicker();
+			//获取车辆信息
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicle/list.do',
+				params:{"wechatAccount":$scope.user,"keys":$scope.keysValue,"page":1,"rows":3000}
+			}).success(function(data){
+				console.log(data)
+				$scope.data=data.rows;
+				$scope.totalPages=data.totalPages;
+				$scope.carNumber=[]
+				for(var i=0;i<($scope.data).length;i++){
+					$scope.carNumber.push({"value":$scope.data[i]['vehicleId'],"title":$scope.data[i]['licensePlate']});
+				}
+				console.log($scope.carNumber);
+				console.log($('#carNumber'))
+				$("#carNumber").select({
+					title: "请选择车辆",
+					items:$scope.carNumber
+				});
+			}).error(function(data){
+				$.toptip('系统出错', 'error');
+				//alert('数据请求失败')
+			})
+			
+			
+			$scope.initCar = function(){
+				
+			}
+			
+			$scope.init = function(){
+				if(localStorage.getItem("user")){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						console.log(data);
+						localStorage.setItem('name',data.name);
+						localStorage.setItem('department',data.department);
+						localStorage.setItem('id',data.id);
+						$scope.basic=data;
+						$scope.initCar();
+					}).error(function(data){
+						$.toptip('系统出错', 'error');
+					})
+				}
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+				$scope.initCar()
+			})
+			
+			//获取用户部门信息
+			console.log(localStorage.getItem('name'));
+			if(localStorage.getItem('id') && localStorage.getItem("user")){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+			}
+			else{
+				$scope.init();
+			}
+			
+			//提交申请
+			$scope.submit=function(){
+				console.log($('input#applyTime').val());
+				console.log($('input#carNumber').data('values'));
+				console.log($scope.basic['id']);
+				console.log($('input#maintainPlanCost').val());
+				console.log($('input#maintainProject').val());
+				console.log($('textarea#remark').val());
+				var obj={};
+				obj['applyTime']=$scope.dateStr;//$('input#applyTime').val();
+				obj['vehicleId']=$('input#carNumber').data('values');
+				obj['employeeId']=$scope.basic['id'];
+				obj['maintainPlanCost']=$('input#maintainPlanCost').val();
+				obj['maintainProject']=encodeURI($('input#maintainProject').val());
+				obj['remark']=encodeURI($('textarea#remark').val());
+				obj["type"]=encodeURI('车辆维修');
+				console.log(obj);
+				//提交数据方法
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/vehicleMaintain/insert.do',
+					params:{'wechatAccount':$scope.user,'vehicleMaintain':obj}    /* "["+JSON.stringify(obj)+"]"} */
+				}).success(function (data) {
+				//	console.log(data);
+					$.toptip('申请成功', 'success');
+					$("#showTooltips").attr('disabled',true);
+					$("#showTooltips").css('backgroundColor','#B2B2B2');
+				}).error(function (data) {
+					$.toptip('系统出错', 'error');
+				});
+			}
+		})
+	</script>
+</html>
+

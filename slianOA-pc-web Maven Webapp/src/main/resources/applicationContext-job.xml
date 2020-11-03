@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd  
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd  
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">  
+  
+<!-- 第一种集成方式：MethodInvokingJobDetailFactoryBean，并且job类，直接是pojo类，与普通类没有区别 -->  
+    <!-- 定义具体的任务类 -->  
+    <bean id="InitOaAttendance" class="com.sliansoft.slianOA.mobile.controller.InitOaAttendance" />  
+    <bean id="UpdateOaAttendance" class="com.sliansoft.slianOA.mobile.controller.UpdateOaAttendance" /> 
+    <bean id="job" class="com.sliansoft.slianOA.utils.Job"></bean>
+    <bean id="jobEveryDay" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+			<property name="targetObject" ref="job"></property>
+			<property name="targetMethod" value="InsuranceExpire"></property>
+			<property name="concurrent" value="false" /> <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+	</bean>
+	<bean id="jobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+			<property name="jobDetail" ref="jobEveryDay" />
+			<property name="cronExpression" value="0 0 1 * * ?"/><!-- 每天凌晨1点执行 -->
+	</bean>
+    <!-- 定义jobDetail -->  
+    <bean id="initAttendanceJobDetail"  
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+    <!--     目标类 -->  
+        <property name="targetObject">  
+            <ref bean="InitOaAttendance" />  
+        </property>  
+        <!-- 目标类中要执行的方法 ,这个参数是必须的-->  
+        <property name="targetMethod">  
+              <value>initAttendance</value>  
+        </property>  
+    </bean>   
+          <!-- 定义每天检查员工的签到状态 -->
+    <bean id="updateAttendanceJobDetail"
+    		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    		<property name="targetObject">
+    			<ref bean="UpdateOaAttendance"></ref>
+    		</property>
+    		<property name="targetMethod">
+    			<value>updateOaAttendance</value>
+    		</property>
+    </bean>
+    <!-- 每月生成签到表Trigger -->  
+    <bean id="initAttendanceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+       <property name="jobDetail" ref="initAttendanceJobDetail"/>  
+       <!-- 每月一号00:05分生成当月签到表信息 -->  
+       <property name="cronExpression" value="0 5 0 1 * ?"/>  
+    </bean>   
+          <!-- 每天检查员工状态Trigger -->
+     <bean id="updateAttendanceTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+       <property name="jobDetail" ref="updateAttendanceJobDetail"/>  
+       <!-- 每天21:05分生成当月签到表信息 -->  
+       <property name="cronExpression" value="0 30 1 * * ?"/>  
+    </bean> 
+    <!-- 定义核心调度器 -->  
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+      <property name="triggers"> 
+      <list>
+        <ref bean="initAttendanceTrigger"/>  
+        <ref bean="updateAttendanceTrigger"/>
+        <ref bean="jobTrigger"/> 
+        </list> 
+      </property>      
+    </bean>
+      
+</beans>  

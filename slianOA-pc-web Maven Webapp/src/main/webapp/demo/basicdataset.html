@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>基本信息设置</title>
+	<link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<!-- <script type="text/javascript" src="../js/syExtEasyUI.js"></script>
+	<script type="text/javascript" src="../js/syExtJavascript.js"></script>
+	 --><script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+	
+	<script type="text/javascript" src="../js/syUtil.js"></script>
+	<script type="text/javascript" src="pagejs/basicdataset.js"></script>
+	<!-- <script type="text/javascript" src="pagejs/aresource.js"></script> -->
+</head>
+<body class="easyui-layout" data-options="fit:true,border:false"> 
+	<div data-options="region:'center',fit:true,border:false">
+		<table id="datagrid" data-options="fit:true,border:false">
+		</table>
+	</div>
+<!-- “增加”弹出框： -->
+<div id="basicdataset">
+		<div style="padding:10px">
+	    <form id="basicdatasetForm" name="basicdatasetForm" method="post">
+	    	<table border=0 align="center">
+	    		<tr style="display:none"><!-- id 需要隐藏，从后台获取ID并隐藏！（ID自动生成？）-->
+	    			<td align="right">基础资料ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input type="hidden" id="basicDataId" name="basicDataId"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right">上级基础资料&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td colspan = "3">
+		    	    	<select id="parentNodeId" name="parentNodeId" class="easyui-combotree" data-options="editable:false,idField:'parentNodeId',valueField:'text',textField:'chineseName',url:getContextPath()+'/basicdataset/listParentBDSTree.do',onShowPanel:function(){$('#parentNodeId').combotree('reload')}" style="width: 200px;"></select>
+		    	    	
+		    	    </td>
+	    			<!-- <td align="right">是否启用</td>
+		    	    <td>
+		    	    	<select id="enabled" name="enabled" class="easyui-combobox" panelHeight="45px">
+		    	    		<option value="true">是</option> 
+		    	    		<option value="false">否</option> 
+		    	    	</select>
+		    	    </td> -->
+	    		</tr>
+	    		<tr>
+	    			<td align="right">名称 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="chineseName" name="chineseName" style="width:200px;height:20px;">&nbsp;</input><font color="red">*</font></td>
+	    			<!-- <td align="right">类型 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td><input id="englishName" name="englishName" style="width:200px;height:20px;"><font color="red">*</font></input> -->
+		    	   <!--  <select id="type" name="type" class="easyui-combobox" panelHeight="45px">
+		    	    		<option value="用户" selected>用户</option> 
+		    	    		<option value="数据">数据</option> 
+		    	    	</select> -->
+		    	   <!--   <textarea id="type" name="type" style="width:200px;height:20px;"></textarea> --></td>
+	    		</tr>
+	    		 <tr>
+	    			<td align="right">类型/单位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="basicDataType" name="basicDataType" style="width:200px;height:20px;"></input></td>
+	    			<td align="right">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="basicDataRemark" name="basicDataRemark" style="width:200px;height:20px;"></input></td>
+	    		</tr> 
+	    		<!-- <tr>
+	    			<td align="right">联系人 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="contactsName" name="contacts" style="width:200px;height:20px;"></input></td>
+	    			
+	    			<td align="right"></td>
+		    	    <td></td>
+	    		</tr> -->
+	    	
+	    		<!-- <tr>
+	    			<td align="right">备注 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td colspan="3"> <textarea id="remark" name="remark" style="width:490px;height:90px;"></textarea></td>
+	    		</tr> -->
+	    		<tr><td></td></tr>
+	    	</table>
+	    </form>
+	</div>
+	<div id="button" style="text-align:center;padding:10px">
+	</div>
+</div>	 
+</body>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+</html>

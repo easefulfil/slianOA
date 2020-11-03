@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>请假申请</title>
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+    <link rel="stylesheet" href="../css/extra.css" />
+    <link rel="stylesheet" href="../css/example.css" />
+    <link rel="stylesheet" href="../css/weui.css" />
+    <script src="../framework/jquery-2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+    <script src="../framework/angular.js"></script>
+    <script src="../framework/angular-sanitize.js"></script>
+    <script src="../js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="../js/getUserInfo.js"></script>
+</head>
+<body ng-controller="getUserInfo" ng-app="bodyApp">
+    <div class="page__bd" ng-controller="myCtrl">
+        <div class="weui-form-preview">
+            <div class="weui-cell_change weui-cell_bgc">请假申请</div>
+           <!--  <div>{{leave}}</div> -->
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">请假标题</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.title"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.userName"></label></div>
+            </div>
+      	    <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">部门</label></div>
+                <div class="weui-cell__bd"><label  class="weui-label" ng-bind="obj.orgName" style="width:200px;"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">请假类型</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.aflType"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">请假状态</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.aflStyle"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">原由</label></div>
+                <div class="weui-cell__bd"><textarea ng-bind="obj.aflReason" class="weui-textarea"></textarea> </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">开始时间</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.beginTime"></label></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label">截止时间</label></div>
+                <div class="weui-cell__bd"><label class="weui-label" ng-bind="obj.endTime"></label></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+      //  var myApp=angular.module('myAPP',[]);
+        myApp.controller('myCtrl',function ($scope,$http,$location) {
+        	$scope.user = localStorage.getItem("user"); // 用户微信号
+        //	$scope.user='lwy1581410450';
+			 //获取用户部门信息
+			 console.log(localStorage.getItem('name'));
+			
+			$scope.init = function(){
+				console.log("**************"+$scope.user);
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+					params:{"wechatAccount":$scope.user}
+				}).success(function(data){
+					console.log("**************"+data);
+					localStorage.setItem('name',data.name);
+					localStorage.setItem('department',data.department);
+					$scope.basic=data;
+				}).error(function(data){
+					console.log(data);
+				})
+			}
+			
+			  $scope.$on('setUser',function(d,res){
+					$scope.init();
+				})
+				
+			 if(localStorage.getItem('user')){
+				$scope.user = localStorage.getItem('user');
+				$scope.init();
+			 }
+			 
+			 if(localStorage.getItem('name')){
+				 console.log(localStorage.getItem('basic'));
+				 $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+			 }else{
+					$scope.init();
+			 }
+            console.log($location.absUrl());
+            var id=$location.absUrl().split('id=')[1];
+            console.log(JSON.parse(decodeURIComponent(id)));
+            $scope.obj=JSON.parse(decodeURIComponent(id));
+        })
+    </script>
+</body>
+</html>

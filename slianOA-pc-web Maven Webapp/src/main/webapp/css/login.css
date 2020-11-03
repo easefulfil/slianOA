@@ -1,0 +1,144 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font: 14px/1.6 Microsoft Yahei;
+}
+
+body {
+	/*background-color: #D2E0F2;*/
+	/*background-color: #E0ECFF;
+	background:url(../images/bg.jpg) no-repeat center fixed;*/
+	background-color: #D3DCED;
+	/* background-image: url(../images/bg.jpg); */
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+label, input {
+	height: 2em;
+	line-height: 1.6em;
+	font-size: 1em;
+}
+
+.clear {
+	clear: both;
+}
+
+.warn {
+	color: red;
+	font-size:10px;
+}
+
+.header {
+	overflow: hidden;
+	height: 25px;
+	line-height: 20px;
+	color: rgb(255, 255, 255);
+	font-family: Verdana, Microsoft Yahei;
+	background: url(../images/layout-browser-hd-bg.gif) 50% 50% repeat-x rgb(127, 153, 190);
+}
+
+.header p {
+	padding-left: 10px;
+	font-size: 16px;
+}
+
+.content {
+	max-width: 960px;
+	margin: 0 auto 4em auto;
+}
+
+.footer {
+	font-size: 12px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	color: #15428B;
+	margin: 0px;
+	padding: 0px;
+	line-height: 23px;
+	font-weight: bold;
+	height: 25px;
+	width: 100%;
+	background: rgb(210, 224, 242);
+	border: 1px solid #95B8E7;
+	box-sizing: border-box;
+}
+
+#bgimg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+#loginbox {
+	margin: 200px auto 0px auto;
+	padding: 1em;
+	width: 28em;
+	color: #FFFFFF;
+	border-radius: 5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #95B8E7;
+	-moz-box-shadow: 5px 5px 15px #aaa;
+	-webkit-box-shadow: 5px 5px 15px #aaa;
+	box-shadow: 5px 5px 15px #aaa;
+	background-color: #FFFFFF;
+	color: #000000;
+	background-repeat: no-repeat;
+}
+
+.titlebar {
+	/*background-color: #D2E0F2;*/
+	background-color: #95B8E7;
+	/*background-color: #15428B;*/
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	color: #FFFFFF;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-color: #95B8E7;
+	line-height: 45px;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.formitem {
+	margin: 1em;
+}
+
+.btn {
+	/* text-align: center;
+	float: left;
+	width: 50%; */
+}
+
+.formitem label {
+	width: 5em;
+	text-align: right;
+	display: inline-block;
+}
+
+.formitem input {
+	width: 15em;
+	display: inline-block;
+	padding: 0 .5em;
+}
+
+.formitem a {
+	width: 5em;
+}
+
+.btn input {
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+	border: 0;
+	background: url(../images/btn.png) no-repeat;
+}

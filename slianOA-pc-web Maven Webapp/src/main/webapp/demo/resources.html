@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>资源管理</title>
+	<link rel="stylesheet" type="text/css" href="../js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="demo.css">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<!-- <script type="text/javascript" src="../js/syExtEasyUI.js"></script>
+	<script type="text/javascript" src="../js/syExtJavascript.js"></script>
+	 --><script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+	<script type="text/javascript" src="../js/syUtil.js"></script>
+	<script type="text/javascript" src="pagejs/resources.js"></script>
+	<!-- <script type="text/javascript" src="pagejs/aresource.js"></script> -->
+</head>
+<body class="easyui-layout" data-options="fit:true,border:false"> 
+	<div data-options="region:'center',fit:true,border:false">
+		<table id="datagrid" data-options="fit:true,border:false">
+		</table>
+	</div>
+<!-- “增加”弹出框： -->
+<div id="resources">
+		<div style="padding:10px">
+	    <form id="resourcesForm" name="resourcesForm" method="post">
+	    	<table border=0 align="center">
+	    		<tr style="display:none"><!-- id 需要隐藏，从后台获取ID并隐藏！（ID自动生成？）-->
+	    			<td align="right">资源ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <textarea id="resourceid" name="id" ></textarea></td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right">资源名称 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="text" name="text" style="width:200px;height:20px;"></input><font color="red">*</font></td>
+	    			<td align="right">资源类型 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td>
+		    	    <select id="type" name="type" class="easyui-combobox" panelHeight="45px">
+		    	    		<option value="用户" selected>用户</option> 
+		    	    		<option value="数据">数据</option> 
+		    	    	</select>
+		    	   <!--   <textarea id="type" name="type" style="width:200px;height:20px;"></textarea> --></td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right">资源优先级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="priority" name="priority" style="width:200px;height:20px;"></input></td>
+	    			<td align="right">资源连接 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td> <input id="url" name="url" style="width:200px;height:20px;"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td align="right">父资源ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td colspan = "3">
+		    	    	<select id="parentid" name="parentid" class="easyui-combotree" data-options="editable:false,idField:'id',valueField:'text',textField:'name',parentField:'parentid',url:getContextPath()+'/resources/getResources.do'" style="width: 300px;"></select>
+		    	    	
+		    	    </td>
+	    			<!-- <td align="right">是否启用</td>
+		    	    <td>
+		    	    	<select id="enabled" name="enabled" class="easyui-combobox" panelHeight="45px">
+		    	    		<option value="true">是</option> 
+		    	    		<option value="false">否</option> 
+		    	    	</select>
+		    	    </td> -->
+	    		</tr>
+	    		<tr>
+	    			<td align="right">备注 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		    	    <td colspan="3"> <textarea id="remark" name="remark" style="width:490px;height:90px;"></textarea></td>
+	    		</tr>
+	    		<tr><td></td></tr>
+	    	</table>
+	    </form>
+	</div>
+	<div id="button" style="text-align:center;padding:10px">
+	</div>
+</div>	 
+</body>
+</html>

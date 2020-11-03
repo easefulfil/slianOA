@@ -1,0 +1,12 @@
+{"total":10,"rows":[
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"拖卡","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"宁波市江东区百丈路拖卡车辆运输大队","no":"浙A31245","driver":"郑少文","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150002","client":"DHY|大红鹰车队","type":"中烟","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"鄞州区江南路1889号","no":"浙A31245","driver":"李莲英","drive_time":"2014-04-16 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"导入","detail":"查看日志"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"导入","detail":"查看日志"},
+	{"doc_no":"201404150001","client":"YZ|一洲车队","type":"普货","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-16","addr":"江东区","no":"浙A31245","driver":"司机甲","drive_time":"2014-04-15 08:30:00","check":"已审核","from":"录入"},
+	{"doc_no":"201404150002","client":"YZ|一洲车队","type":"烟草","box":"GP|80","ton":"3","cube":"12","time_Start":"2014-04-15","time_End":"2014-04-18","addr":"海曙区","no":"浙A78525","driver":"司机乙","drive_time":"2014-04-15 10:30:00","check":"已审核","from":"录入"}
+]}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>通知拟稿</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script src="../js/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script src="../js/oa-util.js"></script>
+		
+		<style>
+			div.weui-cell__hd{
+				width:70px;
+			}
+		</style>
+	</head>
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="noticePreview" class="page__bd" ng-controller="myCtrl">
+			<!-- 	<div>{{notice}}</div> -->
+				<div class="weui-form-preview">
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">登记人</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="basic.name"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">登记时间</label></div>
+						<div class="weui-cell__bd"><label id="date" class="weui-label" ng-bind="notice.date"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">部门</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="basic.department" style="width:200px;"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">显示期限</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" style="width:44%" data-toggle='date' type="text" id="start3" ng-model="notice.beginTime" placeholder="开始时间"/>
+							至
+							<input class="weui-input" style="width:44%"  data-toggle='date' type="text" id="start4" ng-model="notice.endTime" placeholder="结束时间"/>
+						</div>
+					</div>
+					 <div class="weui-cell">
+			            <div class="weui-cell__hd">
+			                <label class="weui-label">机构</label>
+			            </div>
+			            <div class="weui-cell__bd">
+			                <input class="weui-input" id="suo" type="text" value="" >
+			            </div>
+			        </div>
+			        <div class="weui-cell">
+			            <div class="weui-cell__hd">
+			                <label class="weui-label">部门</label>
+			            </div>
+			            <div class="weui-cell__bd">
+			                <input class="weui-input" id="bumen" type="text" value  title="请选择部门" items="bumen" set-bumen="">
+			            </div>
+			        </div>
+			        <div class="weui-cell">
+			            <div class="weui-cell__hd">
+			                <label class="weui-label">人员</label>
+			            </div>
+			            <div class="weui-cell__bd">
+			                <input class="weui-input" id="in" type="text" value  title="请选择人员" items="renyuan" set-bumen="">
+			            </div>
+			        </div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">通知标题</label></div>
+						<div class="weui-cell__bd"><input ng-model="notice.title" class="weui-input" type="text" id="title" placeholder="通知标题"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">正文</label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<textarea ng-model="notice.content" class="weui-textarea" placeholder="请输入正文内容" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">附件：</label>
+						</div>
+					</div>
+				</div>
+			<form id="uploadForm1" name="uploadForm1" method="POST" action="" enctype="multipart/form-data" target="hidden_frame" >
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<label class="weui-label">
+							<input id="selectedFile1" type="file" name="file"  value="">
+							<input id="businessTable" name="businessTable" value="oa_document" hidden="true">
+						</label>
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__bd" style="padding-left:40%;">
+						<label class="weui-label">
+						<!-- 		<input  type="button" id="hello" ng-click="uploadFileForDocument('uploadForm1','selectedFile1','oa_news','-1','附件','uploadedFile1')" value="点击上传"><label id="uploadedFile1"></label> -->
+						</label>
+					</div>
+				</div>
+			<!-- 	<iframe name='hidden_frame' id="hidden_frame" ></iframe> -->
+			</form>
+			<div class="weui-btn-area">
+           		<input type="button" class="weui-btn weui-btn_primary" ng-click="submit()"  value="提交" id="showTooltips"/>
+      		</div>
+		</div>
+		<script src="../js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<script>
+			
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+		
+				
+			 $scope.bumen=[];//部门信息
+			 $scope.data=[];//全部信息
+			 $scope.user = localStorage.getItem('user');
+			 
+			 $scope.init = function(){
+				 if($scope.user != null){
+					 $http({
+							method:'POST',
+							url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+							params:{"wechatAccount":$scope.user}
+						}).success(function(data){
+							console.log(data);
+							localStorage.setItem('name',data.name);
+							localStorage.setItem('department',data.department);
+							$scope.basic=data;
+							$scope.initOrg();
+						}).error(function(data){
+							console.log(data);
+						})
+				 }
+			 }
+			 
+			 $scope.initOrg = function(){
+				//机构数据
+				if($scope.user != null){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/organization.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						  $scope.data=data[0]['children'];
+						      //绑定所的信息
+						     $scope.suo=[];
+						     angular.forEach($scope.data,function (data) {
+						         if(data.children.length>0){
+						            $scope.suo.push({'value':data['id'],'title':data['text']});
+						              }
+						         })
+						         console.log($scope.suo);
+						            $('#suo').select({
+						                title:'选择机构',
+						                multi:true,
+						                items:$scope.suo
+						            })		
+					}).error(function(data){
+						$.alert(data);
+						//alert('数据请求失败')
+					})
+				}
+			 }
+			 
+			 $scope.$on('setUser',function(d,res){
+					$scope.user = res;
+					$scope.init();
+			})
+				
+			 //获取用户部门信息
+			 console.log(localStorage.getItem('name'));
+			 if(localStorage.getItem('name') && localStorage.getItem('user')){
+				 console.log(localStorage.getItem('basic'));
+				 $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+				 $scope.initOrg();
+			 }else{
+				 $scope.init();
+			 }
+			
+			
+			  //确定选择的具体机构ID
+        $('#suo').on('change',function () {
+          // console.log($(this))
+           // console.log($(this).attr('data-values'))
+            $('#bumen').val('');
+            $('#bumen').attr('data-values','');
+            $('#in').val('');
+            $('#in').attr('data-values','');
+       //     console.log('改变')
+            $scope.suoID=$(this).attr('data-values');
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
+       })
+        //监听变化机构ID变化
+        $scope.$watch('suoID',function () {
+            console.log($scope.suoID);     //这里$scope.suoID是一个数组
+            $scope.bumen=[];
+            angular.forEach($scope.suoID,function (suoID) {
+                if(suoID!=','){
+                    angular.forEach($scope.data,function (data) {
+                        if(data['id']==suoID){
+                            //      console.log(data['children']);
+                            //  $scope.bumen.push({'value':suoID,'title':data['text']+'全选'})    全选按钮
+                            angular.forEach(data['children'],function (data) {
+                                if(data.children.length>0){
+                                    $scope.bumen.push({'value':data['id'],'title':data['text']});
+                                }else{
+                                    //管理员
+                                }
+                            })
+                        }
+                    })
+                    //   console.log(data);
+                }
+                /*   if(!$scope.$$phase) {
+                 $scope.$apply();
+                 }*/
+
+            })
+            if(!$scope.$$phase){
+                $scope.$apply();
+            }
+            $('#bumen').select("update",{});
+        //    console.log('souID改变了');
+        });
+        //确定选择的具体部门ID
+        $('#bumen').on('change',function () {
+            $('#in').val('');
+            $('#in').attr('data-values','');
+            $scope.bumenID=$(this).attr('data-values');
+            if(!$scope.$$phase){
+                $scope.$apply();
+            }
+          //  console.log($scope.bumenID);
+        })
+        //监听部门ID变化
+        $scope.$watch('bumenID',function () {
+            //console.log($scope.bumenID);
+            $scope.renyuan=[];
+            angular.forEach($scope.suoID,function (suoID) {
+                if(suoID!=','){
+                    angular.forEach($scope.data,function (data) {
+                        if(data['id']==suoID){
+                    //        console.log(data.children);
+                            angular.forEach($scope.bumenID,function (bumenID) {
+                             //   console.log(bumenID);
+                                if(bumenID!=','){
+                                    angular.forEach(data.children,function (data) {
+                                        if(data['id']==bumenID){
+                                            console.log(data); //这里输出的是选定的部门的所有信息
+                                            console.log(data.children);
+                                            angular.forEach(data['children'],function (data) {
+                                                    $scope.renyuan.push({'value':data['id'],'title':data['text']});
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+
+                        }else{
+
+                        }
+                    })
+                }
+            })
+        })
+        
+    		    $('#in').on('change',function(){
+        	console.log($(this).attr('data-values'));
+        	$scope.notice.informTo=$(this).attr('data-values');
+        	
+        })
+				var oTo=new Date();
+				console.log(oTo.toLocaleDateString());
+				$scope.notice={
+					date:oTo.toLocaleDateString(),
+					informTo:'',
+					title:'',
+					content:'',
+					beginTime:'',
+					endTime:''
+				};
+				
+				$scope.deleteUploadFile = function(businessTable,businessId,fileName){
+					console.log("这里是删除");
+					deleteUploadFile(businessTable,businessId,fileName);
+				}
+				$scope.uploadFileForDocument=function(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId){
+				//	$.alert('开始上传图片');
+					//businessId =3;//获得上传的文件ID
+					//businessId = "";
+					var wechat = $scope.user;
+					console.log(wechat);
+					uploadFile(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId,wechat);
+				}
+				//提交
+				$scope.submit=function () {
+					console.log($scope.notice);
+					var begin=$scope.notice.beginTime;
+					var end=$scope.notice.endTime;
+					var begTime=new Date(begin.replace('-',',')).getTime();
+					var endTime=new Date(end.replace('-',',')).getTime();
+					console.log(new Date(end.replace('-',',')));
+					var now=new Date();
+					var	nowT=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+						console.log(nowT);
+					var nowTime=new Date(nowT.replace('-',',')).getTime()//.getTime()-24*60*60000;
+					console.log(begTime);
+					console.log(endTime);
+					console.log(nowTime);
+					if(begTime<nowTime){
+						$.alert('请重新选择开始时间');
+					}else if(begTime>=endTime){
+						$.alert('请检查您的显示时间');
+					}else{
+						
+						var flag=($scope.notice.informTo=='')||($scope.notice.title=='')||($scope.notice.content=='')||($scope.notice.beginTime=='')||($scope.notice.endTime=='');
+						if(flag){
+							$.alert('请检查你的输入');
+						}else {
+
+							//汉字编码
+							var obj={};
+							obj.informTo=$scope.notice.informTo;
+							obj.beginTime=$scope.notice.beginTime;
+							obj.endTime=$scope.notice.endTime;
+							obj.title=encodeURIComponent($scope.notice.title);
+							obj.content=encodeURIComponent($scope.notice.content);
+							obj.wechatAccount= $scope.user;
+							//提交用户数据
+							console.log(obj);
+							$http({
+								url:'/slianOA-pc-web/mobile-ajax/auth/oaNews/insert.do',
+								params:obj
+							}).success(function(data){
+								console.log(data);
+								
+								console.log($('input#selectedFile1').val()==0);
+								if($('input#selectedFile1').val()==0){
+									
+								}else{
+									$scope.uploadFileForDocument('uploadForm1','selectedFile1','oa_news',data,'附件','uploadedFile1');
+								}
+									$("#showTooltips").attr('disabled',true);
+									$("#showTooltips").css('backgroundColor','#B2B2B2');
+									
+									$.toptip('操作成功', 'success');
+						
+							}).error(function(data){
+								console.log(data);
+								$.toptip('操作失败', 'error');
+							})
+
+						}
+					}
+				
+				}
+				//显示期限
+				$("#start3").calendar();
+				$('#start3').on('change',function(){
+					$scope.notice['beginTime']=$(this).val()
+					console.log($(this).val());
+				})
+				$("#start4").calendar();
+				$('#start4').on('change',function(){
+					$scope.notice['endTime']=$(this).val();
+				})
+			})
+			  //下级数据绑定
+			    myApp.directive('setBumen',function () {
+			        return {
+			            restrict:'AECM',
+			            scope:true,
+			            link:function (scope,elements,attrs) {
+			                elements.bind('click',function () {
+			                    console.log(attrs.title);
+			                    console.log(attrs.items);
+			                    $(this).select("update",{
+			                        title:attrs.title,
+			                        multi:true,
+			                        items:scope[attrs.items]
+			                    })
+			                })
+			            }
+			        }
+			    })
+		</script>
+	</body>
+</html>

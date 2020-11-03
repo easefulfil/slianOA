@@ -1,0 +1,220 @@
+*{
+	margin:0;
+	padding:0;
+	}
+li{
+	list-style:none;
+	}
+img{
+	<!--display:block//-->
+	}
+.clearfix{
+	clear:both;
+    }
+.bg{
+	width:100%;
+	/* height:650px; */
+	/* background-image:url(bg3.png); */
+/* 	background-repeat:no-repeat; */
+
+	}
+.top h1{
+	font-family:"����";
+	font-size:60px;
+	color:#0c527e;
+	line-height:220px;
+	margin-left:360px;
+	}
+.denglu-box{
+	/* float:left;
+	width:852px; */
+/* 	height:400px;  */
+
+/* 	margin-left:250px; */
+/* 	margin-bottom:200px; */
+	}
+.denglu-xinxi{
+/* 	margin-left:456px; */
+	/* width:320px; */
+	width:70%;
+}
+	
+.denglu-xinxi li{
+	font-family:"����";
+	font-size:20px;
+	color:#1578cb;
+	margin-bottom:20px;
+	}
+.denglu-xinxi li input{
+	
+	height:24px;
+	border:solid 1px #1578cb;
+	}
+.mima{
+	margin-left:20px;
+	}
+.yanzhengma{
+	width:80px;
+	}
+.yanzheng{
+	float:right;
+	width:40px;
+	height:26px;
+	border:solid 1px #1578cb;
+	background-color:#FFF;
+	font-family:"΢���ź�";
+	font-size:14px;
+	color:black;
+	font-weight:bold;
+	line-height:24px;
+	padding:0 20px;
+	}
+	
+	.logo{
+	/* 	display:inline-block;
+		position:absolute;
+		left:360px;
+		top:270px;
+		padding:0 30px;	
+		border-right:2px; */
+		float:left;
+	}
+	.denglu-xinxi{
+	/* position: absolute;
+    top: 300px;
+    left: 200px; */
+    float:right;
+	}
+	html{
+	/* 	height:650px;
+		background-color:#edf5fc; */
+		height:100%;
+/* 		min-width:1349px; */
+		}
+		body{
+		height:100%;
+		background-image:url(bg3.png); 
+		background-position:center;
+		background-repeat:no-repeat;
+	/* 	background-size:contain; */
+		height:100%;
+	/* 	background-size: 100% 100%;   */
+		}
+	.denglu{
+		width:66px;
+		height:28px;
+		border:solid 1px #e82128;
+		font-family:"΢���ź�";
+		font-size:14px;
+		color:#FFF;
+		margin-left:80px;
+		background-image: -moz-linear-gradient( 90deg, rgb(237,37,48) 0%, rgb(255,118,44) 100%);
+		background-image: -webkit-linear-gradient( 90deg, rgb(237,37,48) 0%, rgb(255,118,44) 100%);
+		background-image: -ms-linear-gradient( 90deg, rgb(237,37,38) 0%, rgb(255,118,44) 100%);
+		}
+	.AC{
+		width:66px;
+		height:28px;
+		border:solid 1px #e82128;
+		font-family:"΢���ź�";
+		font-size:14px;
+		color:#FFF;
+		margin-left:38px;
+		background-image: -moz-linear-gradient( 90deg, rgb(0,84,174) 0%, rgb(83,197,231) 100%);
+		background-image: -webkit-linear-gradient( 90deg, rgb(0,84,174) 0%, rgb(83,197,231) 100%);
+		background-image: -ms-linear-gradient( 90deg, rgb(0,84,174) 0%, rgb(83,197,231) 100%);
+		}
+.footer {
+	font-size: 12px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	color: #15428B;
+	margin: 0px;
+	padding: 0px;
+	line-height: 23px;
+	font-weight: bold;
+	height: 25px;
+	width: 100%;
+	background: rgb(210, 224, 242);
+	border: 1px solid #95B8E7;
+	box-sizing: border-box;
+}
+.btn {
+	text-align: center;
+	float: left;
+	width: 50%; 
+}
+.formitem{
+	color:#218cef
+}
+#but_login{
+	margin-top: 30px;
+    margin-left: 100px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#db050f), to(#fafafa));
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#bd050f,endColorstr=#fafafa,grandientType=0);
+     background: -ms-linear-gradient(top,#db050f,#fafafa); 
+     color: white;
+}
+#but_registry{
+	margin-top: 30px;
+    margin-left: 100px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#db050f), to(#fafafa));
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#bd050f,endColorstr=#fafafa,grandientType=0);
+     background: -ms-linear-gradient(top,#db050f,#fafafa); 
+     color: white;
+}
+div.main{
+	/* width:40%; */
+	/* width:560px; */
+	width:50%;
+	margin:auto;
+	/* background:red; */
+	padding:60px 10px;
+		background-image:url(bg2.png);
+}
+div.logo{
+	width:22%;
+}
+div.logo img{
+	width:100%;
+}
+
+div.top{
+		text-align:center;
+		padding:90px 0px 0px;
+	}
+div.top img{
+	width:45%;
+}
+@media screen and (max-width: 769px){
+	div.logo{
+		width:100%;
+		text-align:center;
+		margin-bottom:15px;
+	}
+	div.logo img{
+		width:25%;
+	}
+	ul.denglu-xinxi{
+		width:85%;
+		margin:auto;
+	}
+}
+@media screen and (max-width: 600px){
+	div.main{
+		width:100%;
+	/* 	background:blue; */
+	}
+	ul.de
+	div.footer{
+		width:98%;
+	}
+}
+

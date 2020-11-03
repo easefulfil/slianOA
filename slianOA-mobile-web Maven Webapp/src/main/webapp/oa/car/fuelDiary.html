@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>添加油卡记录</title>
+	<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+	<link rel="stylesheet" href="../css/extra.css" />
+	<link rel="stylesheet" href="../css/example.css" />
+	<link rel="stylesheet" href="../css/weui.css" />
+	<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script src="../js/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+	<script src="../framework/angular.js"></script>
+	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<script src="../js/oa-util.js"></script>
+	<style>
+		div.carDiv{
+			display: none;
+		}
+	</style>
+</head>
+<body ng-app="bodyApp" ng-controller="getUserInfo">
+<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+	<div class="weui-form-preview">
+		<div class="weui-cell_change weui-cell_bgc">添加油卡记录</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">添加人</label></div>
+			<div class="weui-cell__bd"><label id="name" class="weui-label" ng-bind="basic.name"></label></div>
+		</div>
+		<div class="weui-cell weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">时间</label></div>
+			<div class="weui-cell__bd"><label class="weui-label" ng-bind="dateStr" style="width:100%;"></label></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd"><label class="weui-label">类型</label></div>
+			<div class="weui-cell__bd">
+				<input class="weui-input" type="text" id="fuelType" placeholder="请选择类型" ng-model="add.type">
+			</div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc">
+			<div class="weui-cell__hd"><label class="weui-label">油卡号</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="cardNumber" placeholder="请选择油卡号"/></div>
+		</div>
+		<div class="weui-cell ">
+			<div class="weui-cell__hd"><label class="weui-label">金额(元)</label></div>
+			<div class="weui-cell__bd">
+				<input class="weui-input" type="number" placeholder="请输入金额" ng-model="add.rmb"/>
+			</div>
+		</div>
+		<div class="weui-cell  weui-cell_bgc carDiv">
+			<div class="weui-cell__hd"><label class="weui-label">加油车牌号</label></div>
+			<div class="weui-cell__bd"><input class="weui-input" type="text" id="carNumber" placeholder="请选择车牌号"/></div>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__bd"><label class="weui-label">备注:</label></div>
+		</div>
+		<div  style="text-align: center;padding: 5px;">
+				<textarea rows="5" cols="32" ng-model="add.remark"></textarea>
+		</div>
+		<div class="weui-cell">
+			<div class="weui-cell__hd">
+				<label class="weui-label">附件：</label>
+			</div>
+		</div>
+	</div>
+	<form id="uploadForm1" name="uploadForm1" method="POST" action="" enctype="multipart/form-data" target="hidden_frame" >
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<label class="weui-label">
+						<input id="selectedFile1" type="file" name="file"  value="">
+						<input id="businessTable" name="businessTable" value="oa_document" hidden="true">
+					</label>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd" style="padding-left:40%;">
+					<label class="weui-label">
+					<!-- 		<input  type="button" id="hello" ng-click="uploadFileForDocument('uploadForm1','selectedFile1','oa_news','-1','附件','uploadedFile1')" value="点击上传"><label id="uploadedFile1"></label> -->
+					</label>
+				</div>
+			</div>
+		<!-- 	<iframe name='hidden_frame' id="hidden_frame" ></iframe> -->
+		</form>
+	
+	<div class="weui-btn-area">
+		<button class="weui-btn weui-btn_primary"  ng-click="submit()" id="showTooltips">提交</button>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	myApp.controller('myCtrl',function($scope,$http){
+		var date=new Date();
+		console.log(date.getFullYear()>9);
+		if(date.getMonth()>8){
+			mon=date.getMonth()+1;
+		}else{
+			mon='0'+(date.getMonth()+1);
+		}
+		if(date.getDate()>9){
+			dat=date.getDate();
+		}else{
+			dat='0'+date.getDate()
+		}
+		if(date.getHours()>9){
+			hou=date.getHours();
+		}else{
+			hou='0'+date.getHours()
+		}
+		if(date.getMinutes()>9){
+			min=date.getMinutes();
+		}else{
+			min='0'+date.getMinutes()
+		}
+		if(date.getSeconds()>9){
+			sec=date.getSeconds();
+		}else{
+			sec='0'+date.getSeconds()
+		}
+		
+		$scope.dateStr=date.getFullYear()+'-'+mon+'-'+dat+' '+hou+':'+min+':'+sec;
+		console.log($scope.dateStr);
+		$scope.user = localStorage.getItem("user");
+		$("#fuelTime").calendar();
+		$('#fuelType').select({
+			title:"请选择类型",
+			items:["充值","加油"]
+		});
+		$('#fuelType').on('change',function () {
+			console.log($(this).val());
+			var type=$(this).val();
+			if(type=='加油'){
+				$('div.carDiv').css('display','flex');
+			}else if(type=='充值'){
+				$('div.carDiv').css('display','none');
+			}else{
+				$('div.carDiv').css('display','none');
+			}
+		})
+		$scope.addSubmit=function(obj){
+			//提交数据方法
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/oilCardDetail/insert.do',
+				params:{'wechatAccount':$scope.user,'oilCardDetail':JSON.stringify(obj)}
+			}).success(function (data) {
+				console.log(data);
+				$scope.uploadFileForDocument('uploadForm1','selectedFile1','oa_oil_card_detail',data,'附件','uploadedFile1');
+				$.toptip('添加成功', 'success');
+				$("#showTooltips").attr('disabled',true);
+				$("#showTooltips").css('backgroundColor','#B2B2B2');
+			}).error(function (data) {
+				$.toptip('系统出错', 'error');
+			});
+		}
+		$scope.add={
+			type:'',
+			time:'',
+			rmb:'',
+			remark:''
+		};
+		$scope.initCar = function(){
+			//获取车辆信息
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/availableVehicle/list.do',
+				params:{"wechatAccount":$scope.user,"startDate":"2012-02-02 00:00","endDate":"2013-09-09 00:00"}
+			}).success(function(data){
+				console.log(data);
+				$scope.carNumber=[]
+				for(var i=0;i<data.length;i++){
+					$scope.carNumber.push({"value":data[i]['vehicleId'],"title":data[i]['licensePlate']});
+				}
+				console.log($('#carNumber'))
+				$("#carNumber").select({
+					title: "请选择车辆",
+					items:$scope.carNumber
+				});
+				//	alert();
+			}).error(function(data){
+				$.toptip('系统出错', 'error');
+			})
+		}
+		
+		$scope.initCard = function(){
+			//获取加油卡卡号
+			$http({
+				method:'POST',
+				url:'/slianOA-pc-web/mobile-ajax/auth/oaVehicle/oilCard/list.do',
+				params:{"wechatAccount":$scope.user,"keys":{},"rows":30,"page":1}
+			}).success(function(data){
+				console.log(data.rows);
+				$scope.oilCard=[];
+				for(var i=0;i<data.rows.length;i++){
+					$scope.oilCard.push({"title":data.rows[i]['ocNumber'],"value":data.rows[i]['oilCardId']})
+				}
+				console.log($scope.oilCard);
+				console.log($('#cardNumber'));
+				$('#cardNumber').select({
+					title:'请选择油卡',
+					items:$scope.oilCard
+				});
+				$scope.initCar();
+			}).error(function(data){
+				$.toptip('系统出错', 'error');
+			})
+		}
+		$scope.init = function(){
+			if(localStorage.getItem("user")){
+				$http({
+					method:'POST',
+					url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+					params:{"wechatAccount":$scope.user}
+				}).success(function(data){
+					console.log(data);
+					localStorage.setItem('name',data.name);
+					localStorage.setItem('department',data.department);
+					localStorage.setItem('id',data.id);
+					$scope.basic=data;
+					$scope.initCard(); // 先initCard再initCar,initCard中包含initCar方法
+				}).error(function(data){
+					$.toptip('系统出错', 'error');
+				})
+			}
+		}
+		
+		$scope.$on('setUser',function(d,res){
+			$scope.user = res;
+			$scope.init();
+		})
+		
+		//获取用户部门信息
+		console.log(localStorage.getItem('name'));
+		if(localStorage.getItem('name') && localStorage.getItem('department') && localStorage.getItem('id') && localStorage.getItem('user')){
+			console.log(localStorage.getItem('basic'));
+			$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};
+			$scope.initCard();
+		}else{
+			$scope.init();
+		}
+		
+
+		
+		$scope.deleteUploadFile = function(businessTable,businessId,fileName){
+			console.log("这里是删除");
+			deleteUploadFile(businessTable,businessId,fileName);
+		}
+		$scope.uploadFileForDocument=function(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId){
+		//	$.alert('开始上传图片');
+			//businessId =3;//获得上传的文件ID
+			//businessId = "";
+			var wechat = $scope.user;
+			console.log(wechat);
+			uploadFile(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId,wechat);
+		}
+		
+		//提交数据
+		$scope.submit=function(){
+			console.log($('input#selectedFile1').val()==0);
+			if($('input#selectedFile1').val()==0){
+				$.alert('请选择图片上传');
+			}else{
+				$scope.add.time=$scope.dateStr;
+				console.log($scope.add);
+				console.log($scope.add.type);
+				//	console.log($('#cardNumber').data('values'));
+				var type=$scope.add.type;
+				if(type=='充值'){
+					//	alert('充值');
+					var flag=($scope.add['time']=='')||($scope.add['rmb']=='')||($('#cardNumber').data('values')=='undefined');
+					if(flag){
+						$.alert('请检查你的输入');
+					}else{
+						//	$scope.obj={};
+						console.log($('#carNumber').data('values'));
+						console.log($('#cardNumber').data('values'));
+						$scope.obj={"oilCardId":$('#cardNumber').data('values'),"ocdStyle":encodeURI('充值'),"remark":encodeURI($scope.add['remark']),"ocdParTime":$scope.add['time'],"ocdAmount":$scope.add['rmb']}/* ,"employee":$scope.basic['department']} */
+						$scope.addSubmit($scope.obj);
+					}
+				}else if(type=='加油'){
+					//	alert('加油');
+					var flag=($scope.add['time']=='')||($scope.add['rmb']=='')||(($('#cardNumber').data('values'))=='undefined')||(($('#carNumber').data('values'))=='undefined');
+					if(flag){
+						$.alert('请检查你的输入');
+					}else{
+						$scope.obj={};
+						console.log($('#carNumber').data('values'));
+						console.log($('#cardNumber').data('values'));
+						$scope.obj={"oilCardId":$('#cardNumber').data('values'),"ocdStyle":encodeURI('加油'),"remark":encodeURI($scope.add['remark']),"ocdParTime":$scope.add['time'],"ocdAmount":$scope.add['rmb'],"vehicleId":$('#carNumber').data('values')}
+						$scope.addSubmit($scope.obj);
+					}
+				}else{
+					$.alert('请选择类型');
+				}
+				
+			}
+		
+		}
+	})
+</script>
+</html>

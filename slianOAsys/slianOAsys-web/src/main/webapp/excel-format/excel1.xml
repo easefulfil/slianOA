@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+  <table>
+    <maintable name="slianoa_attendance" description="补录">
+      <column name="employee_id" field="员工号" jdbcType="INTEGER" notNull="true"/>
+      <column name="class_id" field="班次规则号" jdbcType="INTEGER" notNull="true"/>
+      <column name="attendance_time" field="考勤日期" jdbcType="VARCHAR2" notNull="true"/>
+      <column name="attendance_signtime" field="签到时间" jdbcType="VARCHAR2"  notNull="true"/>
+      <column name="attendance_offtime" field="签退时间" jdbcType="VARCHAR2"  notNull="true"/>
+	  <column name="attendance_signaddress" field="签到地点" jdbcType="VARCHAR2"/>
+      <column name="attendance_offaddress" field="签退地点" jdbcType="VARCHAR2"/>
+      <column name="work_hour" field="工作时长" jdbcType="VARCHAR2" notNull="true"/>
+      <column name="attendance_signstatus" field="签到状态" jdbcType="VARCHAR2"  notNull="true"/>
+      <column name="attendance_offstatus" field="签退状态" jdbcType="VARCHAR2"  notNull="true"/>
+      <column name="attendance_total_status" field="总考勤状态" jdbcType="VARCHAR2"  notNull="true"/>
+    </maintable>
+  </table>
+</template>

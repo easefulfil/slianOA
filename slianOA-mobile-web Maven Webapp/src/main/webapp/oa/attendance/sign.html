@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>今日考勤</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+    <!-- 
+    <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script> -->
+    
+    
+    <link rel="stylesheet" href="./csses.css" />
+    <link rel="stylesheet" href="./weui.css" />
+  </head>
+  <body ng-app="sign" ng-controller='myCtrl'>
+    <!--<div class="content">
+      <div class="content-inner"> -->
+      	
+      	<div id="boxdiv">
+		  		<div class="box" onClick="event.cancelBubble = true">
+					  <form>
+							<textarea id="remark" placeholder="备注..."></textarea>
+							<a onclick="submitremarks()" class="button button-light" id="submitbutton">提交</a>
+						</form>
+			    </div>
+  	    </div>
+  	    <div id="boxdiv2" style="display:hidden;">
+		  		<div class="box" onClick="event.cancelBubble = true">
+					  <form>
+							<textarea id="remark2" placeholder="备注..."></textarea>
+							<a onclick="submitremarks2()" class="button button-light" id="submitbutton2">提交</a>
+						</form>
+			    </div>
+  	    </div>
+  	
+    <div class="page-group">
+      <div class="content">
+    	
+				<div class="card">
+					<div class="card-content">
+						<div class="card-content-inner">
+							<div id="week"></div>
+							<div id="time"></div>
+						</div>
+					</div>
+				</div>
+		
+				<div class="card">
+			     <div class="card-content">
+			      <div class="card-content-inner">
+			      	<div class="content-padded grid-demo">
+			      	  <div class="row">
+				<div class="col-331"><span style="font-size:0.75rem;color:#669999;" class="icon icon-emoji">签到</span><br/><span style="color: #999999" ng-model="time.signinTime"></span></div>
+				<div class="col-332">
+					<p id="signinposition">显示签到位置</p>
+					<a class="button button-light" id="addnotes-signin">添加备注</a>	 
+				</div>
+				<div class="col-333">
+					<div class="content-block">
+						<button id="b1" ng-click="signin()" value="signin" class="weui-btn weui-btn_mini weui-btn_default" ><span style="font-size:0.6rem;color:#669999;">签到</span></button>
+				    	<br/><input="text" id="nowtime"></div></div>
+			          </div>
+			       </div>       
+			      </div>
+				 </div>
+				</div>
+	
+			<div class="card">
+		     <div class="card-content">
+		      <div class="card-content-inner">
+		      	<div class="content-padded grid-demo">
+		      	  <div class="row">
+			<div class="col-331"><span style="font-size:0.75rem;color: #6699cc;" class="icon icon-edit">签退</span><br/><span style="color: #999999" ng-model="time.time.signoutTime"></span></div>
+			<div class="col-332"><p id="signoutposition">显示签退位置</p><a class="button button-light" id="addnotes-signout">添加备注</a></div>
+			<div class="col-333">
+				<div class="content-block">
+					<button id="b2" ng-click="signoff()" value="signout" class="weui-btn weui-btn_mini weui-btn_default" ><span style="font-size:0.6rem;color: #6699cc;">签退</span></button>
+			    	<br/><input="text" id="nowtime1"></div></div>
+		          </div>
+		       </div>       
+		      </div>
+			 </div>
+			</div>
+	
+    </div>
+   </div>				
+   <script src="../framework/jquery-2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+
+    <!-- <script src="jquery.min.js"></script> -->
+    <script src="../js/angular.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    
+   	<script type="text/javascript" src="sign.js"></script> 
+    <script type="text/javascript" src="signin-signout.js"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+  </body>
+</html>

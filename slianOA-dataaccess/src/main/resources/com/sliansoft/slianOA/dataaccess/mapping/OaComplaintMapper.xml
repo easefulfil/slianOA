@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaComplaintMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaComplaint" >
+    <id column="complaint_id" property="complaintId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="complaint_time" property="complaintTime" jdbcType="TIMESTAMP" />
+    <result column="complaint_person" property="complaintPerson" jdbcType="VARCHAR" />
+    <result column="complaint_content" property="complaintContent" jdbcType="VARCHAR" />
+    <result column="complaint_attachment" property="complaintAttachment" jdbcType="VARCHAR" />
+    <result column="complaint_result" property="complaintResult" jdbcType="VARCHAR" />
+    <result column="rejected_reason" property="rejectedReason" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="view_employee_ids" property="viewEmployeeIds" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    complaint_id, title, complaint_time, complaint_person, complaint_content, complaint_attachment, 
+    complaint_result, rejected_reason, remark, access_group, amend_time, amender, create_time, 
+    creator, view_employee_ids, type, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaintExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_complaint
+    where complaint_id = #{complaintId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_complaint
+    where complaint_id = #{complaintId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaintExample" >
+    delete from oa_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaint" useGeneratedKeys="true" keyProperty="complaintId">
+    insert into oa_complaint (complaint_id, title, complaint_time, 
+      complaint_person, complaint_content, complaint_attachment, 
+      complaint_result, rejected_reason, remark, 
+      access_group, amend_time, amender, 
+      create_time, creator, view_employee_ids, 
+      type, status)
+    values (#{complaintId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{complaintTime,jdbcType=TIMESTAMP}, 
+      #{complaintPerson,jdbcType=VARCHAR}, #{complaintContent,jdbcType=VARCHAR}, #{complaintAttachment,jdbcType=VARCHAR}, 
+      #{complaintResult,jdbcType=VARCHAR}, #{rejectedReason,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{accessGroup,jdbcType=INTEGER}, #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{viewEmployeeIds,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaint" useGeneratedKeys="true" keyProperty="complaintId">
+    insert into oa_complaint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="complaintId != null" >
+        complaint_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="complaintTime != null" >
+        complaint_time,
+      </if>
+      <if test="complaintPerson != null" >
+        complaint_person,
+      </if>
+      <if test="complaintContent != null" >
+        complaint_content,
+      </if>
+      <if test="complaintAttachment != null" >
+        complaint_attachment,
+      </if>
+      <if test="complaintResult != null" >
+        complaint_result,
+      </if>
+      <if test="rejectedReason != null" >
+        rejected_reason,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="complaintId != null" >
+        #{complaintId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintTime != null" >
+        #{complaintTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complaintPerson != null" >
+        #{complaintPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintContent != null" >
+        #{complaintContent,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintAttachment != null" >
+        #{complaintAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintResult != null" >
+        #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectedReason != null" >
+        #{rejectedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaintExample" resultType="java.lang.Integer" >
+    select count(*) from oa_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_complaint
+    <set >
+      <if test="record.complaintId != null" >
+        complaint_id = #{record.complaintId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complaintTime != null" >
+        complaint_time = #{record.complaintTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.complaintPerson != null" >
+        complaint_person = #{record.complaintPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complaintContent != null" >
+        complaint_content = #{record.complaintContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complaintAttachment != null" >
+        complaint_attachment = #{record.complaintAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complaintResult != null" >
+        complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rejectedReason != null" >
+        rejected_reason = #{record.rejectedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.viewEmployeeIds != null" >
+        view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_complaint
+    set complaint_id = #{record.complaintId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      complaint_time = #{record.complaintTime,jdbcType=TIMESTAMP},
+      complaint_person = #{record.complaintPerson,jdbcType=VARCHAR},
+      complaint_content = #{record.complaintContent,jdbcType=VARCHAR},
+      complaint_attachment = #{record.complaintAttachment,jdbcType=VARCHAR},
+      complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      rejected_reason = #{record.rejectedReason,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      view_employee_ids = #{record.viewEmployeeIds,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaint" >
+    update oa_complaint
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintTime != null" >
+        complaint_time = #{complaintTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="complaintPerson != null" >
+        complaint_person = #{complaintPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintContent != null" >
+        complaint_content = #{complaintContent,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintAttachment != null" >
+        complaint_attachment = #{complaintAttachment,jdbcType=VARCHAR},
+      </if>
+      <if test="complaintResult != null" >
+        complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectedReason != null" >
+        rejected_reason = #{rejectedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="viewEmployeeIds != null" >
+        view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where complaint_id = #{complaintId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaint" >
+    update oa_complaint
+    set title = #{title,jdbcType=VARCHAR},
+      complaint_time = #{complaintTime,jdbcType=TIMESTAMP},
+      complaint_person = #{complaintPerson,jdbcType=VARCHAR},
+      complaint_content = #{complaintContent,jdbcType=VARCHAR},
+      complaint_attachment = #{complaintAttachment,jdbcType=VARCHAR},
+      complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      rejected_reason = #{rejectedReason,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      view_employee_ids = #{viewEmployeeIds,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where complaint_id = #{complaintId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaComplaint" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaComplaintExample" >
+    select a.* from oa_complaint a where a.complaint_id in 
+ (select top ${pageSize} complaint_id from oa_complaint 
+<include refid="select_by_page_outter_where_sql"/> 
+complaint_id not in (select top ${skipRecordCount} complaint_id from oa_complaint  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+<include refid="select_by_page_outter_orderby_sql"/> 
+  </select>
+</mapper>

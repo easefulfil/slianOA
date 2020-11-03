@@ -1,0 +1,272 @@
+/* 全局通用
+----------------------------------------------- */
+body {
+ background-color: #EEEEEE;
+ font-family: Microsoft Yahei, \5FAE\8F6F\96C5\9ED1, \5B8B\4F53, Arial, Verdana, sans-serif;
+ font-size: 12px;
+ color: #333;
+ margin: 0;
+ padding: 0;
+}
+body, button, input, textarea {
+ font-size: 12px;
+ line-height: 1.531;
+ outline: none;
+ margin: 0;
+ padding: 0;
+ border: 0;
+}
+p, ul, ol, dl, dt, dd, form, blockquote {
+ margin: 0;
+ padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+ font-size: 12px;
+ margin: 0;
+ padding: 0;
+ font-weight: normal;
+}
+img {
+ border: 0;
+}
+ul, ol {
+ list-style: none;
+}
+img {
+ border: 0;
+}
+a {
+ text-decoration: none;
+ color: #626262;
+}
+a:hover {
+ text-decoration: none;
+}
+input, textarea, select {
+ vertical-align: middle;
+}
+*:focus {
+ outline: none;
+}
+em, i {
+ font-style: normal;
+}
+.bold {
+ font-weight: bold;
+}
+.clear {
+ clear: both;
+ display: block;
+ height: 0;
+ line-height: 0;
+ font-size: 0;
+}
+.clearfix:after {
+ content: ".";
+ display: block;
+ height: 0;
+ clear: both;
+ visibility: hidden;
+}
+*html .clearfix {
+ height: 1%;
+}
+*+html .clearfix {
+ height: 1%;
+}
+.none {
+ display: none;
+}
+.cue {
+ color: #999;
+}
+p.cue {
+ margin-top: 5px;
+}
+.cueRed {
+ color: #C00;
+}
+.ml {
+ padding-left: 10px;
+}
+.pl {
+ padding-left: 10px;
+}
+.pr {
+ padding-right: 10px;
+}
+.unread {
+ font-weight: bold;
+}
+#vcode {
+ cursor: pointer;
+}
+.cl{
+    clear:both;
+}
+body{background: #fbfbfb;}
+/* 头部
+----------------------------------------------- */
+#header{
+    width:100%;
+}
+.header_1{
+    max-width: 1200px;
+    height:80px;
+    margin:0 auto;
+}
+.logo{line-height:40px}
+.logo img{
+    width: 126px;
+    position: relative;
+    top: 20px;
+}
+.logo_1{
+    border-left: 1px solid #ccc;
+    display: inline-block;
+    margin-left: 10px;
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #8B8B8B;
+}
+.right_1{
+    display:inline-block;
+    float:right;
+    margin-top: 25px;
+}
+.right_1>span{
+    font-size: 15px;
+    font-weight: bold;
+    border-left: 1px solid #ccc;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+.right_1>span:first-child{
+    border-left:0;
+}
+.right_1>span>a:hover{
+    text-shadow:1px 1px 1px #999;
+}
+/*导航*/
+.header_2{
+    width:100%;
+    height:40px;
+    background-color:#635bef;
+}
+.header_2_1{
+    max-width:1200px;
+    margin:0 auto;
+}
+.header_2_1>ul>li{
+    float: left;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    width:150px;
+    text-align:center;
+}
+.header_2_1>ul>li>a{
+    color: #fff;
+    display: block;
+}
+.header_2_1>ul>li>a:hover{
+    background-color:#222ae2;
+}
+.bg{
+    background-color:#222ae2;
+}
+
+
+/*内容*/
+.content_1{
+    border-radius:4px;
+    background: #fbfbfb;
+    position: relative;
+    min-height: 430px;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    margin-top: 30px;
+}
+.content_left{
+    width: 200px;
+    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin-right: 0;
+    position: relative;
+    margin-bottom: -10000px;
+    padding-bottom: 10000px;
+    float:left;
+    border-right:1px solid #ccc;
+    background:#F6F6F6;
+    padding-top: 40px;
+}
+.content_left>ul>li{
+    min-height:50px;
+    line-height:50px;
+    box-sizing: border-box;
+}
+.content_left>ul>li>a{
+    display:block;
+    font-size:15px;
+    padding-left:10px;
+    cursor: pointer;
+}
+.content_left>ul>li:hover{
+    background-color:#fff;
+}
+.content_left>ul>li>a>span{
+    float:right;
+    position:relative;
+    margin-right: 10px;
+}
+
+.cur{
+    background-color:#635bef;
+    color: #fff;
+}
+.content_right{
+    float:left;
+    width: 81%;
+    margin-left: 10px;
+    margin-right: 0;
+    display: inline;
+}
+
+.search{
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+    width: 180px;
+    position: relative;
+    background: #fff;
+}
+.search>input:first-child{
+    width: 130px;
+    padding: 0;
+    height:30px;
+    border: none;
+    vertical-align: top;
+    margin: 0;
+    padding-left: 10px;
+}
+.search>input:last-child{
+    background: url(../images/fdj_1.png) no-repeat center center;
+    width: 35px;
+    height:30px;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid #ccc;
+    background-size:100% 100%;
+}
+.search>input:last-child:hover{
+    background-color:#F6F6F6;
+}

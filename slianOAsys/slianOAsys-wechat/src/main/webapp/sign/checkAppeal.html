@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>申诉审批</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    	<link href="../css/Attendance-Attorney.css" rel="stylesheet" type="text/css" />
+    	
+    	<style>
+		.one{
+			border-bottom:1px solid #cccccc;	
+			width:100%;	
+		}
+        #left{
+	   	    float:left; 
+	        width:90%;     
+	        background-color:#ffffff;
+	        height:70px;
+	        padding: 0 15px 0 15px;}
+        #right{
+		    height:70px; 
+		    float:left; 
+		    width:10%;                        
+			background-color:#ffffff;
+			text-align: center;
+	        line-height:70px;}
+        #left h1{
+        	font-size:17px;}
+        #left p{
+        	margin-top: -6px;
+        	font-size:13px;
+        	color: #999999;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	text-overflow: ellipsis;}      
+        #right span{
+        	color: #999999;
+        	font-size:12px;}
+        .content-block{
+        	margin:0;
+        	padding:0;}
+        /*.content-block:nth-of-type(1)
+        {
+        	margin-top: -21px;}
+        .appeal-detail p span{
+        	font-size:13px;
+        	color: #999999;
+        	overflow: hidden;
+        	white-space: nowrap;
+        	text-overflow: ellipsis;}*/
+	</style>
+	
+  </head>
+  <body ng-app="sign" ng-controller='SignController'>
+    <div class="page-group">
+        <div class="page page-current">
+        <!-- 你的html代码 -->
+			<div class="content">
+			  <div class="buttons-tab">
+			    <a href="#tab1" ng-click="test1()"  class="tab-link active button">待审批</a>
+			    <a href="#tab2" ng-click="test2()" class="tab-link button">已审批</a>
+			  </div>
+			 <div class="content-block">
+			    <div class="tabs">
+			    	
+			      <div id="tab1" class="tab active">
+			        <div class="content-block">
+			          <p>
+			          	  <div class="one" onclick="window.open('Attendance-Attorney.html');">
+			          	    
+					      </div>
+			         </p>
+			        </div>
+			      </div>
+			      
+			      <div id="tab2" class="tab">
+			        <div class="content-block">
+			         <p>
+					       <div class="two" onclick="window.open('Attendance-Attorney.html');">
+					      	
+					      </div>
+			          </p>
+			        </div>
+			      </div>
+			      
+			    </div>
+			  </div>
+			</div>
+        </div>
+    </div>
+	
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="appealRelated2.js"></script>
+  </body>
+</html>

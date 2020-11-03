@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>通知申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<style>
+			div.NR p{
+				width:100% !important;
+			}
+				/*通知内容中加入的图片的样式*/
+		div.ZWNR img{
+				width:300px;
+				margin:auto;
+				display:block;
+				height:200px;
+			}
+			.ZW a,.FJ a{
+				margin-right:25px;
+			}
+		</style>
+	</head>
+	<body ng-controller="getUserInfo" ng-app="bodyApp">
+		<div id="noticePreview" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc" ng-bind="data.title">通知标题</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">通知时间</label></div>
+						<div class="weui-cell__bd"><label id="name" class="weui-label" ng-bind="data.createTime"></label></div>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd"><label class="weui-label">通知内容：</label></div>
+					</div>
+					<div class="NR ZWNR">
+						<div class="LL"></div>
+					</div>
+					<div class="weui-cell weui-cell_bgc">
+						<div class="weui-cell__hd"><label class="weui-label">传阅人：</label></div>
+					</div>
+					<div class="weui-cell weui-cell_bd NR">
+						<div ng-bind-html="data.viewEmployeeName"></div>
+					</div>
+					<div class="weui-cell FJ">
+						<div class="weui-cell__hd">
+							<label class="weui-label">附件：</label>
+						</div>
+						<div class="weui-cell__bd FJList" ng-bind-html="data.attachmentZW"></div>
+					</div> 
+					<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">审批结果：</label>
+					</div>
+					<div class="weui-cell__bd">
+						<label class="weui-label" ng-bind="sp.result"></label>
+					</div>
+				</div>
+				<div class="weui-cell weui-cell_bgc ">
+					<div class="weui-cell__hd">
+						<label class="weui-label">审批意见：</label>
+					</div>
+					<div class="weui-cell__bd">
+						<label class="weui-label" ng-bind="sp.opinion" readonly="readonly" editable="false"></label>
+					</div>
+				</div>
+				</div>
+				
+		</div>
+		<script src="../js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript" src="../js/getUserInfo.js"></script>
+		<script>
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				$scope.user = localStorage.getItem("user"); // 用户微信号
+				var srcArr=$location.absUrl().split('&');
+				var id=srcArr[0].split('id=')[1];
+				var result=decodeURIComponent(srcArr[1].split('workflowResult=')[1]);
+				var opinion=decodeURIComponent(srcArr[2].split('Opinion=')[1]);
+				$scope.sp={"result":result,"opinion":opinion};
+				console.log(result+"***"+opinion);
+				
+				$scope.init = function(){
+					//获取数据信息
+					console.log(id);
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/oaNews/getContent.do',
+						params:{"wechatAccount":$scope.user,'newsId':id}
+					}).success(function(data){
+						console.log(data)
+						$scope.data=data;
+						$('div.ZWNR>div.LL').html($scope.data.content);
+					}).error(function(){
+						$.alert('数据请求失败')
+					});
+				}
+				
+				$scope.$on('setUser',function(d,res){
+					$scope.init();
+				})
+				
+				 if(localStorage.getItem('user')){
+					$scope.user = localStorage.getItem('user');
+					$scope.init();
+				 } 
+				
+			})
+		</script>
+	</body>
+</html>
+
+

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sliansoft.slianOA.dataaccess.dao.OaAttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    <id column="attendance_id" property="attendanceId" jdbcType="INTEGER" />
+    <result column="attendance_rule_id" property="attendanceRuleId" jdbcType="INTEGER" />
+    <result column="sign_date" property="signDate" jdbcType="TIMESTAMP" />
+    <result column="signin_address" property="signinAddress" jdbcType="VARCHAR" />
+    <result column="signin_latitude" property="signinLatitude" jdbcType="DOUBLE" />
+    <result column="signin_longitude" property="signinLongitude" jdbcType="DOUBLE" />
+    <result column="signin_status" property="signinStatus" jdbcType="VARCHAR" />
+    <result column="signin_remark" property="signinRemark" jdbcType="VARCHAR" />
+    <result column="signin_time" property="signinTime" jdbcType="TIMESTAMP" />
+    <result column="signout_address" property="signoutAddress" jdbcType="VARCHAR" />
+    <result column="signout_latitude" property="signoutLatitude" jdbcType="DOUBLE" />
+    <result column="signout_longitude" property="signoutLongitude" jdbcType="DOUBLE" />
+    <result column="signout_time" property="signoutTime" jdbcType="TIMESTAMP" />
+    <result column="signout_status" property="signoutStatus" jdbcType="VARCHAR" />
+    <result column="signout_remark" property="signoutRemark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="access_group" property="accessGroup" jdbcType="INTEGER" />
+    <result column="amend_time" property="amendTime" jdbcType="TIMESTAMP" />
+    <result column="amender" property="amender" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="INTEGER" />
+    <result column="approval" property="approval" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    attendance_id, attendance_rule_id, sign_date, signin_address, signin_latitude, signin_longitude, 
+    signin_status, signin_remark, signin_time, signout_address, signout_latitude, signout_longitude, 
+    signout_time, signout_status, signout_remark, status, remark, access_group, amend_time, 
+    amender, create_time, creator, approval
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_attendance
+    where attendance_id = #{attendanceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from oa_attendance
+    where attendance_id = #{attendanceId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceExample" >
+    delete from oa_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    insert into oa_attendance (attendance_id, attendance_rule_id, sign_date, 
+      signin_address, signin_latitude, signin_longitude, 
+      signin_status, signin_remark, signin_time, 
+      signout_address, signout_latitude, signout_longitude, 
+      signout_time, signout_status, signout_remark, 
+      status, remark, access_group, 
+      amend_time, amender, create_time, 
+      creator, approval)
+    values (#{attendanceId,jdbcType=INTEGER}, #{attendanceRuleId,jdbcType=INTEGER}, #{signDate,jdbcType=TIMESTAMP}, 
+      #{signinAddress,jdbcType=VARCHAR}, #{signinLatitude,jdbcType=DOUBLE}, #{signinLongitude,jdbcType=DOUBLE}, 
+      #{signinStatus,jdbcType=VARCHAR}, #{signinRemark,jdbcType=VARCHAR}, #{signinTime,jdbcType=TIMESTAMP}, 
+      #{signoutAddress,jdbcType=VARCHAR}, #{signoutLatitude,jdbcType=DOUBLE}, #{signoutLongitude,jdbcType=DOUBLE}, 
+      #{signoutTime,jdbcType=TIMESTAMP}, #{signoutStatus,jdbcType=VARCHAR}, #{signoutRemark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{accessGroup,jdbcType=INTEGER}, 
+      #{amendTime,jdbcType=TIMESTAMP}, #{amender,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=INTEGER}, #{approval,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    insert into oa_attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attendanceId != null" >
+        attendance_id,
+      </if>
+      <if test="attendanceRuleId != null" >
+        attendance_rule_id,
+      </if>
+      <if test="signDate != null" >
+        sign_date,
+      </if>
+      <if test="signinAddress != null" >
+        signin_address,
+      </if>
+      <if test="signinLatitude != null" >
+        signin_latitude,
+      </if>
+      <if test="signinLongitude != null" >
+        signin_longitude,
+      </if>
+      <if test="signinStatus != null" >
+        signin_status,
+      </if>
+      <if test="signinRemark != null" >
+        signin_remark,
+      </if>
+      <if test="signinTime != null" >
+        signin_time,
+      </if>
+      <if test="signoutAddress != null" >
+        signout_address,
+      </if>
+      <if test="signoutLatitude != null" >
+        signout_latitude,
+      </if>
+      <if test="signoutLongitude != null" >
+        signout_longitude,
+      </if>
+      <if test="signoutTime != null" >
+        signout_time,
+      </if>
+      <if test="signoutStatus != null" >
+        signout_status,
+      </if>
+      <if test="signoutRemark != null" >
+        signout_remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="accessGroup != null" >
+        access_group,
+      </if>
+      <if test="amendTime != null" >
+        amend_time,
+      </if>
+      <if test="amender != null" >
+        amender,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="approval != null" >
+        approval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attendanceId != null" >
+        #{attendanceId,jdbcType=INTEGER},
+      </if>
+      <if test="attendanceRuleId != null" >
+        #{attendanceRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signinAddress != null" >
+        #{signinAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signinLatitude != null" >
+        #{signinLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signinLongitude != null" >
+        #{signinLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signinStatus != null" >
+        #{signinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="signinRemark != null" >
+        #{signinRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="signinTime != null" >
+        #{signinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signoutAddress != null" >
+        #{signoutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutLatitude != null" >
+        #{signoutLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signoutLongitude != null" >
+        #{signoutLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signoutTime != null" >
+        #{signoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signoutStatus != null" >
+        #{signoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutRemark != null" >
+        #{signoutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="approval != null" >
+        #{approval,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceExample" resultType="java.lang.Integer" >
+    select count(*) from oa_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_attendance
+    <set >
+      <if test="record.attendanceId != null" >
+        attendance_id = #{record.attendanceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.attendanceRuleId != null" >
+        attendance_rule_id = #{record.attendanceRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.signDate != null" >
+        sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signinAddress != null" >
+        signin_address = #{record.signinAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinLatitude != null" >
+        signin_latitude = #{record.signinLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.signinLongitude != null" >
+        signin_longitude = #{record.signinLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.signinStatus != null" >
+        signin_status = #{record.signinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinRemark != null" >
+        signin_remark = #{record.signinRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signinTime != null" >
+        signin_time = #{record.signinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signoutAddress != null" >
+        signout_address = #{record.signoutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutLatitude != null" >
+        signout_latitude = #{record.signoutLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.signoutLongitude != null" >
+        signout_longitude = #{record.signoutLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.signoutTime != null" >
+        signout_time = #{record.signoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signoutStatus != null" >
+        signout_status = #{record.signoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signoutRemark != null" >
+        signout_remark = #{record.signoutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessGroup != null" >
+        access_group = #{record.accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="record.amendTime != null" >
+        amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amender != null" >
+        amender = #{record.amender,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.approval != null" >
+        approval = #{record.approval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_attendance
+    set attendance_id = #{record.attendanceId,jdbcType=INTEGER},
+      attendance_rule_id = #{record.attendanceRuleId,jdbcType=INTEGER},
+      sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      signin_address = #{record.signinAddress,jdbcType=VARCHAR},
+      signin_latitude = #{record.signinLatitude,jdbcType=DOUBLE},
+      signin_longitude = #{record.signinLongitude,jdbcType=DOUBLE},
+      signin_status = #{record.signinStatus,jdbcType=VARCHAR},
+      signin_remark = #{record.signinRemark,jdbcType=VARCHAR},
+      signin_time = #{record.signinTime,jdbcType=TIMESTAMP},
+      signout_address = #{record.signoutAddress,jdbcType=VARCHAR},
+      signout_latitude = #{record.signoutLatitude,jdbcType=DOUBLE},
+      signout_longitude = #{record.signoutLongitude,jdbcType=DOUBLE},
+      signout_time = #{record.signoutTime,jdbcType=TIMESTAMP},
+      signout_status = #{record.signoutStatus,jdbcType=VARCHAR},
+      signout_remark = #{record.signoutRemark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      access_group = #{record.accessGroup,jdbcType=INTEGER},
+      amend_time = #{record.amendTime,jdbcType=TIMESTAMP},
+      amender = #{record.amender,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=INTEGER},
+      approval = #{record.approval,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    update oa_attendance
+    <set >
+      <if test="attendanceRuleId != null" >
+        attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null" >
+        sign_date = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signinAddress != null" >
+        signin_address = #{signinAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signinLatitude != null" >
+        signin_latitude = #{signinLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signinLongitude != null" >
+        signin_longitude = #{signinLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signinStatus != null" >
+        signin_status = #{signinStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="signinRemark != null" >
+        signin_remark = #{signinRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="signinTime != null" >
+        signin_time = #{signinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signoutAddress != null" >
+        signout_address = #{signoutAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutLatitude != null" >
+        signout_latitude = #{signoutLatitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signoutLongitude != null" >
+        signout_longitude = #{signoutLongitude,jdbcType=DOUBLE},
+      </if>
+      <if test="signoutTime != null" >
+        signout_time = #{signoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signoutStatus != null" >
+        signout_status = #{signoutStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="signoutRemark != null" >
+        signout_remark = #{signoutRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="accessGroup != null" >
+        access_group = #{accessGroup,jdbcType=INTEGER},
+      </if>
+      <if test="amendTime != null" >
+        amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amender != null" >
+        amender = #{amender,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="approval != null" >
+        approval = #{approval,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where attendance_id = #{attendanceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    update oa_attendance
+    set attendance_rule_id = #{attendanceRuleId,jdbcType=INTEGER},
+      sign_date = #{signDate,jdbcType=TIMESTAMP},
+      signin_address = #{signinAddress,jdbcType=VARCHAR},
+      signin_latitude = #{signinLatitude,jdbcType=DOUBLE},
+      signin_longitude = #{signinLongitude,jdbcType=DOUBLE},
+      signin_status = #{signinStatus,jdbcType=VARCHAR},
+      signin_remark = #{signinRemark,jdbcType=VARCHAR},
+      signin_time = #{signinTime,jdbcType=TIMESTAMP},
+      signout_address = #{signoutAddress,jdbcType=VARCHAR},
+      signout_latitude = #{signoutLatitude,jdbcType=DOUBLE},
+      signout_longitude = #{signoutLongitude,jdbcType=DOUBLE},
+      signout_time = #{signoutTime,jdbcType=TIMESTAMP},
+      signout_status = #{signoutStatus,jdbcType=VARCHAR},
+      signout_remark = #{signoutRemark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      access_group = #{accessGroup,jdbcType=INTEGER},
+      amend_time = #{amendTime,jdbcType=TIMESTAMP},
+      amender = #{amender,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=INTEGER},
+      approval = #{approval,jdbcType=VARCHAR}
+    where attendance_id = #{attendanceId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="selectPageResult" extends="BaseResultMap" type="com.sliansoft.slianOA.dataaccess.model.OaAttendance" >
+    <!--
+<association property="" column="" javaType="">
+   <id column="" property="" jdbcType="" />
+   <result column="" property="" jdbcType="" />
+ </association>
+-->
+  </resultMap>
+  <sql id="select_by_page_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceExample" >
+    select a.* from oa_attendance a where a.attendance_id in 
+ (select top ${pageSize} attendance_id from oa_attendance 
+<include refid="select_by_page_outter_where_sql"/> 
+attendance_id not in (select top ${skipRecordCount} attendance_id from oa_attendance  
+<include refid="select_by_page_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page_outter_orderby_sql"/> 
+)
+  </select>
+ 
+ 
+ 
+  <sql id="select_by_page1_outter_where_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>    and   </if>  <if test="oredCriteria.size==0">     where   </if> 
+  </sql>
+  <sql id="select_by_page1_inner_where_and_orderby_sql" >
+      <if test="oredCriteria.size>0">     <if test="_parameter != null" > <include refid="Example_Where_Clause"/> </if>  </if>   <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <sql id="select_by_page1_outter_orderby_sql" >
+       <if test="orderByClause != null">    order by ${orderByClause}   </if> 
+  </sql>
+  <select id="selectPage1" resultMap="selectPageResult" parameterType="com.sliansoft.slianOA.dataaccess.model.OaAttendanceExample" >
+    select a.* from oa_attendance a where a.status!='正常' and a.approval='未读' and a.attendance_id in 
+ (select top ${pageSize} attendance_id from oa_attendance 
+<include refid="select_by_page1_outter_where_sql"/> 
+attendance_id not in (select top ${skipRecordCount} attendance_id from oa_attendance  
+<include refid="select_by_page1_inner_where_and_orderby_sql"/> 
+ ) 
+<include refid="select_by_page1_outter_orderby_sql"/> 
+)
+  </select>
+</mapper>

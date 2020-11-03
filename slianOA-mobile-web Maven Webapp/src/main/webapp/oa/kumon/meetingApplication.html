@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>会议申请</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+		<script src="../js/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+		<script src="../framework/angular-sanitize.js"></script>
+		<script src="../js/oa-util.js"></script>
+	</head>
+	<body ng-app="bodyApp" ng-controller="getUserInfo">
+		<div id="noticePreview" class="page__bd" ng-controller="myCtrl">
+				<!-- <div>{{meeting}}</div> -->
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">会议申请</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">申请人</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="basic.name"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">部门</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="basic.department" style="width:200px;"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">会议人数</label></div>
+						<div class="weui-cell__bd"><input ng-model="meeting.mtNumbers" class="weui-input" type="number" id="number" placeholder="会议人数"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">会议地点</label></div>
+						<div class="weui-cell__bd"><input ng-model="meeting.mtSite" class="weui-input" type="text" id="place" placeholder="会议地点"/></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">会议时间</label></div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" ng-model="meeting.mtTime" data-toggle='date' type="text" id="meetingDate" placeholder="会议开始时间"/>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">议题</label></div>
+						<div class="weui-cell__bd">
+							<textarea ng-model="meeting.title" class="weui-textarea" placeholder="请输入议题" rows="1"></textarea>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">参加人员</label></div>
+						<div class="weui-cell__bd">
+							<textarea rows="5" ng-model="meeting.mtJoinPersons" class="weui-textarea" placeholder="请输入参与人员" rows="1"></textarea>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">正文</label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<textarea ng-model="meeting.content" class="weui-textarea" placeholder="请输入正文内容" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">附件：</label>
+						</div>
+					</div>
+				</div>
+				<form id="uploadForm1" name="uploadForm1" method="POST" action="" enctype="multipart/form-data" target="hidden_frame" >
+					<div class="weui-cell">
+						<div class="weui-cell__bd">
+							<label class="weui-label">
+								<input id="selectedFile1" type="file" name="file"  value="">
+								<input id="businessTable" name="businessTable" value="oa_document" hidden="true">
+							</label>
+						</div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__bd" style="padding-left:40%;">
+							<label class="weui-label">
+							<!-- 		<input  type="button" id="hello" ng-click="uploadFileForDocument('uploadForm1','selectedFile1','oa_news','-1','附件','uploadedFile1')" value="点击上传"><label id="uploadedFile1"></label> -->
+							</label>
+						</div>
+					</div>
+				<!-- 	<iframe name='hidden_frame' id="hidden_frame" ></iframe> -->
+				</form>
+				<div class="weui-btn-area">
+            		<input type="button" value="提交" ng-click="submit()" class="weui-btn weui-btn_primary" id="showTooltips"/>
+       			</div>
+       			
+		</div>
+	</body>
+	<script src="../js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+	<script type="text/javascript">
+			
+		// 开会时间
+		$("#meetingDate").datetimePicker({
+			title:"请选择开会时间",
+			yearSplit:'-',
+			monthSplit:'-',
+			dateSplit:''
+		});
+		
+		myApp.controller('myCtrl',function ($scope,$http) {
+			
+			$scope.user = localStorage.getItem("user"); // 用户微信号
+			
+			$scope.init = function(){
+				if($scope.user != null){
+					$http({
+						method:'POST',
+						url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+						params:{"wechatAccount":$scope.user}
+					}).success(function(data){
+						console.log(data);
+						localStorage.setItem('name',data.name);
+						localStorage.setItem('department',data.department);
+						$scope.basic=data;
+					}).error(function(data){
+						console.log(data);
+					})
+				}
+			}
+			
+			$scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+			//获取用户部门信息
+			console.log("name:"+localStorage.getItem('name'));
+			if(localStorage.getItem('name') && localStorage.getItem('user') && localStorage.getItem('department')){
+				console.log(localStorage.getItem('basic'));
+				$scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department')};
+			}else{
+				$scope.init();
+			}
+			
+			$scope.meeting={
+				mtNumbers:'',
+				mtSite:'',
+				mtTime:'',
+				mtJoinPersons:'',
+				content:'',
+				title:'',
+				type:encodeURIComponent('会议')
+			}
+			
+			//上传图片
+			$scope.deleteUploadFile = function(businessTable,businessId,fileName){
+				console.log("这里是删除");
+				deleteUploadFile(businessTable,businessId,fileName);
+			}
+			$scope.uploadFileForDocument=function(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId){
+			//	$.alert('开始上传图片');
+				//businessId =3;//获得上传的文件ID
+				//businessId = "";
+				var wechat = $scope.user;
+				console.log(wechat);
+				uploadFile(formId,selectedFile,businessTable,businessId,fileType,showUploadedFileLabelId,wechat);
+			}
+			
+			
+			
+			$scope.submit=function () {
+				var selTime=new Date(($scope.meeting.mtTime.replace('-',','))).getTime();
+				var nowTime=(new Date()).getTime()-300000;
+				console.log(selTime);
+				console.log(nowTime);
+				if(selTime<nowTime){
+					$.alert('请重新选择培训时间');
+				}else{
+					//时间合适
+					
+					var flag=($scope.meeting.mtNumbers=='')||($scope.meeting.mtSite=='')||($scope.meeting.mtTime=='')||($scope.meeting.mtJoinPersons=='')||($scope.meeting.mtTopic=='')||($scope.meeting.content=='');
+					if(flag){
+						$.alert('请检查输入')
+					}else{
+						
+						
+						
+						var obj={};
+						obj.mtNumbers=$scope.meeting.mtNumbers;
+						obj.mtSite=encodeURIComponent($scope.meeting.mtSite);
+						obj.mtTime=$scope.meeting.mtTime;
+						obj.mtJoinPersons=encodeURIComponent($scope.meeting.mtJoinPersons);
+						obj.content=encodeURIComponent($scope.meeting.content);
+						obj.title=encodeURIComponent($scope.meeting.title);
+						obj.type=$scope.meeting.type;
+						obj['wechatAccount']=$scope.user,	
+						$http({
+							url:'/slianOA-pc-web/mobile-ajax/auth/oaMeetingTrain/insert.do',
+							params:obj
+						}).success(function(data){
+							console.log(data);
+							if($('input#selectedFile1').val()==0){
+								
+							}else{
+							$scope.uploadFileForDocument('uploadForm1','selectedFile1','oa_meeting_train',data,'附件','uploadedFile1');
+							}
+							$.toptip('操作成功', 'success');
+							$("#showTooltips").attr('disabled',true);
+							$("#showTooltips").css('backgroundColor','#B2B2B2');
+						}).error(function(data){
+							console.log(data);
+							$.toptip('操作失败', 'error');
+						})
+					}
+					
+					
+					
+					
+				}
+				
+				
+				
+			
+			}
+
+		})
+		
+</script>
+</html>
+

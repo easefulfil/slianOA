@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>入库详情</title>
+		<link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css" />
+		<link rel="stylesheet" href="../css/extra.css" />
+		<link rel="stylesheet" href="../css/example.css" />
+		<link rel="stylesheet" href="../css/weui.css" />
+		<script src="../framework/jquery-2.1.4/jquery.js"></script>
+	    <script type="text/javascript" src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+		<script src="../framework/angular.js"></script>
+	</head>
+	<body ng-app="bodyApp">
+		<div id="vehicleApplication" class="page__bd" ng-controller="myCtrl">
+				<div class="weui-form-preview">
+					<div class="weui-cell_change weui-cell_bgc">入库明细</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">入库人</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.creatorName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">入库时间</label></div>
+						<div class="weui-cell__bd"><label  class="weui-label" ng-bind="data.eventTime"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.title"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd"><label class="weui-label">入库部门</label></div>
+						<div class="weui-cell__bd"><label class="weui-label" ng-bind="data.departmentName"></label></div>
+					</div>
+					<div class="weui-cell">
+						<div class="weui-cell__hd">
+							<label class="weui-label">备注：</label>
+						</div>
+					</div>
+					<div class="weui-cell ZWNR">
+						<div class="" ng-bind="data.remark"></div>
+					</div>
+					<div class="weui-cell_change weui-cell_bgc">入库物品明细</div>
+					<table class="general_table" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<th scope="col">品牌</th>
+								<th scope="col">名称</th>
+								<th scope="col">类型</th>
+								<th scope="col">单价</th>								
+								<th scope="col">入库数</th>
+								<th scope="col">总价</th>
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="obj in data.httpOaAssetChangeDetails">
+								<td>{{obj.detailName}}</td>
+								<td>{{obj.assetName}}</td>
+								<td>{{obj.assetType}}</td>
+								<td>{{obj.unitPrice}}</td>								
+								<td>{{obj.amount}}</td>
+								<td>{{obj.amount*obj.unitPrice}}</td>
+							</tr>
+						</tbody>
+					</table>
+			    </div>
+		</div>
+		<script>
+		var myApp = angular.module('bodyApp',[]);
+			myApp.controller('myCtrl',function ($scope,$http,$location) {
+				console.log($location.absUrl());
+				var id=$location.absUrl().split('id=')[1];
+				console.log(JSON.parse(decodeURIComponent(id)));
+				$scope.data=JSON.parse(decodeURIComponent(id));
+			})
+		</script>
+	</body>
+
+</html>
+
+
+

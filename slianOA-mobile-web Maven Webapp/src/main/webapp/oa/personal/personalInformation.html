@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人档案信息</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/lib/weui.css">
+    <link rel="stylesheet" href="../framework/jquery-weui-build/dist/css/jquery-weui.css">
+</head>
+<body ng-controller="getUserInfo" ng-app="bodyApp">
+    <div class="weui-cells"  ng-controller="myCtrl">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>姓名</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.employeeName"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>部门</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="basic.department">
+                办公室??????????
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>曾用名</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.usedName"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd" >
+                姓名拼音
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nameSpelling"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>性别</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.character"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>出生日期</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.employeeBirthday"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>身份证号码</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.employeeIdcard"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>婚姻状况</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.isMarry"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>民族</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nationName"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>户籍所在地</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nationPlace"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>籍贯</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.employeeForm">
+                浙江省宁波市鄞州区
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>出生地</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.birthPlace">
+                浙江宁波
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>家庭地址</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="homeAddress"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>健康状况</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.bodyStatus"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>政治面貌</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.politicStatus"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>入党时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.joinPartyTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>参加工作时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.joinWorkingTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>进本单位时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.joinUnitTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>最高学历</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.topEducation"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>最高学位</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.topDiploma"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>户籍所在地</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nationPlace"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>现任职务名称</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nowPostName"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>任现职时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.beginPostTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>现行政职务级别</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nowPostLevel">
+                乡科级正职
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+               <p>任现职级时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.beginPostLevelTime">
+                2014-09-01
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>现行政职务类别</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.nowPostCategory">
+                非领导职务
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>人员类别</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.employeeCategory">
+                综合管理类公务员
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>编制性质</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.aurhonizedProperty"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>在岗状态</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.workStatus"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>进入公务员队伍时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.joinCivilServantTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>公务员登记时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.civilServantRegisterTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>进入本单位方式</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.joinUnitType"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>基层工作经历时间</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.baseWorkTime"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>工龄</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.workingYears"></div>
+        </div>
+<!--    <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>工龄中断</p>
+            </div>
+            <div class="weui-cell__ft">
+                xx月
+            </div>
+        </div> -->
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>专长</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.speciality"></div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>其他</p>
+            </div>
+            <div class="weui-cell__ft" ng-bind="data.otherDemands">
+                法人代表/留学回国人员
+            </div>
+        </div>
+    <!--     <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>附件</p>
+            </div>
+            <div class="weui-cell__ft">
+                ……需要吗……
+            </div>
+        </div> -->
+    </div>
+    <script src="../framework/jquery-weui-build/dist/lib/jquery-2.1.4.js"></script>
+    <script src="../framework/jquery-weui-build/dist/lib/zepto.js"></script>
+    <script src="../framework/jquery-weui-build/dist/lib/fastclick.js"></script>
+    <script src="../framework/jquery-weui-build/dist/js/jquery-weui.js"></script>
+    <script src="../framework/angular.js"></script>
+   	<script src="../framework/angular-sanitize.js"></script>
+	<script type="text/javascript" src="../js/getUserInfo.js"></script>
+    <script>
+        myApp.controller('myCtrl',function ($scope,$http) {
+            $scope.user = localStorage.getItem("user"); // 用户微信号
+           //获取用户部门信息
+           console.log(localStorage.getItem('name'));
+
+           $scope.initEmployee = function(){
+	           console.log(localStorage.getItem('id'));
+	           	$http({
+	                   method:'POST',
+	                   url:'/slianOA-pc-web/mobile-ajax/auth/employee/employee.do',
+	                   params:{"wechatAccount":$scope.user,"employeeId":localStorage.getItem('id')}
+	               }).success(function(data){
+	                   console.log(data);
+	                   $scope.data=data;
+	           
+	               }).error(function(data){
+	                   console.log(data);
+	                   $.toptip('系统出错', 'error');
+	               })
+           }
+           
+            $scope.init = function(){
+            	if(localStorage.getItem("user")){
+	            	$http({
+	                    method:'POST',
+	                    url:'/slianOA-pc-web/mobile-ajax/auth/employee/basicInfo.do',
+	                    params:{"wechatAccount":$scope.user}
+	                }).success(function(data){
+	                    console.log(data);
+	                    localStorage.setItem('name',data.name);
+	                    localStorage.setItem('department',data.department);
+	                    localStorage.setItem('id',data.id);
+	                    $scope.basic=data;
+	                    console.log("id"+$scope.basic['id']);
+	                    $scope.initEmployee();
+	                }).error(function(data){
+	                    console.log(data);
+	                    $.toptip('系统出错', 'error');
+	                })
+            	}
+            }
+         
+            $scope.$on('setUser',function(d,res){
+				$scope.user = res;
+				$scope.init();
+			})
+			
+           if(localStorage.getItem('name') && localStorage.getItem('user') && localStorage.getItem('id')){
+               console.log(localStorage.getItem('basic'));
+               $scope.basic={'name':localStorage.getItem('name'),'department':localStorage.getItem('department'),'id':localStorage.getItem('id')};           
+               $scope.initEmployee();
+           }else{
+               $scope.init();
+           }
+       /*     $http({
+               method:'POST',
+               url:'/slianOA-pc-web/mobile-ajax/auth/employee/employee.do',
+               params:{"wechatAccount":$scope.user,"employeeId":$scope.basic['id']}
+           }).success(function(data){
+               console.log(data);
+               $scope.data=data;
+       
+           }).error(function(data){
+               console.log(data);
+           }) */
+        })
+    </script>
+</body>
+</html>

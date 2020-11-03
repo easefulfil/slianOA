@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="../js/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="demo.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"
+	charset="utf-8"></script>
+<script type="text/javascript" src="../Exteasyui/datetimebox.js"></script>
+<script type="text/javascript" src="../Exteasyui/onCollapse.js"></script>
+<script type="text/javascript" src="../js/jquery.jdirk.js"></script>
+<script type="text/javascript" src="../Exteasyui/jeasyui.extensions.js"></script>
+<script type="text/javascript"
+	src="../Exteasyui/jeasyui.extensions.validatebox.js"></script>
+<script src="../ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="pagejs/employee.js"></script>
+<script type="text/javascript" src="../js/syUtil.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/setToolbar.js"></script>
+<body>
+	<div class="easyui-layout" fit="true" border="false">
+    <div region="north"
+			data-options="border:false,title:'查询员工',iconCls:'icon-search'"
+			style="height:85px;overflow:hidden;">
+			
+			<form id="searchForm">
+				<table class="tableForm datagrid-toolbar"
+					style="width:100%;height:100%;">
+		       <tr>
+					<th>员工姓名</th>
+					<td><input class="easyui-validatebox" data-options="prompt: '请输入包含员工名称的中文字符'" id="employeeName"  name="employeeName" style="width:230px;" /></td>
+				 </tr>
+				 <tr>
+					<th>员工所在部门或职位</th>
+					<td><input class="easyui-validatebox" data-options="prompt: '请输入包含员工部门或职位的中文字符'" id="departmentName" name="departmentName" style="width:230px;" />
+			          &nbsp;&nbsp; &nbsp;&nbsp;
+				     <a id="check" onclick="searchEmployee()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> &nbsp;
+					 <a id="empty" onclick="clearEmployee()"
+							class="easyui-linkbutton" data-options="iconCls:'icon-empty'">清空</a></td>
+				  </tr>
+				</table>
+			</form>
+		</div>
+		<div region="center" title="员工信息表" border="false">
+			<table id="datagrid"></table>
+		</div>
+	</div>
+
+</body>
+</html>
